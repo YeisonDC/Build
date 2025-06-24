@@ -1,0 +1,237 @@
+.create-product-wrapper {
+  position: relative;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+/* Botón icono de regresar */
+.btn-back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  color: #000;
+}
+
+.create-product-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.create-product-container h2 {
+  text-align: center;
+  color: #6e1212;
+  margin-bottom: 30px;
+}
+
+.create-product-form {
+  flex: 1;
+  min-width: 400px;
+}
+
+.create-product-container form label {
+  display: block;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #333;
+}
+
+.create-product-container form input[type="text"],
+.create-product-container form input[type="number"],
+.create-product-container form textarea {
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.create-product-container form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.categoria-row {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.btn-remove {
+  margin-left: 8px;
+  background-color: #d9534f;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: bold;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.btn-remove:hover {
+  background-color: #c9302c;
+}
+
+.btn-add {
+  margin-top: 10px;
+  background-color: #333;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s;
+}
+
+.btn-add:hover {
+  background-color: #555;
+}
+
+.color-section {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.color-section h4 {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.btn-remove-color {
+  margin-left: 15px;
+  font-size: 18px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background-color: #d9534f;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-remove-color:hover {
+  background-color: #c9302c;
+}
+
+.talla-section {
+  margin-top: 20px;
+  padding-left: 10px;
+  border-left: 4px solid #d6d6d6;
+  position: relative;
+  background-color: #fafafa;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 6px;
+}
+
+.talla-section h5 {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.talla-section input[type="text"],
+.talla-section input[type="number"] {
+  margin-top: 4px;
+}
+
+.btn-remove-talla {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #d9534f;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 0;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.btn-remove-talla:hover {
+  background-color: #c9302c;
+}
+
+.btn-add-talla,
+.btn-add-color {
+  margin-top: 15px;
+  background-color: #333;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s;
+}
+
+.btn-add-talla:hover,
+.btn-add-color:hover {
+  background-color: #555;
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #333;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: #555;
+}
+
+.product-preview-wrapper {
+  flex: 1;
+  min-width: 300px;
+  margin-left: 50px;
+}

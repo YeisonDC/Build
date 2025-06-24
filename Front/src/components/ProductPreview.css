@@ -1,0 +1,109 @@
+.product-preview-card {
+  width: 100%;
+  max-width: 400px; /* Más grande, pero manteniendo proporción */
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-family: sans-serif;
+}
+
+.product-preview-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+}
+
+.product-preview-info {
+  padding: 0.5rem 0;
+}
+
+/* -------- Categorías -------- */
+.product-preview-category-tags {
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.product-preview-category-tag {
+  background-color: #eee;
+  color: #555;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.product-preview-info h3 {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+
+/* -------- Colores -------- */
+.product-preview-color-dots {
+  display: flex;
+  gap: 5px;
+  margin: 0.5rem 0 0.3rem 0;
+  justify-content: flex-start;
+}
+
+.product-preview-color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.product-preview-color-dot:hover {
+  border: 1px solid #333;
+  transform: scale(1.05);
+}
+
+.product-preview-color-dot.selected {
+  border: 2px solid #000;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+}
+
+/* -------- Tallas y precio -------- */
+.product-preview-size-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.product-preview-size-tag {
+  font-size: 0.72rem;
+  margin-right: 4px;
+  background-color: #f8f8f8;
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+}
+
+.product-preview-size-tag:hover {
+  background-color: #e0e0e0;
+}
+
+.product-preview-size-tag.selected {
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.product-preview-price {
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: auto;
+}

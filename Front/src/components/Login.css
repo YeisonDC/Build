@@ -1,0 +1,90 @@
+/* Contenedor principal centrado vertical y horizontalmente */
+.login-main {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #6e1212;
+}
+
+/* Caja blanca con sombra y borde */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px 25px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0; /* sin bordes redondeados */
+}
+
+/* Título centrado */
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.login-label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Inputs */
+.login-input {
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.login-input:focus {
+  border-color: #6e1212;
+}
+
+/* Botón */
+.login-button {
+  padding: 12px 0;
+  background-color: #6e1212;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #520909;
+}
+
+/* Texto debajo del botón para registro */
+.login-register-text {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+/* Link de registro */
+.login-register-link {
+  color: #6e1212;
+  font-weight: 600;
+  text-decoration: none;
+  transition: text-decoration 0.2s ease;
+}
+
+.login-register-link:hover {
+  text-decoration: underline;
+}

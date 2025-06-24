@@ -1,0 +1,243 @@
+.perfil-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa; /* gris mucho más suave y luminoso */
+  color: #333;
+  padding: 20px;
+  gap: 20px;
+}
+
+.perfil-sidebar {
+  width: 220px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.perfil-sidebar button {
+  background-color: transparent;
+  border: none;
+  box-shadow: 0 0 0 1.5px transparent; /* espacio para borde */
+  padding: 10px 15px;
+  text-align: left;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  color: #333;
+  font-weight: 600;
+  box-sizing: border-box;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.perfil-sidebar button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 0 0 1.5px #ddd;
+}
+
+.perfil-sidebar button.active {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 0 0 1.5px #333;
+  box-sizing: border-box;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.perfil-contenido {
+  flex: 1;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.06);
+}
+
+.perfil-contenido h2 {
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.02em;
+}
+
+.perfil-contenido h3 {
+  margin-top: 25px;
+  margin-bottom: 15px;
+  color: #444;
+  font-weight: 500;
+  font-size: 1.25rem;
+  letter-spacing: 0.015em;
+}
+
+.perfil-contenido p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.sub-menu {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sub-menu button {
+  padding: 8px 12px;
+  border: none;
+  box-shadow: 0 0 0 1.5px #ccc;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #333;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 500;
+}
+
+.sub-menu button.active {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 0 0 1.5px #333;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus {
+  border-color: #666;
+  outline: none;
+}
+
+/* Botones internos del perfil: fondo blanco, texto negro, sombra suave */
+.perfil-contenido button,
+.perfil-sidebar button:not(.active),
+.sub-menu button:not(.active) {
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: white;
+  color: #333;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 0 0 1.5px #999;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.perfil-contenido button:hover,
+.perfil-sidebar button:not(.active):hover,
+.sub-menu button:not(.active):hover {
+  background-color: #333;
+  color: white;
+  box-shadow: 0 0 0 1.5px #333;
+}
+
+/* Responsive para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .perfil-container {
+    flex-direction: column;
+  }
+
+  .perfil-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .perfil-contenido {
+    padding: 20px;
+  }
+
+  .sub-menu {
+    flex-direction: column;
+  }
+}
+
+/* Sección de información del perfil (solo lectura) */
+.perfil-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background-color: #fcfcfc;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.perfil-info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil-info-item label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.perfil-info-item span {
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  color: #333;
+  font-size: 1rem;
+}
+
+.perfil-sidebar button {
+  display: flex; /* <-- Añadido */
+  align-items: center; /* <-- Añadido */
+  gap: 0.5px; /* <-- Añadido: espacio entre ícono y texto */
+  background-color: transparent;
+  border: none;
+  box-shadow: 0 0 0 1.5px transparent;
+  padding: 10px 15px;
+  text-align: left;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  color: #333;
+  font-weight: 600;
+  box-sizing: border-box;
+  line-height: 1.4;
+  margin: 0;
+}

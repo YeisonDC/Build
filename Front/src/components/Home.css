@@ -1,0 +1,222 @@
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+.imagen-con-overlay {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+.imagen-con-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.35); /* Controla la opacidad del oscurecimiento */
+  z-index: 1;
+}
+
+.imagen {
+  z-index: 0;
+  position: relative;
+}
+
+.mensaje-central {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  color: white;
+}
+
+.mensaje-central h1 {
+  font-family: 'Cinzel Decorative', cursive;
+  font-weight: 400;
+  font-size: 100px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.mensaje-central p {
+  font-size: 20px;
+  color: #ffffff;
+}
+
+/* Nueva sección debajo del hero */
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  background-color: #fafafa;
+  flex-wrap: wrap;
+}
+
+.info-texto {
+  flex: 1;
+  min-width: 300px;
+  padding-right: 40px;
+}
+
+.info-texto h2 {
+  font-size: 36px;
+  color: #6e1212;
+  margin-bottom: 20px;
+}
+
+.info-texto p {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.info-imagen {
+  flex: 1;
+  min-width: 300px;
+}
+
+.info-imagen img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+.newsletter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  background-color: #fff5f5;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.newsletter-contenido {
+  flex: 1;
+  min-width: 280px;
+}
+
+.newsletter-contenido h2 {
+  font-size: 32px;
+  color: #6e1212;
+  margin-bottom: 15px;
+}
+
+.newsletter-contenido p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.newsletter-form input[type="email"] {
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 200px;
+  font-size: 16px;
+}
+
+.newsletter-form button {
+  padding: 12px 24px;
+  background-color: #6e1212;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsletter-form button:hover {
+  background-color: #500e0e;
+}
+
+.newsletter-imagen {
+  flex: 1;
+  min-width: 280px;
+}
+
+.newsletter-imagen img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.whatsapp-button-home {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #6e1212;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.whatsapp-button-home:hover {
+  background-color: #8b1b1b;
+  transform: scale(1.1);
+}
+
+/* Tooltip hidden by default */
+.whatsapp-button-home .tooltip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: #8b1b1b;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px 10px;
+  position: absolute;
+  bottom: 50%; /* Centrar verticalmente */
+  right: 100%; /* Lo pone justo a la izquierda */
+  transform: translateY(50%);
+  margin-right: 12px; /* Espacio entre tooltip y botón */
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1100;
+}
+
+/* Mostrar tooltip on hover */
+.whatsapp-button-home:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}

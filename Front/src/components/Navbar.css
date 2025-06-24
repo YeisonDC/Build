@@ -1,0 +1,352 @@
+/* ---------- Barra principal ---------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  height: 60px;
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.navbar-center {
+  flex: 1;
+  text-align: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.navbar-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-link {
+  display: inline-block;
+}
+
+.logo-img {
+  height: 25px;
+  object-fit: contain;
+}
+
+/* ---------- Enlaces generales ---------- */
+.nav-links,
+.navbar-center {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li,
+.navbar-center li {
+  position: relative;
+}
+
+.nav-links a,
+.navbar-center a,
+.navbar-center span {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0 10px;
+}
+
+.nav-links a:hover,
+.navbar-center a:hover,
+.navbar-center span:hover {
+  color: #6e1212;
+}
+
+/* ---------- Submenú flotante (desktop) ---------- */
+.submenu {
+  position: fixed;
+  top: 60px; /* igual a altura de navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  min-height: 240px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: flex;
+  padding: 20px 30px;
+}
+
+/* Columna de links */
+.submenu-list {
+  flex: 0 0 190px;
+  list-style: none;
+  padding: 0 40px 0 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.submenu-list li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 15px;
+  display: block;
+}
+
+.submenu-list li a:hover {
+  color: #6e1212;
+}
+
+/* Galería de imágenes */
+.submenu-gallery {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.submenu-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+
+.submenu-img:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- Carrito ---------- */
+.carrito-icon-container,
+.usuario-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.carrito-icon-container:hover,
+.usuario-icon-container:hover {
+  color: #6e1212;
+}
+
+/* Contador del carrito */
+.carrito-contador {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #6e1212;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #6e1212;
+}
+
+/* Botón menú hamburguesa */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* === RESPONSIVE: Navbar para móviles === */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 16px;
+    height: auto;
+    flex-wrap: wrap;
+  }
+
+  .navbar-center {
+    display: none; /* ocultar menú horizontal desktop */
+  }
+
+  .nav-links {
+    display: none; /* ocultar links desktop */
+  }
+
+  .navbar-right {
+    gap: 10px;
+  }
+
+  .logo-img {
+    height: 22px;
+  }
+
+  .submenu,
+  .submenu-gallery,
+  .submenu-list {
+    display: none; /* ocultar submenu flotante desktop */
+  }
+
+  /* Mostrar botón hamburguesa */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Menú móvil */
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 9999;
+  }
+
+  /* Links dentro del menú móvil */
+  .mobile-link {
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  /* Submenú dentro del menú móvil (acordeón) */
+  .mobile-submenu {
+    padding-left: 20px;
+    display: flex; /* Mostrar submenu activo con flex */
+    flex-direction: column;
+    border-left: 2px solid #6e1212;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  /* Links dentro del submenú móvil */
+  .mobile-submenu a {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #555;
+    text-decoration: none;
+  }
+
+  /* Hover links submenú móvil */
+  .mobile-submenu a:hover {
+    color: #6e1212;
+  }
+}
+
+/* ----------- Dropdown usuario limpio, elegante, con íconos ----------- */
+.usuario-dropdown {
+  position: relative;
+  user-select: none;
+}
+
+.usuario-icon-container {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.usuario-icon-container:hover {
+  color: #6e1212; /* mismo efecto que el carrito */
+}
+
+.usuario-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  background-color: #fff;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0;
+  font-family: inherit;
+}
+
+/* Ítems del menú */
+.usuario-dropdown-menu a,
+.usuario-dropdown-menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 0;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+/* Hover sutil */
+.usuario-dropdown-menu a:hover,
+.usuario-dropdown-menu button:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* Separador visual antes del cierre de sesión */
+.usuario-dropdown-menu .separador {
+  height: 1px;
+  background-color: #e6e6e6;
+  margin: 6px 0;
+  pointer-events: none;
+}

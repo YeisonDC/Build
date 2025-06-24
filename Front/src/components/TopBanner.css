@@ -1,0 +1,35 @@
+/* src/components/TopBanner.css */
+.top-banner {
+  background-color: #6e1212;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-banner p {
+  margin: 0;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #ffb3b3;
+}
