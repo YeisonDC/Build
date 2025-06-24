@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.13964bc4.css",
+    "main.js": "/static/js/main.8eaba922.js",
+    "static/js/453.d4479584.chunk.js": "/static/js/453.d4479584.chunk.js",
+    "static/media/imagen-izquierda.jpg": "/static/media/imagen-izquierda.e971f5c2224693b5d5d7.jpg",
+    "static/media/info-imagen.jpg": "/static/media/info-imagen.4e77ee48050a2a33c857.jpg",
+    "static/media/imagen-derecha.jpg": "/static/media/imagen-derecha.fa75ae5991e373751ea9.jpg",
+    "static/media/primavera1.jpg": "/static/media/primavera1.08352e86324525356562.jpg",
+    "static/media/primavera3.jpg": "/static/media/primavera3.c6ca172816a94f5405cc.jpg",
+    "static/media/totalook3.jpg": "/static/media/totalook3.323cea3b9415e6cdabe2.jpg",
+    "static/media/top3.jpg": "/static/media/top3.fd6083df1b54a4c7d2ab.jpg",
+    "static/media/primavera2.jpg": "/static/media/primavera2.849256914e7b7aa03dce.jpg",
+    "static/media/jeans3.jpg": "/static/media/jeans3.27b68ba2b9f0908c9dad.jpg",
+    "static/media/logo.png": "/static/media/logo.b839b90a01aa0a356563.png",
+    "static/media/totalook2.jpg": "/static/media/totalook2.4ac90ed18a648efa565c.jpg",
+    "static/media/top1.jpg": "/static/media/top1.756e6cb61d2e9b13474c.jpg",
+    "static/media/top2.jpg": "/static/media/top2.345d9c01aa4224c25da7.jpg",
+    "static/media/pendiente1.jpg": "/static/media/pendiente1.bc35d10e46606ce97e63.jpg",
+    "static/media/jeans1.jpg": "/static/media/jeans1.42dda2bcc81299fc631b.jpg",
+    "static/media/totalook1.jpg": "/static/media/totalook1.bb14c2077d26025c3474.jpg",
+    "static/media/newsletter-imagen.jpg": "/static/media/newsletter-imagen.02ba77f93f3c42358671.jpg",
+    "static/media/jeans2.jpg": "/static/media/jeans2.a3661dc29fa00fcca596.jpg",
+    "index.html": "/index.html",
+    "main.13964bc4.css.map": "/static/css/main.13964bc4.css.map",
+    "main.8eaba922.js.map": "/static/js/main.8eaba922.js.map",
+    "453.d4479584.chunk.js.map": "/static/js/453.d4479584.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.13964bc4.css",
+    "static/js/main.8eaba922.js"
+  ]
+}
