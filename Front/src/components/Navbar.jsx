@@ -191,7 +191,7 @@ const Navbar = () => {
         <li className="nav-item">
           <button
             className="nav-link carrito-icon-container"
-            onClick={() => (window.location.href = "/carrito")}
+            onClick={() => navigate("/carrito")}
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <FiShoppingBag size={20} />
