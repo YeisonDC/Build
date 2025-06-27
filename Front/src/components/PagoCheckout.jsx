@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import API from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { useLocation } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid'; // <-- Añadido para generar session_id
 
 const PagoCheckout = () => {
   const { user } = useContext(AuthContext);
@@ -15,11 +16,24 @@ const PagoCheckout = () => {
   // Opcional: mostrar link en vez de redirigir
   // const [checkoutUrl, setCheckoutUrl] = useState('');
 
+  // NUEVO estado para guardar session_id de invitado
+  const [sessionId, setSessionId] = useState(null);
+
   useEffect(() => {
     if (user?.email) {
       setCorreo(user.email);
     }
   }, [user]);
+
+  // NUEVO: Obtener o crear session_id para usuarios no autenticados
+  useEffect(() => {
+    let id = localStorage.getItem('session_id');
+    if (!id) {
+      id = uuidv4();
+      localStorage.setItem('session_id', id);
+    }
+    setSessionId(id);
+  }, []);
 
   const manejarPago = async () => {
     setError('');
@@ -36,7 +50,17 @@ const PagoCheckout = () => {
 
     setCargando(true);
     try {
-      const response = await API.post('/crear-checkout', { valor: totalConEnvio, correo });
+      // Aquí mandamos session_id si no hay usuario logueado
+      const body = {
+        valor: totalConEnvio,
+        correo,
+      };
+
+      if (!user?.id) {
+        body.session_id = sessionId;
+      }
+
+      const response = await API.post('/crear-checkout', body);
       const { checkoutUrl } = response.data;
 
       if (checkoutUrl) {
