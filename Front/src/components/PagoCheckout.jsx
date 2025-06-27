@@ -36,7 +36,7 @@ const PagoCheckout = () => {
 
     setCargando(true);
     try {
-      const response = await API.post('/api/crear-checkout', { valor: totalConEnvio, correo });
+      const response = await API.post('/crear-checkout', { valor: totalConEnvio, correo });
       const { checkoutUrl } = response.data;
 
       if (checkoutUrl) {
