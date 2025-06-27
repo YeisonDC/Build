@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { CartContext } from '../context/CartContext'; // Traemos el contexto para manejar el carrito
 import { FiTrash2 } from 'react-icons/fi'; // Icono de basurero
-import { Link } from 'react-router-dom'; // IMPORTAR Link para navegación
+import { Link, useNavigate } from 'react-router-dom'; // IMPORTAR Link y useNavigate para navegación
 import ShippingBox from '../components/ShippingBox'; // Componente de opciones de envío
 import { toast } from 'react-toastify'; // Importar toast para notificaciones
 import 'react-toastify/dist/ReactToastify.css'; // Estilos para el toast
@@ -21,6 +21,9 @@ const mejorarCalidadCloudinary = (url, width = 200, height = 260) => {
 const CartPage = () => {
   // Extraemos del contexto los items del carrito y las funciones
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext);
+
+  // Hook para navegar a otras rutas
+  const navigate = useNavigate();
 
   // Manejamos un estado local para controlar las cantidades
   const [cantidades, setCantidades] = useState(
@@ -248,6 +251,8 @@ const CartPage = () => {
 
           onMouseEnter={e => e.currentTarget.style.background = '#333'}
           onMouseLeave={e => e.currentTarget.style.background = '#000000'}
+
+          onClick={() => navigate('/pago', { state: { totalConEnvio: total + costoEnvioCalculado } })}  // Aquí redirige al checkout con Wompi
         >
           Ir a Pagar
         </button>

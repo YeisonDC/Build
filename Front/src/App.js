@@ -15,9 +15,13 @@ import Perfil from './pages/Perfil';
 import AuthProvider from './context/AuthContext.jsx';
 import CreateProduct from './pages/CreateProduct';  // Crear producto
 import ProductEdit from './pages/ProductEdit';      // Editar productos (Admin)
+import UpdateProduct from './pages/UpdateProduct';
+import PagoCheckout from './components/PagoCheckout';
+import PagoExitoso from './components/PagoExitoso.jsx';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
   return (
@@ -35,7 +39,11 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/crear-producto" element={<CreateProduct />} />
+            <Route path="/editar-producto/:id" element={<UpdateProduct />} />
             <Route path="/admin/productos" element={<ProductEdit />} />
+            <Route path="/pago-exitoso" element={<PagoExitoso />} />
+            <Route path="/pago" element={<PagoCheckout />} />
+
           </Routes>
           <Footer />
           <ToastContainer

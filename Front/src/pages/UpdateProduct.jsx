@@ -1,25 +1,29 @@
-import React, { useState } from 'react';
-import './CreateProduct.css';
-import API from '../api'; // Cambiado axios por la instancia API
+import React, { useState, useEffect } from 'react';
+import './UpdateProduct.css';
+import API from '../api';
 import ProductPreview from '../components/ProductPreview';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 
-const CreateProduct = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    categoria: [''],
-    descripcion: '',
-    precio: '',
-    colores: [
-      {
-        color: ['', ''], // [nombre, hex]
-        imagenes: [''],
-        tallas: [{ talla: '', stock: '', imagen: '' }],
-      },
-    ],
-  });
+const UpdateProduct = () => {
+  const { id } = useParams();
+
+  const [formData, setFormData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    API.get(`/productos/${id}`)
+      .then((res) => {
+        setFormData(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error al cargar el producto:', err);
+        toast.error('No se pudo cargar el producto');
+        setLoading(false);
+      });
+  }, [id]);
 
   const handleChange = (e, path, index, subIndex) => {
     const updated = { ...formData };
@@ -84,12 +88,14 @@ const CreateProduct = () => {
     setFormData({ ...formData, colores: newColores });
   };
 
+  // Agrega nueva imagen para color dado
   const addImagen = (colorIndex) => {
     const newColores = [...formData.colores];
     newColores[colorIndex].imagenes.push('');
     setFormData({ ...formData, colores: newColores });
   };
 
+  // Elimina imagen específica de color dado
   const removeImagen = (colorIndex, imagenIndex) => {
     const newColores = [...formData.colores];
     if (newColores[colorIndex].imagenes.length === 1) return;
@@ -100,32 +106,28 @@ const CreateProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/productos', formData);
-      toast.success('Producto creado exitosamente');
-      setFormData({
-        nombre: '',
-        categoria: [''],
-        descripcion: '',
-        precio: '',
-        colores: [
-          { color: ['', ''], imagenes: [''], tallas: [{ talla: '', stock: '', imagen: '' }] },
-        ],
-      });
+      await API.put(`/productos/productos/${id}`, formData);
+      toast.success('Producto actualizado exitosamente');
+      // No navegamos fuera para mantener en la página
     } catch (error) {
-      console.error('Error al crear producto:', error);
-      toast.error('Ocurrió un error al crear el producto');
+      console.error('Error al actualizar producto:', error);
+      toast.error('Ocurrió un error al actualizar el producto');
     }
   };
 
+  if (loading || !formData) {
+    return <p style={{ padding: '2rem' }}>Cargando producto para editar...</p>;
+  }
+
   return (
     <div className="create-product-wrapper">
-      <Link to="/perfil" className="btn-back" title="Volver a Perfil">
+      <Link to="/admin/productos" className="btn-back" title="Volver">
         <FaArrowLeft />
       </Link>
 
       <div className="create-product-container">
         <form onSubmit={handleSubmit} className="create-product-form">
-          <h2>Crear Producto</h2>
+          <h2>Editar Producto</h2>
 
           <label>Nombre:</label>
           <input
@@ -150,7 +152,6 @@ const CreateProduct = () => {
                   type="button"
                   onClick={() => removeCategoria(index)}
                   className="btn-remove"
-                  title="Eliminar categoría"
                 >
                   ×
                 </button>
@@ -162,7 +163,11 @@ const CreateProduct = () => {
           </button>
 
           <label>Descripción:</label>
-          <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} />
+          <textarea
+            name="descripcion"
+            value={formData.descripcion}
+            onChange={handleChange}
+          />
 
           <label>Precio:</label>
           <input
@@ -181,7 +186,6 @@ const CreateProduct = () => {
                     type="button"
                     onClick={() => removeColor(colorIndex)}
                     className="btn-remove btn-remove-color"
-                    title="Eliminar color"
                   >
                     ×
                   </button>
@@ -191,7 +195,7 @@ const CreateProduct = () => {
               <input
                 type="text"
                 name="colorNombre"
-                placeholder="Nombre del color (Ej: Rojo)"
+                placeholder="Nombre del color"
                 value={colorObj.color[0]}
                 onChange={(e) => handleChange(e, 'colores', colorIndex)}
               />
@@ -199,7 +203,7 @@ const CreateProduct = () => {
               <input
                 type="text"
                 name="colorHex"
-                placeholder="Código Hexadecimal (Ej: #ff0000)"
+                placeholder="Código Hex"
                 value={colorObj.color[1]}
                 onChange={(e) => handleChange(e, 'colores', colorIndex)}
               />
@@ -224,7 +228,6 @@ const CreateProduct = () => {
                       onClick={() => removeImagen(colorIndex, imgIndex)}
                       className="btn-remove btn-remove-color"
                       style={{ marginLeft: '8px', padding: '4px 10px' }}
-                      title="Eliminar imagen"
                     >
                       ×
                     </button>
@@ -260,7 +263,7 @@ const CreateProduct = () => {
                   <input
                     type="text"
                     name="imagen"
-                    placeholder="URL de imagen por talla (opcional)"
+                    placeholder="URL imagen talla (opcional)"
                     value={tallaObj.imagen}
                     onChange={(e) => handleChange(e, 'tallas', colorIndex, tallaIndex)}
                   />
@@ -269,13 +272,13 @@ const CreateProduct = () => {
                       type="button"
                       onClick={() => removeTalla(colorIndex, tallaIndex)}
                       className="btn-remove btn-remove-talla"
-                      title="Eliminar talla"
                     >
                       ×
                     </button>
                   )}
                 </div>
               ))}
+
               <button
                 type="button"
                 onClick={() => addTalla(colorIndex)}
@@ -291,7 +294,7 @@ const CreateProduct = () => {
           </button>
 
           <button type="submit" className="btn-submit">
-            Crear producto
+            Actualizar producto
           </button>
         </form>
 
@@ -303,4 +306,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

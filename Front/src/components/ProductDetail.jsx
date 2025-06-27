@@ -38,7 +38,7 @@ const ProductDetail = () => {
         setProduct(prod);
 
         if (prod.colores && prod.colores.length > 0) {
-          setSelectedColor(prod.colores[0].color);
+          setSelectedColor(prod.colores[0].color); // color: [nombre, hex]
           if (prod.colores[0].imagenes?.length > 0) {
             setMainImage(prod.colores[0].imagenes[0]);
           }
@@ -55,7 +55,9 @@ const ProductDetail = () => {
   useEffect(() => {
     if (!product) return;
 
-    const colorObj = product.colores.find((c) => c.color === selectedColor);
+    const colorObj = product.colores.find(
+      (c) => JSON.stringify(c.color) === JSON.stringify(selectedColor)
+    );
     const tallaObj = colorObj?.tallas?.find((t) => t.talla === selectedSize);
 
     if (tallaObj?.imagen) {
@@ -70,7 +72,9 @@ const ProductDetail = () => {
   if (loading) return <p className="loading-text">Cargando producto...</p>;
   if (!product) return <p className="error-text">Producto no encontrado</p>;
 
-  const colorObj = product.colores.find((c) => c.color === selectedColor);
+  const colorObj = product.colores.find(
+    (c) => JSON.stringify(c.color) === JSON.stringify(selectedColor)
+  );
   const tallaObj = colorObj?.tallas?.find((t) => t.talla === selectedSize);
 
   const handleAddToCart = () => {
@@ -83,7 +87,7 @@ const ProductDetail = () => {
       id: product._id,
       name: product.nombre,
       price: product.precio,
-      color: selectedColor,
+      color: selectedColor, // ✅ Se guarda como [nombre, hex]
       size: selectedSize,
       image: mejorarCalidadCloudinary(tallaObj?.imagen || colorObj?.imagenes?.[0] || null),
     };
@@ -140,14 +144,18 @@ const ProductDetail = () => {
                 <button
                   key={i}
                   onClick={() => {
-                    setSelectedColor(c.color);
+                    setSelectedColor(c.color); // ✅ c.color: [nombre, hex]
                     setSelectedSize(c.tallas?.[0]?.talla || null);
                   }}
-                  className={`color-circle${selectedColor === c.color ? ' selected' : ''}`}
-                  style={{ backgroundColor: c.color }}
-                  title={c.color}
+                  className={`color-circle${
+                    JSON.stringify(selectedColor) === JSON.stringify(c.color)
+                      ? ' selected'
+                      : ''
+                  }`}
+                  style={{ backgroundColor: c.color[1] }}
+                  title={c.color[0]} // ✅ Mostrar nombre del color como tooltip
                   type="button"
-                  aria-label={`Seleccionar color ${c.color}`}
+                  aria-label={`Seleccionar color ${c.color[0]}`}
                 />
               ))}
             </div>
@@ -228,14 +236,15 @@ const ProductDetail = () => {
             <summary>Envíos y devoluciones</summary>
             <div className="dropdown-content">
               <p>
-                Envíos a todo Colombia. Cambios y devoluciones disponibles durante los
-                primeros 8 días después de recibir el producto. El artículo debe estar en perfecto estado.
+                Realizamos entregas en un plazo de 2 a 4 días hábiles. El costo de envío lo asume el cliente y la información personal será tratada con confidencialidad, 
+                compartida únicamente con las empresas de mensajería. Aceptamos cambios por talla o defecto de fábrica dentro de los primeros 5 días hábiles, 
+                siempre que la prenda esté sin uso, con etiquetas y en su estado original. Todos los productos cuentan con una garantía de 2 meses por defectos de fabricación, 
+                excluyendo daños por mal uso, lavados inadecuados, modificaciones o desgaste natural. Los productos adquiridos en descuento no aplican para cambios..
               </p>
             </div>
           </details>
         </section>
       </main>
-      
     </>
   );
 };

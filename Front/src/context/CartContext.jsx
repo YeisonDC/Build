@@ -135,6 +135,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // Nueva función para calcular total
+  const calcularTotal = () => {
+    return cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  };
+
   // 📦 Cargar el carrito al iniciar
   useEffect(() => {
     fetchCart();
@@ -149,7 +154,8 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         loading,
         fetchCart,
-        session_id // ✅ Exportamos session_id para que Login/Registro lo puedan usar
+        session_id, // ✅ Exportamos session_id para que Login/Registro lo puedan usar
+        calcularTotal // <-- Aquí exportamos la función para usar el total donde quieras
       }}
     >
       {children}
