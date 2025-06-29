@@ -8,6 +8,7 @@ const PagoCheckout = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const totalConEnvio = Number(location.state?.totalConEnvio || 0);
+  const valorEnvio = Number(location.state?.valorEnvio || 0); // ← ✅ Nuevo valor extraído
 
   const [sessionId, setSessionId] = useState(null);
 
@@ -71,7 +72,7 @@ const PagoCheckout = () => {
         correo_cliente: correo,
         celular_cliente: celular,
         direccion_envio: `${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}, ${direccion.codigo_postal}`,
-        valor_envio: 0 // Puedes cambiar esto si aplicas algún costo de envío
+        valor_envio: valorEnvio // ← ✅ Valor del envío ahora viene desde CartPage
       };
 
       if (!user?.id) {
@@ -87,7 +88,8 @@ const PagoCheckout = () => {
         correo,
         nombre_cliente: nombre,
         celular_cliente: celular,
-        direccion_envio: direccion
+        direccion_envio: direccion,
+        valor_envio: valorEnvio // ← ✅ También se envía en la creación del checkout
       };
 
       // Aquí corregido: la clave es session_id y la variable JS es sessionId

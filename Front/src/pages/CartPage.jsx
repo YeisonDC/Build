@@ -252,7 +252,12 @@ const CartPage = () => {
           onMouseEnter={e => e.currentTarget.style.background = '#333'}
           onMouseLeave={e => e.currentTarget.style.background = '#000000'}
 
-          onClick={() => navigate('/pago', { state: { totalConEnvio: total + costoEnvioCalculado } })}  // Aquí redirige al checkout con Wompi
+          onClick={() => navigate('/pago', {
+            state: {
+              totalConEnvio: total + costoEnvioCalculado,
+              valorEnvio: costoEnvioCalculado // ← ✅ nuevo valor enviado al checkout
+            }
+          })} // Aquí redirige al checkout con Wompi
         >
           Ir a Pagar
         </button>
