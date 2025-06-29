@@ -26,21 +26,33 @@ const PagoCheckout = () => {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
 
+  // ✅ Obtener datos del perfil desde el backend (más completo que el AuthContext)
   useEffect(() => {
-    if (user) {
-      setNombre(user.nombre || '');
-      setCorreo(user.email || '');
-      setCelular(user.telefono || '');
-      if (user.direccion) {
-        setDireccion({
-          calle: user.direccion.calle || '',
-          ciudad: user.direccion.ciudad || '',
-          departamento: user.direccion.departamento || '',
-          pais: user.direccion.pais || '',
-          codigo_postal: user.direccion.codigo_postal || ''
-        });
+    const fetchPerfil = async () => {
+      if (!user) return;
+      try {
+        const res = await API.get('/usuarios/perfil');
+        const datos = res.data;
+
+        setNombre(datos.nombre || '');
+        setCorreo(datos.correo || '');
+        setCelular(datos.telefono || '');
+
+        if (datos.direccion) {
+          setDireccion({
+            calle: datos.direccion.calle || '',
+            ciudad: datos.direccion.ciudad || '',
+            departamento: datos.direccion.departamento || '',
+            pais: datos.direccion.pais || '',
+            codigo_postal: datos.direccion.codigo_postal || ''
+          });
+        }
+      } catch (err) {
+        console.error('Error al cargar el perfil del usuario:', err);
       }
-    }
+    };
+
+    fetchPerfil();
   }, [user]);
 
   useEffect(() => {
@@ -92,7 +104,6 @@ const PagoCheckout = () => {
         valor_envio: valorEnvio // ← ✅ También se envía en la creación del checkout
       };
 
-      // Aquí corregido: la clave es session_id y la variable JS es sessionId
       if (!user?.id) {
         body.session_id = sessionId;
       }
