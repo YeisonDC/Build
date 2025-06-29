@@ -66,6 +66,22 @@ const PagoCheckout = () => {
 
     setCargando(true);
     try {
+      const bodyCliente = {
+        nombre_cliente: nombre,
+        correo_cliente: correo,
+        celular_cliente: celular,
+        direccion_envio: `${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}, ${direccion.codigo_postal}`,
+        valor_envio: 0 // Puedes cambiar esto si aplicas algún costo de envío
+      };
+
+      if (!user?.id) {
+        bodyCliente.session_id = sessionId;
+      }
+
+      // Paso 1: Actualizar los datos del cliente en el carrito
+      await API.put('/carrito/actualizar-datos-cliente', bodyCliente);
+
+      // Paso 2: Generar el link de pago
       const body = {
         valor: totalConEnvio,
         correo,
