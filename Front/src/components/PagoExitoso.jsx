@@ -15,6 +15,8 @@ const PagoExitoso = () => {
     const hashParams = new URLSearchParams(location.hash.split('?')[1]);
     const transaccionId = hashParams.get('id');
 
+    console.log('🔍 ID de transacción extraído del hash:', transaccionId); // <-- consola agregada
+
     const verificarYGuardar = async () => {
       if (!transaccionId) {
         setEstadoPago('ERROR');
