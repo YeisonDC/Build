@@ -15,10 +15,11 @@ const PagoExitoso = () => {
     const hashParams = new URLSearchParams(location.hash.split('?')[1]);
     const transaccionId = hashParams.get('id');
 
-    console.log('🔍 ID de transacción extraído del hash:', transaccionId); // <-- consola agregada
+    console.log('🔍 ID de transacción en URL:', transaccionId); // 👈🏻 Verifica que esté presente
 
     const verificarYGuardar = async () => {
       if (!transaccionId) {
+        console.error('❌ No se encontró el ID de transacción en la URL');
         setEstadoPago('ERROR');
         setCargando(false);
         return;
@@ -27,12 +28,14 @@ const PagoExitoso = () => {
       try {
         // Paso 1: Obtener estado de la transacción usando el ID
         const estadoRes = await API.get(`/checkout/estado-pago-id/${transaccionId}`);
+        console.log('📦 Respuesta completa del backend:', estadoRes.data); // 👈🏻 Lo que devuelve tu backend
+
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
         const status = statusValido.includes(estadoRes.data.status)
           ? estadoRes.data.status
           : 'ERROR';
 
-        console.log('📦 Estado recibido del backend:', estadoRes.data.status);
+        console.log('✅ Estado interpretado:', status); // 👈🏻 Ver si se interpreta correctamente
         setEstadoPago(status);
 
         // Paso 2: Solo guardar el pedido si fue aprobado
@@ -40,12 +43,15 @@ const PagoExitoso = () => {
           const guardarRes = await API.post('/api/guardar-pedido', {
             transaccion_id: transaccionId,
           });
+
+          console.log('📝 Resultado de guardar pedido:', guardarRes.data);
+
           if (guardarRes.data.success) {
             limpiarCarrito();
           }
         }
       } catch (err) {
-        console.error('Error verificando o guardando el pedido:', err);
+        console.error('❌ Error verificando o guardando el pedido:', err);
         setEstadoPago('ERROR');
       } finally {
         setCargando(false);
@@ -92,11 +98,7 @@ const PagoExitoso = () => {
     }
   };
 
-  return (
-    <div style={{ padding: 20 }}>
-      {renderMensaje()}
-    </div>
-  );
+  return <div style={{ padding: 20 }}>{renderMensaje()}</div>;
 };
 
 export default PagoExitoso;
