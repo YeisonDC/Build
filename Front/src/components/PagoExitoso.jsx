@@ -11,9 +11,9 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    // Extraer el ID de la transacción desde el hash (porque estás usando HashRouter)
-    const hashParams = new URLSearchParams(location.hash.split('?')[1]);
-    const transaccionId = hashParams.get('id');
+    // ✅ Extraer el ID de la transacción desde location.search (funciona con HashRouter también)
+    const searchParams = new URLSearchParams(location.search);
+    const transaccionId = searchParams.get('id');
 
     console.log('🔍 ID de transacción en URL:', transaccionId); // 👈🏻 Verifica que esté presente
 
