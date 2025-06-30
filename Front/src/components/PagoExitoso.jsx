@@ -11,8 +11,9 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const referencia = query.get('reference');
+    // Extraer referencia desde location.hash (porque estás usando HashRouter)
+    const hashParams = new URLSearchParams(location.hash.split('?')[1]);
+    const referencia = hashParams.get('reference');
 
     const verificarYGuardar = async () => {
       if (!referencia) {
