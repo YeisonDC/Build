@@ -24,8 +24,12 @@ const PagoExitoso = () => {
       try {
         // Paso 1: Verificar estado del pago
         const estadoRes = await API.get(`/checkout/estado-pago/${referencia}`);
-        const status = estadoRes.data.status || 'NOT_FOUND'; // fallback
+        const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
+        const status = statusValido.includes(estadoRes.data.status)
+          ? estadoRes.data.status
+          : 'ERROR';
 
+        console.log('📦 Estado recibido del backend:', estadoRes.data.status);
         setEstadoPago(status);
 
         // Paso 2: Solo guardar el pedido si fue aprobado
