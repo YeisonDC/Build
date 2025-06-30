@@ -11,20 +11,20 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    // Extraer referencia desde location.hash (porque estás usando HashRouter)
+    // Extraer el ID de la transacción desde el hash (porque estás usando HashRouter)
     const hashParams = new URLSearchParams(location.hash.split('?')[1]);
-    const referencia = hashParams.get('reference');
+    const transaccionId = hashParams.get('id');
 
     const verificarYGuardar = async () => {
-      if (!referencia) {
+      if (!transaccionId) {
         setEstadoPago('ERROR');
         setCargando(false);
         return;
       }
 
       try {
-        // Paso 1: Verificar estado del pago
-        const estadoRes = await API.get(`/checkout/estado-pago/${referencia}`);
+        // Paso 1: Obtener estado de la transacción usando el ID
+        const estadoRes = await API.get(`/checkout/estado-pago-id/${transaccionId}`);
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
         const status = statusValido.includes(estadoRes.data.status)
           ? estadoRes.data.status
@@ -35,7 +35,9 @@ const PagoExitoso = () => {
 
         // Paso 2: Solo guardar el pedido si fue aprobado
         if (status === 'APPROVED') {
-          const guardarRes = await API.post('/api/guardar-pedido', { referencia });
+          const guardarRes = await API.post('/api/guardar-pedido', {
+            transaccion_id: transaccionId,
+          });
           if (guardarRes.data.success) {
             limpiarCarrito();
           }
