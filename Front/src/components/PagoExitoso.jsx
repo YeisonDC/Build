@@ -27,7 +27,7 @@ const PagoExitoso = () => {
 
       try {
         // Paso 1: Obtener estado de la transacción usando el ID
-        const estadoRes = await API.get(`/checkout/estado-pago-id/${transaccionId}`);
+        const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
         console.log('📦 Respuesta completa del backend:', estadoRes.data); // 👈🏻 Lo que devuelve tu backend
 
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
