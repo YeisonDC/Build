@@ -11,11 +11,10 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    // ✅ Extraer el ID de la transacción desde location.search (funciona con HashRouter también)
     const searchParams = new URLSearchParams(location.search);
     const transaccionId = searchParams.get('id');
 
-    console.log('🔍 ID de transacción en URL:', transaccionId); // 👈🏻 Verifica que esté presente
+    console.log('🔍 ID de transacción en URL:', transaccionId);
 
     const verificarYGuardar = async () => {
       if (!transaccionId) {
@@ -26,23 +25,20 @@ const PagoExitoso = () => {
       }
 
       try {
-        // Paso 1: Obtener estado de la transacción usando el ID
         const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
-        console.log('📦 Respuesta completa del backend:', estadoRes.data); // 👈🏻 Lo que devuelve tu backend
+        const estadoBackend = estadoRes?.data?.status;
 
-        // 🔍 Agregamos logs más específicos
-        console.log('🧪 estadoRes.data.status:', estadoRes.data.status);
-        console.log('🧪 Tipo de estado:', typeof estadoRes.data.status);
+        console.log('📦 Respuesta completa del backend:', estadoRes.data);
+        console.log('🧪 estadoRes.data.status:', estadoBackend);
+        console.log('📘 typeof:', typeof estadoBackend);
+        console.log('🧪 JSON.stringify:', JSON.stringify(estadoBackend));
 
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
-        const status = statusValido.includes(estadoRes.data.status)
-          ? estadoRes.data.status
-          : 'ERROR';
+        const status = statusValido.includes(estadoBackend) ? estadoBackend : 'ERROR';
 
-        console.log('✅ Estado interpretado:', status); // 👈🏻 Ver si se interpreta correctamente
+        console.log('✅ Estado interpretado:', status);
         setEstadoPago(status);
 
-        // Paso 2: Solo limpiar carrito en frontend si fue aprobado (el backend crea el pedido vía webhook)
         if (status === 'APPROVED') {
           limpiarCarrito();
         }
@@ -55,7 +51,7 @@ const PagoExitoso = () => {
     };
 
     verificarYGuardar();
-  }, [location]);
+  }, [location.search, limpiarCarrito]);
 
   const renderMensaje = () => {
     if (cargando) {
