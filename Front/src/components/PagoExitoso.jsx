@@ -1,12 +1,9 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CartContext } from '../context/CartContext';
 import API from '../api';
 
 const PagoExitoso = () => {
   const location = useLocation();
-  const { limpiarCarrito } = useContext(CartContext);
-
   const [estadoPago, setEstadoPago] = useState(null); // APPROVED, DECLINED, NOT_FOUND, ERROR
   const [cargando, setCargando] = useState(true);
 
@@ -39,10 +36,6 @@ const PagoExitoso = () => {
 
         console.log('✅ Estado final interpretado:', status);
         setEstadoPago(status);
-
-        if (status === 'APPROVED') {
-          limpiarCarrito();
-        }
       } catch (err) {
         console.error('❌ Error verificando el estado del pago:', err);
         setEstadoPago('ERROR');
