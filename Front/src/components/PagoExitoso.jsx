@@ -38,20 +38,12 @@ const PagoExitoso = () => {
         console.log('✅ Estado interpretado:', status); // 👈🏻 Ver si se interpreta correctamente
         setEstadoPago(status);
 
-        // Paso 2: Solo guardar el pedido si fue aprobado
+        // Paso 2: Solo limpiar carrito en frontend si fue aprobado (el backend crea el pedido vía webhook)
         if (status === 'APPROVED') {
-          const guardarRes = await API.post('/api/guardar-pedido', {
-            transaccion_id: transaccionId,
-          });
-
-          console.log('📝 Resultado de guardar pedido:', guardarRes.data);
-
-          if (guardarRes.data.success) {
-            limpiarCarrito();
-          }
+          limpiarCarrito();
         }
       } catch (err) {
-        console.error('❌ Error verificando o guardando el pedido:', err);
+        console.error('❌ Error verificando el estado del pago:', err);
         setEstadoPago('ERROR');
       } finally {
         setCargando(false);
