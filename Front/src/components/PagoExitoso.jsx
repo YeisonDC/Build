@@ -26,20 +26,20 @@ const PagoExitoso = () => {
 
       try {
         const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
-        const estadoBackend = estadoRes?.data?.status;
+        const statusCrudo = estadoRes?.data?.status || '';
+        const statusLimpio = String(statusCrudo).trim().toUpperCase();
 
-        console.log('📦 Respuesta completa del backend:', estadoRes.data);
-        console.log('🧪 estadoRes.data.status:', estadoBackend);
-        console.log('📘 typeof:', typeof estadoBackend);
-        console.log('🧪 JSON.stringify:', JSON.stringify(estadoBackend));
+        console.log('📦 status recibido del backend:', statusCrudo);
+        console.log('📘 typeof:', typeof statusCrudo);
+        console.log('🧪 Valor limpio:', JSON.stringify(statusLimpio));
 
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
-        const status = statusValido.includes(estadoBackend) ? estadoBackend : 'ERROR';
+        const statusFinal = statusValido.includes(statusLimpio) ? statusLimpio : 'ERROR';
 
-        console.log('✅ Estado interpretado:', status);
-        setEstadoPago(status);
+        console.log('✅ Estado interpretado final:', statusFinal);
+        setEstadoPago(statusFinal);
 
-        if (status === 'APPROVED') {
+        if (statusFinal === 'APPROVED') {
           limpiarCarrito();
         }
       } catch (err) {
@@ -51,12 +51,10 @@ const PagoExitoso = () => {
     };
 
     verificarYGuardar();
-  }, [location.search, limpiarCarrito]);
+  }, [location]);
 
   const renderMensaje = () => {
-    if (cargando) {
-      return <p>Verificando estado de tu transacción...</p>;
-    }
+    if (cargando) return <p>Verificando estado de tu transacción...</p>;
 
     switch (estadoPago) {
       case 'APPROVED':
