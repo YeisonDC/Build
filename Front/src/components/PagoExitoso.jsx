@@ -30,6 +30,10 @@ const PagoExitoso = () => {
         const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
         console.log('📦 Respuesta completa del backend:', estadoRes.data); // 👈🏻 Lo que devuelve tu backend
 
+        // 🔍 Agregamos logs más específicos
+        console.log('🧪 estadoRes.data.status:', estadoRes.data.status);
+        console.log('🧪 Tipo de estado:', typeof estadoRes.data.status);
+
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
         const status = statusValido.includes(estadoRes.data.status)
           ? estadoRes.data.status
