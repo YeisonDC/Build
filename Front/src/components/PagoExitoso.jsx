@@ -11,13 +11,11 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    // ✅ Extraer el ID de la transacción desde location.hash (para HashRouter)
-    const hash = location.hash; // ej: "#/pago-exitoso?id=123"
-    const query = hash.includes('?') ? hash.split('?')[1] : '';
-    const hashParams = new URLSearchParams(query);
-    const transaccionId = hashParams.get('id');
+    // ✅ Extraer el ID de la transacción desde location.search (funciona con HashRouter también)
+    const searchParams = new URLSearchParams(location.search);
+    const transaccionId = searchParams.get('id');
 
-    console.log('🔍 ID de transacción (HashRouter) extraído:', transaccionId);
+    console.log('🔍 ID de transacción en URL:', transaccionId); // 👈🏻 Verifica que esté presente
 
     const verificarYGuardar = async () => {
       if (!transaccionId) {
@@ -28,9 +26,11 @@ const PagoExitoso = () => {
       }
 
       try {
+        // Paso 1: Obtener estado de la transacción usando el ID
         const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
-        console.log('📦 Respuesta completa del backend:', estadoRes.data);
+        console.log('📦 Respuesta completa del backend:', estadoRes.data); // 👈🏻 Lo que devuelve tu backend
 
+        // 🔍 Agregamos logs más específicos
         console.log('🧪 estadoRes.data.status:', estadoRes.data.status);
         console.log('🧪 Tipo de estado:', typeof estadoRes.data.status);
 
@@ -39,9 +39,10 @@ const PagoExitoso = () => {
           ? estadoRes.data.status
           : 'ERROR';
 
-        console.log('✅ Estado interpretado:', status);
+        console.log('✅ Estado interpretado:', status); // 👈🏻 Ver si se interpreta correctamente
         setEstadoPago(status);
 
+        // Paso 2: Solo limpiar carrito en frontend si fue aprobado (el backend crea el pedido vía webhook)
         if (status === 'APPROVED') {
           limpiarCarrito();
         }
