@@ -11,10 +11,13 @@ const PagoExitoso = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const transaccionId = searchParams.get('id');
+    // ✅ Extraer el ID de la transacción desde location.hash (para HashRouter)
+    const hash = location.hash; // ej: "#/pago-exitoso?id=123"
+    const query = hash.includes('?') ? hash.split('?')[1] : '';
+    const hashParams = new URLSearchParams(query);
+    const transaccionId = hashParams.get('id');
 
-    console.log('🔍 ID de transacción en URL:', transaccionId);
+    console.log('🔍 ID de transacción (HashRouter) extraído:', transaccionId);
 
     const verificarYGuardar = async () => {
       if (!transaccionId) {
@@ -26,20 +29,20 @@ const PagoExitoso = () => {
 
       try {
         const estadoRes = await API.get(`/crear-checkout/estado-pago-id/${transaccionId}`);
-        const statusCrudo = estadoRes?.data?.status || '';
-        const statusLimpio = String(statusCrudo).trim().toUpperCase();
+        console.log('📦 Respuesta completa del backend:', estadoRes.data);
 
-        console.log('📦 status recibido del backend:', statusCrudo);
-        console.log('📘 typeof:', typeof statusCrudo);
-        console.log('🧪 Valor limpio:', JSON.stringify(statusLimpio));
+        console.log('🧪 estadoRes.data.status:', estadoRes.data.status);
+        console.log('🧪 Tipo de estado:', typeof estadoRes.data.status);
 
         const statusValido = ['APPROVED', 'DECLINED', 'NOT_FOUND'];
-        const statusFinal = statusValido.includes(statusLimpio) ? statusLimpio : 'ERROR';
+        const status = statusValido.includes(estadoRes.data.status)
+          ? estadoRes.data.status
+          : 'ERROR';
 
-        console.log('✅ Estado interpretado final:', statusFinal);
-        setEstadoPago(statusFinal);
+        console.log('✅ Estado interpretado:', status);
+        setEstadoPago(status);
 
-        if (statusFinal === 'APPROVED') {
+        if (status === 'APPROVED') {
           limpiarCarrito();
         }
       } catch (err) {
@@ -54,7 +57,9 @@ const PagoExitoso = () => {
   }, [location]);
 
   const renderMensaje = () => {
-    if (cargando) return <p>Verificando estado de tu transacción...</p>;
+    if (cargando) {
+      return <p>Verificando estado de tu transacción...</p>;
+    }
 
     switch (estadoPago) {
       case 'APPROVED':
