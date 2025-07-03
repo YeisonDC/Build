@@ -18,15 +18,12 @@ const ProductList = ({ initialCategory = null }) => {
   const categoryRef = useRef(null);
   const priceRef = useRef(null);
 
-  // Ya no necesitas backendUrl aquí, lo maneja API internamente
-
-  // Actualizar la categoría seleccionada si cambia la prop initialCategory
   useEffect(() => {
     setSelectedCategory(initialCategory || 'Todas');
   }, [initialCategory]);
 
   useEffect(() => {
-    API.get('/productos') // ✅ Usando instancia API con URL base dinámica
+    API.get('/productos')
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -95,7 +92,7 @@ const ProductList = ({ initialCategory = null }) => {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {/* Sidebar de filtros */}
-      <div className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
+      <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
         <h2 className="filter-title">Filtros</h2>
 
         <details ref={colorRef}>
@@ -191,10 +188,10 @@ const ProductList = ({ initialCategory = null }) => {
           />
           <p>Hasta ${maxPrice.toLocaleString()}</p>
         </details>
-      </div>
+      </aside>
 
       {/* Grid de productos (alineado como CategoryPage) */}
-      <div
+      <main
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
@@ -220,7 +217,7 @@ const ProductList = ({ initialCategory = null }) => {
             No se encontraron productos que coincidan con los filtros seleccionados.
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
