@@ -93,9 +93,9 @@ const ProductList = ({ initialCategory = null }) => {
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
-    <div className="product-list" style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {/* Sidebar de filtros */}
-      <div className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd' }}>
+      <div className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
         <h2 className="filter-title">Filtros</h2>
 
         <details ref={colorRef}>
@@ -107,7 +107,8 @@ const ProductList = ({ initialCategory = null }) => {
                 backgroundColor: '#e0e0e0',
                 border: '1px solid #aaa',
                 width: '22px',
-                height: '22px'
+                height: '22px',
+                cursor: 'pointer'
               }}
               title="Todos"
               onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); }}
@@ -116,7 +117,15 @@ const ProductList = ({ initialCategory = null }) => {
               <span
                 key={idx}
                 className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                style={{ backgroundColor: colorHex }}
+                style={{
+                  backgroundColor: colorHex,
+                  width: '22px',
+                  height: '22px',
+                  borderRadius: '50%',
+                  border: '1px solid #aaa',
+                  cursor: 'pointer',
+                  marginRight: '4px'
+                }}
                 title={colorHex}
                 onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); }}
               ></span>
@@ -184,18 +193,14 @@ const ProductList = ({ initialCategory = null }) => {
         </details>
       </div>
 
-      {/* Grid de productos alineado a la derecha */}
+      {/* Grid de productos (alineado como CategoryPage) */}
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, max-content)',
-          justifyContent: 'end',
-          justifyItems: 'start',
-          columnGap: '2rem',
-          rowGap: '2rem',
-          marginTop: '2rem',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+          gap: '2rem',
           padding: '2rem',
-          flexGrow: 1
+          flex: 1
         }}
       >
         {filteredProducts.length > 0 ? (
