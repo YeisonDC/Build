@@ -18,15 +18,29 @@ const ProductList = ({ initialCategory = null }) => {
   const categoryRef = useRef(null);
   const priceRef = useRef(null);
 
-  // Ya no necesitas backendUrl aquí, lo maneja API internamente
+  const sizeButtonStyle = {
+    fontSize: '0.72rem',
+    backgroundColor: '#f8f8f8',
+    padding: '3px 7px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    border: '1px solid #ccc',
+    transition: 'all 0.2s ease',
+    fontFamily: 'inherit',
+  };
 
-  // Actualizar la categoría seleccionada si cambia la prop initialCategory
+  const selectedSizeButtonStyle = {
+    backgroundColor: '#111',
+    color: '#fff',
+    borderColor: '#111',
+  };
+
   useEffect(() => {
     setSelectedCategory(initialCategory || 'Todas');
   }, [initialCategory]);
 
   useEffect(() => {
-    API.get('/productos') // ✅ Usando instancia API con URL base dinámica
+    API.get('/productos')
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -138,7 +152,10 @@ const ProductList = ({ initialCategory = null }) => {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
             <button
               onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); }}
-              className={`size-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
+              style={{
+                ...sizeButtonStyle,
+                ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
+              }}
             >
               Todas
             </button>
@@ -146,7 +163,10 @@ const ProductList = ({ initialCategory = null }) => {
               <button
                 key={idx}
                 onClick={() => { setSelectedSize(size); closeDetails(sizeRef); }}
-                className={`size-tag ${selectedSize === size ? 'selected' : ''}`}
+                style={{
+                  ...sizeButtonStyle,
+                  ...(selectedSize === size ? selectedSizeButtonStyle : {})
+                }}
               >
                 {size}
               </button>
@@ -160,7 +180,10 @@ const ProductList = ({ initialCategory = null }) => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
               <button
                 onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); }}
-                className={`size-tag ${selectedCategory === 'Todas' ? 'selected' : ''}`}
+                style={{
+                  ...sizeButtonStyle,
+                  ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
+                }}
               >
                 Todas
               </button>
@@ -168,7 +191,10 @@ const ProductList = ({ initialCategory = null }) => {
                 <button
                   key={idx}
                   onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); }}
-                  className={`size-tag ${selectedCategory === cat ? 'selected' : ''}`}
+                  style={{
+                    ...sizeButtonStyle,
+                    ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
+                  }}
                 >
                   {cat}
                 </button>

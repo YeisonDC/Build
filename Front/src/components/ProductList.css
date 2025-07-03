@@ -73,24 +73,4 @@
   color: #222;
 }
 
-/* Estilo para botones de talla y categoría en filtros */
-.product-list .size-tag {
-  font-size: 0.72rem;
-  background-color: #f8f8f8;
-  padding: 3px 7px;
-  border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  transition: all 0.2s ease;
-  font-family: inherit;
-}
 
-.product-list .size-tag:hover {
-  background-color: #e0e0e0;
-}
-
-.product-list .size-tag.selected {
-  background-color: #111;
-  color: #fff;
-  border-color: #111;
-}
