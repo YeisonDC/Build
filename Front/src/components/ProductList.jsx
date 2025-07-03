@@ -93,7 +93,7 @@ const ProductList = ({ initialCategory = null }) => {
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
-    <div className="product-list" style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap' }}>
       {/* Sidebar de filtros */}
       <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
         <h2 className="filter-title">Filtros</h2>
