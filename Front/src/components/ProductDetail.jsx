@@ -215,8 +215,8 @@ const ProductDetail = () => {
             <summary>Cuidados de la prenda</summary>
             <div className="dropdown-content">
               <p style={{ whiteSpace: 'pre-line' }}>
-                {product.Cuidados?.trim()
-                  ? product.Cuidados
+                {product.cuidados?.trim()
+                  ? product.cuidados
                   : 'No se especifican cuidados especiales para esta prenda.'}
               </p>
             </div>
