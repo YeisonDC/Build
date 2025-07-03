@@ -7,31 +7,25 @@ import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 import SubmenuPortal from './SubmenuPortal';
 
-/* ─── Imágenes de cada categoría ───────────────────────── */
-import primavera1 from '../assets/submenus/primavera1.jpg';
-import primavera2 from '../assets/submenus/primavera2.jpg';
-import primavera3 from '../assets/submenus/primavera3.jpg';
-
-import top1 from '../assets/submenus/top1.jpg';
-import top2 from '../assets/submenus/top2.jpg';
-import top3 from '../assets/submenus/top3.jpg';
-
-import jeans1 from '../assets/submenus/jeans1.jpg';
-import jeans2 from '../assets/submenus/jeans2.jpg';
-import jeans3 from '../assets/submenus/jeans3.jpg';
-
-import totalook1 from '../assets/submenus/totalook1.jpg';
-import totalook2 from '../assets/submenus/totalook2.jpg';
-import totalook3 from '../assets/submenus/totalook3.jpg';
-
-import pendiente1 from '../assets/submenus/pendiente1.jpg';
+/* ─── Mejorar calidad Cloudinary ───────────────────────── */
+const mejorarCalidadCloudinary = (url) => {
+  if (!url || !url.includes("res.cloudinary.com")) return url;
+  return url.replace(
+    "/upload/",
+    "/upload/w_400,h_500,c_fill,dpr_auto,f_auto,q_auto/"
+  );
+};
 
 /* ─── Definición de menús ──────────────────────────────── */
 const MENUS = {
   nueva: {
     label: 'Nueva Colección',
     items: [{ label: 'El Jardin', path: '/categoria/eljardin' }],
-    images: [primavera1, primavera2, primavera3],
+    images: [
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751586643/Set_Camelia_Talla_XS_2_xx4jad.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748754350/Set_Gardenia_Talla_S_2_lfzal9.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749099582/Set_Peonia_Talla_S_wnqhuv.jpg")
+    ],
   },
   superiores: {
     label: 'Prendas Superiores',
@@ -44,7 +38,11 @@ const MENUS = {
       { label: 'Busos', path: '/categoria/busos' },
       { label: 'Corset', path: '/categoria/corset' },
     ],
-    images: [top1, top2, top3],
+    images: [
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top1.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top2.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top3.jpg")
+    ],
   },
   inferiores: {
     label: 'Prendas inferiores ',
@@ -54,7 +52,11 @@ const MENUS = {
       { label: 'shorts', path: '/categoria/shorts' },
       { label: 'faldas', path: '/categoria/faldas' },
     ],
-    images: [jeans1, jeans2, jeans3],
+    images: [
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans1.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans2.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans3.jpg")
+    ],
   },
   totallook: {
     label: 'Total Look',
@@ -63,12 +65,18 @@ const MENUS = {
       { label: 'Vestidos', path: '/categoria/vestidos' },
       { label: 'Enterizos', path: '/categoria/enterizos' },
     ],
-    images: [totalook1, totalook2, totalook3],
+    images: [
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook1.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook2.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook3.jpg")
+    ],
   },
   sale: {
     label: 'Sale',
     items: [{ label: 'Pendiente', path: '/categoria/pendiente' }],
-    images: [pendiente1],
+    images: [
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/pendiente1.jpg")
+    ],
   },
 };
 
