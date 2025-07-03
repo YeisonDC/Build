@@ -11,6 +11,7 @@ const CreateProduct = () => {
     nombre: '',
     categoria: [''],
     descripcion: '',
+    cuidados: '', // ✅ Campo nuevo
     precio: '',
     colores: [
       {
@@ -106,6 +107,7 @@ const CreateProduct = () => {
         nombre: '',
         categoria: [''],
         descripcion: '',
+        cuidados: '', // ✅ Limpiar campo
         precio: '',
         colores: [
           { color: ['', ''], imagenes: [''], tallas: [{ talla: '', stock: '', imagen: '' }] },
@@ -163,6 +165,14 @@ const CreateProduct = () => {
 
           <label>Descripción:</label>
           <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} />
+
+          <label>Cuidados:</label>
+          <textarea
+            name="cuidados"
+            value={formData.cuidados}
+            onChange={handleChange}
+            placeholder="Ej: Lavar a mano, no usar blanqueador, secar a la sombra..."
+          />
 
           <label>Precio:</label>
           <input

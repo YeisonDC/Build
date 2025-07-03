@@ -169,6 +169,15 @@ const UpdateProduct = () => {
             onChange={handleChange}
           />
 
+          {/* NUEVO CAMPO: Cuidados del producto */}
+          <label>Cuidados del producto:</label>
+          <textarea
+            name="cuidados"
+            placeholder="Ej: Lavar a mano, no usar blanqueador..."
+            value={formData.cuidados || ''}
+            onChange={handleChange}
+          />
+
           <label>Precio:</label>
           <input
             type="number"
