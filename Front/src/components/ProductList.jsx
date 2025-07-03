@@ -18,12 +18,15 @@ const ProductList = ({ initialCategory = null }) => {
   const categoryRef = useRef(null);
   const priceRef = useRef(null);
 
+  // Ya no necesitas backendUrl aquí, lo maneja API internamente
+
+  // Actualizar la categoría seleccionada si cambia la prop initialCategory
   useEffect(() => {
     setSelectedCategory(initialCategory || 'Todas');
   }, [initialCategory]);
 
   useEffect(() => {
-    API.get('/productos')
+    API.get('/productos') // ✅ Usando instancia API con URL base dinámica
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data);
@@ -90,7 +93,7 @@ const ProductList = ({ initialCategory = null }) => {
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div className="product-list" style={{ display: 'flex', flexWrap: 'wrap' }}>
       {/* Sidebar de filtros */}
       <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
         <h2 className="filter-title">Filtros</h2>
