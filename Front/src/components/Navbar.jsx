@@ -97,7 +97,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setUserDropdownOpen(false);
-    navigate('/');
+    window.location.href = '/'; // 🔄 Recargar completamente la página al cerrar sesión
   };
 
   // NUEVO: Manejo con delay para dropdown usuario
