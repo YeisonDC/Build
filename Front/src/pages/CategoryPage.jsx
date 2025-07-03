@@ -87,6 +87,23 @@ const CategoryPage = () => {
     if (ref.current) ref.current.removeAttribute('open');
   };
 
+  const buttonStyle = {
+    fontSize: '0.72rem',
+    backgroundColor: '#f8f8f8',
+    padding: '3px 7px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    border: '1px solid #ccc',
+    transition: 'all 0.2s ease',
+    fontFamily: 'inherit',
+  };
+
+  const selectedButtonStyle = {
+    backgroundColor: '#111',
+    color: '#fff',
+    borderColor: '#111',
+  };
+
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
@@ -94,7 +111,7 @@ const CategoryPage = () => {
       {/* Sidebar de filtros */}
       <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
         <h4 className="filter-title">Filtros</h4>
-        
+
         <details ref={colorRef}>
           <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
           <div className="color-filter-dots">
@@ -104,7 +121,8 @@ const CategoryPage = () => {
                 backgroundColor: '#e0e0e0',
                 border: '1px solid #aaa',
                 width: '22px',
-                height: '22px'
+                height: '22px',
+                cursor: 'pointer'
               }}
               title="Todos"
               onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); }}
@@ -113,7 +131,15 @@ const CategoryPage = () => {
               <span
                 key={idx}
                 className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                style={{ backgroundColor: colorHex }}
+                style={{
+                  backgroundColor: colorHex,
+                  width: '22px',
+                  height: '22px',
+                  borderRadius: '50%',
+                  border: '1px solid #aaa',
+                  cursor: 'pointer',
+                  marginRight: '4px'
+                }}
                 title={colorHex}
                 onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); }}
               ></span>
@@ -126,7 +152,10 @@ const CategoryPage = () => {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
             <button
               onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); }}
-              className={`size-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
+              style={{
+                ...buttonStyle,
+                ...(selectedSize === 'Todas' ? selectedButtonStyle : {})
+              }}
             >
               Todas
             </button>
@@ -134,7 +163,10 @@ const CategoryPage = () => {
               <button
                 key={idx}
                 onClick={() => { setSelectedSize(size); closeDetails(sizeRef); }}
-                className={`size-tag ${selectedSize === size ? 'selected' : ''}`}
+                style={{
+                  ...buttonStyle,
+                  ...(selectedSize === size ? selectedButtonStyle : {})
+                }}
               >
                 {size}
               </button>
