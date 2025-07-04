@@ -30,15 +30,18 @@ const MisPedidos = () => {
     }
   }, [user]);
 
-  // Filtrado con formato correcto de fecha (dd/mm/aaaa)
+  // Filtrado con conversión de fecha (de yyyy-mm-dd a dd/mm/yyyy)
   const pedidosFiltrados = pedidos.filter(p => {
-    const fechaFormateada = busquedaFecha
-      ? new Date(busquedaFecha).toLocaleDateString('es-CO') // Formato: dd/mm/yyyy
-      : '';
-    return (
-      (!busquedaFecha || (p.fecha_pedido || '').includes(fechaFormateada)) &&
-      (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
-    );
+    let coincideFecha = true;
+    if (busquedaFecha) {
+      const partes = busquedaFecha.split('-'); // yyyy-mm-dd
+      const fechaFormateada = `${partes[2]}/${partes[1]}/${partes[0]}`; // dd/mm/yyyy
+      coincideFecha = (p.fecha_pedido || '').includes(fechaFormateada);
+    }
+
+    const coincideId = (p._id || '').toLowerCase().includes(busquedaId.toLowerCase());
+
+    return coincideFecha && coincideId;
   });
 
   // Paginación
