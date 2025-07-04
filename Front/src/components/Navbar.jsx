@@ -22,9 +22,9 @@ const MENUS = {
     label: 'Nueva Colección',
     items: [{ label: 'El Jardin', path: '/categoria/eljardin' }],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751586643/Set_Camelia_Talla_XS_2_xx4jad.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748754350/Set_Gardenia_Talla_S_2_lfzal9.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749099613/Set_Peonia_Talla_L_2_yfl53d.jpg")
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751586643/Set_Camelia_Talla_XS_2_xx4jad.jpg"), path: '/categoria/eljardin' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748754350/Set_Gardenia_Talla_S_2_lfzal9.jpg"), path: '/categoria/eljardin' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749099613/Set_Peonia_Talla_L_2_yfl53d.jpg"), path: '/categoria/eljardin' }
     ],
   },
   superiores: {
@@ -39,9 +39,9 @@ const MENUS = {
       { label: 'Corset', path: '/categoria/corset' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749163114/IMG_1200_o3epmo.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750647/Set_Dalia_Talla_S_2_jfh3oc.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748731587/Camisa_AuroraTalla_S_jkk3ks.jpg")
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749163114/IMG_1200_o3epmo.jpg"), path: '/categoria/tops' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750647/Set_Dalia_Talla_S_2_jfh3oc.jpg"), path: '/categoria/blusas' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748731587/Camisa_AuroraTalla_S_jkk3ks.jpg"), path: '/categoria/blusas' }
     ],
   },
   inferiores: {
@@ -53,9 +53,9 @@ const MENUS = {
       { label: 'faldas', path: '/categoria/faldas' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748745212/Pant_En_Tela_Denver_Talla_M_m7zp6o.jpg")
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"), path: '/categoria/pantalones-en-tela' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"), path: '/categoria/pantalones-en-tela' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748745212/Pant_En_Tela_Denver_Talla_M_m7zp6o.jpg"), path: '/categoria/pantalones-en-tela' }
     ],
   },
   totallook: {
@@ -66,16 +66,16 @@ const MENUS = {
       { label: 'Enterizos', path: '/categoria/enterizos' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748747491/Set_Amapola_Talla_S_2_sqxufu.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748749306/Set_California_Talla_L_2_wmwq0f.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749098324/Set_Magnolia_Talla_S_uwetrq.jpg")
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748747491/Set_Amapola_Talla_S_2_sqxufu.jpg"), path: '/categoria/sets' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748749306/Set_California_Talla_L_2_wmwq0f.jpg"), path: '/categoria/sets' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749098324/Set_Magnolia_Talla_S_uwetrq.jpg"), path: '/categoria/sets' }
     ],
   },
   sale: {
     label: 'Sale',
     items: [{ label: 'Pendiente', path: '/categoria/pendiente' }],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751591610/pendiente1_ndarie.jpg")
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751591610/pendiente1_ndarie.jpg"), path: '/categoria/pendiente' }
     ],
   },
 };
@@ -145,8 +145,10 @@ const Navbar = () => {
 
           {images.length > 0 && (
             <div className="submenu-gallery">
-              {images.map((src, i) => (
-                <img key={i} src={src} alt={`${menuKey}-${i}`} className="submenu-img" />
+              {images.map(({ url, path }, i) => (
+                <Link key={i} to={path}>
+                  <img src={url} alt={`${menuKey}-${i}`} className="submenu-img" />
+                </Link>
               ))}
             </div>
           )}
