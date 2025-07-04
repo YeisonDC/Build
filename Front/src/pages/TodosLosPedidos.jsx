@@ -9,7 +9,14 @@ const TodosLosPedidos = () => {
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
-        const res = await API.get('/pedido/todos'); // <-- Esta ruta ya la creamos
+        const token = localStorage.getItem('token'); // Obtener token del localStorage
+
+        const res = await API.get('/pedido/todos', {
+          headers: {
+            Authorization: `Bearer ${token}` // Incluir token en los headers
+          }
+        });
+
         setPedidos(res.data);
       } catch (err) {
         console.error('Error al obtener pedidos:', err);
@@ -21,7 +28,6 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
-  // Filtro corregido para evitar errores si algún campo viene undefined
   const pedidosFiltrados = pedidos.filter(p =>
     (p.nombre_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
     (p.correo_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
