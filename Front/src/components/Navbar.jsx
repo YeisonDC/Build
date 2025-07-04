@@ -24,7 +24,7 @@ const MENUS = {
     images: [
       mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751586643/Set_Camelia_Talla_XS_2_xx4jad.jpg"),
       mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748754350/Set_Gardenia_Talla_S_2_lfzal9.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749099582/Set_Peonia_Talla_S_wnqhuv.jpg")
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749099613/Set_Peonia_Talla_L_2_yfl53d.jpg")
     ],
   },
   superiores: {
@@ -66,7 +66,7 @@ const MENUS = {
       { label: 'Enterizos', path: '/categoria/enterizos' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750652/Set_Dalia_Talla_S_3_g1wxmg.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748747491/Set_Amapola_Talla_S_2_sqxufu.jpg"),
       mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748749306/Set_California_Talla_L_2_wmwq0f.jpg"),
       mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749098324/Set_Magnolia_Talla_S_uwetrq.jpg")
     ],
