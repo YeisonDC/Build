@@ -5,11 +5,21 @@ import './ProductDetail.css';
 import { CartContext } from '../context/CartContext';
 import { toast } from 'react-toastify';
 
+// ✅ Mejorar calidad para imagen principal
 const mejorarCalidadCloudinary = (url) => {
   if (!url || !url.includes('res.cloudinary.com')) return url;
   return url.replace(
     '/upload/',
     '/upload/w_800,h_960,c_fill,dpr_auto,f_auto,q_auto/'
+  );
+};
+
+// ✅ Mejorar calidad para miniaturas
+const mejorarMiniatura = (url) => {
+  if (!url || !url.includes('res.cloudinary.com')) return url;
+  return url.replace(
+    '/upload/',
+    '/upload/w_200,h_240,c_fill,dpr_auto,f_auto,q_auto/'
   );
 };
 
@@ -119,7 +129,7 @@ const ProductDetail = () => {
             {colorObj?.imagenes?.map((img, i) => (
               <img
                 key={i}
-                src={mejorarCalidadCloudinary(img)}
+                src={mejorarMiniatura(img)}
                 alt={`${product.nombre} miniatura ${i + 1}`}
                 onClick={() => setMainImage(img)}
                 className={`thumbnail ${mainImage === img ? 'selected' : ''}`}
