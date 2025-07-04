@@ -1,12 +1,35 @@
 .perfil-pedidos {
   padding: 2rem;
   background-color: #f9f9f9;
+  font-family: inherit;
 }
 
 .perfil-pedidos__titulo {
   font-size: 1.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #111;
+}
+
+.perfil-pedidos__filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.perfil-pedidos__filtros input {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 200px;
+  font-size: 0.95rem;
+}
+
+.perfil-pedidos__contador {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  color: #333;
 }
 
 .perfil-pedidos__card {
@@ -65,4 +88,34 @@
   text-align: center;
   font-size: 1rem;
   margin-top: 2rem;
+}
+
+/* Paginación */
+.perfil-pedidos__paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.perfil-pedidos__paginacion button {
+  padding: 0.5rem 1rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.perfil-pedidos__paginacion button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+.perfil-pedidos__paginacion span {
+  font-size: 0.95rem;
+  font-weight: 500;
 }

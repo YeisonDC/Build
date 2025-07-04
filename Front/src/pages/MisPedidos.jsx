@@ -6,6 +6,11 @@ import './MisPedidos.css';
 const MisPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [busquedaFecha, setBusquedaFecha] = useState('');
+  const [busquedaId, setBusquedaId] = useState('');
+  const [paginaActual, setPaginaActual] = useState(1);
+  const pedidosPorPagina = 5;
+
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -25,6 +30,23 @@ const MisPedidos = () => {
     }
   }, [user]);
 
+  // Filtrado
+  const pedidosFiltrados = pedidos.filter(p =>
+    (p.fecha_pedido || '').toLowerCase().includes(busquedaFecha.toLowerCase()) &&
+    (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
+  );
+
+  // Paginación
+  const totalPaginas = Math.ceil(pedidosFiltrados.length / pedidosPorPagina);
+  const indiceInicio = (paginaActual - 1) * pedidosPorPagina;
+  const pedidosPaginados = pedidosFiltrados.slice(indiceInicio, indiceInicio + pedidosPorPagina);
+
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+    }
+  };
+
   if (cargando) return <p className="perfil-pedidos__cargando">Cargando pedidos...</p>;
   if (pedidos.length === 0) return <p className="perfil-pedidos__vacio">No tienes pedidos aún.</p>;
 
@@ -32,12 +54,30 @@ const MisPedidos = () => {
     <div className="perfil-pedidos">
       <h2 className="perfil-pedidos__titulo">Mis Pedidos</h2>
 
-      {pedidos.map((pedido) => (
+      <div className="perfil-pedidos__filtros">
+        <input
+          type="text"
+          placeholder="Filtrar por fecha (dd/mm/aaaa)"
+          value={busquedaFecha}
+          onChange={(e) => setBusquedaFecha(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Filtrar por ID de pedido"
+          value={busquedaId}
+          onChange={(e) => setBusquedaId(e.target.value)}
+        />
+      </div>
+
+      <p className="perfil-pedidos__contador">Total de pedidos: {pedidosFiltrados.length}</p>
+
+      {pedidosPaginados.map((pedido) => (
         <div key={pedido._id} className="perfil-pedidos__card">
           <div className="perfil-pedidos__info">
             <p><strong>Fecha:</strong> {pedido.fecha_pedido}</p>
             <p><strong>Total:</strong> ${pedido.total_pedido.toLocaleString()}</p>
-            <p><strong>Estado:</strong> {pedido.estado || 'Procesando'}</p>
+            <p><strong>Envío:</strong> ${pedido.valor_envio?.toLocaleString() || 0}</p>
+            <p><strong>ID:</strong> {pedido._id}</p>
           </div>
 
           <div className="perfil-pedidos__productos">
@@ -54,6 +94,18 @@ const MisPedidos = () => {
           </div>
         </div>
       ))}
+
+      {totalPaginas > 1 && (
+        <div className="perfil-pedidos__paginacion">
+          <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
+            &laquo; Anterior
+          </button>
+          <span>Página {paginaActual} de {totalPaginas}</span>
+          <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
+            Siguiente &raquo;
+          </button>
+        </div>
+      )}
     </div>
   );
 };
