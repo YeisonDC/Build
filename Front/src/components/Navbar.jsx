@@ -40,8 +40,8 @@ const MENUS = {
     ],
     images: [
       { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749163114/IMG_1200_o3epmo.jpg"), path: '/categoria/tops' },
-      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750647/Set_Dalia_Talla_S_2_jfh3oc.jpg"), path: '/categoria/blusas' },
-      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748731587/Camisa_AuroraTalla_S_jkk3ks.jpg"), path: '/categoria/blusas' }
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750647/Set_Dalia_Talla_S_2_jfh3oc.jpg"), path: '/categoria/tops' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748731587/Camisa_AuroraTalla_S_jkk3ks.jpg"), path: '/categoria/camisetas' }
     ],
   },
   inferiores: {
@@ -53,8 +53,8 @@ const MENUS = {
       { label: 'faldas', path: '/categoria/faldas' },
     ],
     images: [
-      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"), path: '/categoria/pantalones-en-tela' },
-      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"), path: '/categoria/pantalones-en-tela' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"), path: '/categoria/jeans  ' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"), path: '/categoria/jeans' },
       { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748745212/Pant_En_Tela_Denver_Talla_M_m7zp6o.jpg"), path: '/categoria/pantalones-en-tela' }
     ],
   },
