@@ -179,7 +179,7 @@ const CategoryPage = () => {
           <input
             type="range"
             min={0}
-            max={200000}
+            max={300000}
             step={50000}
             value={maxPrice}
             onChange={e => setMaxPrice(Number(e.target.value))}
