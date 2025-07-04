@@ -30,11 +30,16 @@ const MisPedidos = () => {
     }
   }, [user]);
 
-  // Filtrado
-  const pedidosFiltrados = pedidos.filter(p =>
-    (p.fecha_pedido || '').toLowerCase().includes(busquedaFecha.toLowerCase()) &&
-    (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
-  );
+  // Filtrado con formato correcto de fecha (dd/mm/aaaa)
+  const pedidosFiltrados = pedidos.filter(p => {
+    const fechaFormateada = busquedaFecha
+      ? new Date(busquedaFecha).toLocaleDateString('es-CO') // Formato: dd/mm/yyyy
+      : '';
+    return (
+      (!busquedaFecha || (p.fecha_pedido || '').includes(fechaFormateada)) &&
+      (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
+    );
+  });
 
   // Paginación
   const totalPaginas = Math.ceil(pedidosFiltrados.length / pedidosPorPagina);
@@ -56,8 +61,7 @@ const MisPedidos = () => {
 
       <div className="perfil-pedidos__filtros">
         <input
-          type="text"
-          placeholder="Filtrar por fecha (dd/mm/aaaa)"
+          type="date"
           value={busquedaFecha}
           onChange={(e) => setBusquedaFecha(e.target.value)}
         />

@@ -119,3 +119,19 @@
   font-size: 0.95rem;
   font-weight: 500;
 }
+
+/* Estilo específico para input de tipo fecha */
+.perfil-pedidos__filtros input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.95rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 0.8rem;
+  font-family: inherit;
+  flex: 1;
+  min-width: 200px;
+  cursor: pointer;
+}
