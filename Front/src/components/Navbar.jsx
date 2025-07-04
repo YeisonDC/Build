@@ -39,9 +39,9 @@ const MENUS = {
       { label: 'Corset', path: '/categoria/corset' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top1.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top2.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/top3.jpg")
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749163114/IMG_1200_o3epmo.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750647/Set_Dalia_Talla_S_2_jfh3oc.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748731587/Camisa_AuroraTalla_S_jkk3ks.jpg")
     ],
   },
   inferiores: {
