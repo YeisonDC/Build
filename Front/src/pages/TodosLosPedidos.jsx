@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../api';
-import './TodosLosPedidos.css'; // Puedes crear este archivo para estilos opcionales
+
 
 const TodosLosPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
