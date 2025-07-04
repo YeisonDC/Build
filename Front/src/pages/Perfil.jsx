@@ -6,6 +6,7 @@ import { FiUser, FiShoppingBag, FiSettings, FiPlusSquare, FiList } from 'react-i
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { obtenerRol } from '../services/token';
+import MisPedidos from './MisPedidos';
 import { useNavigate } from 'react-router-dom';
 
 const Perfil = () => {
@@ -230,7 +231,7 @@ const Perfil = () => {
       );
     }
 
-    if (seccionActiva === 'pedidos') return <p>Aquí irán los pedidos del usuario.</p>;
+    if (seccionActiva === 'pedidos') return <MisPedidos />;
 
     if (seccionActiva === 'configuracion') {
       return (
