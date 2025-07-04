@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../api';
 
-
 const TodosLosPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
@@ -22,10 +21,11 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
+  // Filtro corregido para evitar errores si algún campo viene undefined
   const pedidosFiltrados = pedidos.filter(p =>
-    p.nombre_cliente.toLowerCase().includes(busqueda.toLowerCase()) ||
-    p.correo_cliente.toLowerCase().includes(busqueda.toLowerCase()) ||
-    p.celular_cliente.includes(busqueda)
+    (p.nombre_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
+    (p.correo_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
+    (p.celular_cliente || '').includes(busqueda)
   );
 
   return (
