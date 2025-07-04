@@ -53,9 +53,9 @@ const MENUS = {
       { label: 'faldas', path: '/categoria/faldas' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans1.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans2.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/jeans3.jpg")
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748745212/Pant_En_Tela_Denver_Talla_M_m7zp6o.jpg")
     ],
   },
   totallook: {
@@ -66,16 +66,16 @@ const MENUS = {
       { label: 'Enterizos', path: '/categoria/enterizos' },
     ],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook1.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook2.jpg"),
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/totalook3.jpg")
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748750652/Set_Dalia_Talla_S_3_g1wxmg.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748749306/Set_California_Talla_L_2_wmwq0f.jpg"),
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1749098324/Set_Magnolia_Talla_S_uwetrq.jpg")
     ],
   },
   sale: {
     label: 'Sale',
     items: [{ label: 'Pendiente', path: '/categoria/pendiente' }],
     images: [
-      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1720116230/pendiente1.jpg")
+      mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1751591610/pendiente1_ndarie.jpg")
     ],
   },
 };
