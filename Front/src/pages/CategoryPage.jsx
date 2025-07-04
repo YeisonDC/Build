@@ -14,7 +14,7 @@ const CategoryPage = () => {
 
   const [selectedColor, setSelectedColor] = useState('Todos');
   const [selectedSize, setSelectedSize] = useState('Todas');
-  const [maxPrice, setMaxPrice] = useState(200000);
+  const [maxPrice, setMaxPrice] = useState(300000);
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
