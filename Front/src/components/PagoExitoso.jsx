@@ -36,6 +36,17 @@ const PagoExitoso = () => {
 
         console.log('✅ Estado final interpretado:', status);
         setEstadoPago(status);
+
+        // ✅ Si el estado es APPROVED → Confirmar pedido con el transaction_id
+        if (status === 'APPROVED') {
+          try {
+            await API.post('/pedido/confirmar', { transaction_id: transaccionId });
+            console.log('📦 Pedido confirmado con transaction_id');
+          } catch (confirmError) {
+            console.error('❌ Error al confirmar pedido con transaction_id:', confirmError);
+          }
+        }
+
       } catch (err) {
         console.error('❌ Error verificando el estado del pago:', err);
         setEstadoPago('ERROR');
