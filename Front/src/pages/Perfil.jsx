@@ -366,8 +366,17 @@ const Perfil = () => {
               <FiList style={{ marginRight: '8px', verticalAlign: 'middle' }} />
               Todos los artículos
             </button>
+            <button
+              className="btn-admin"
+              onClick={() => navigate('/admin/pedidos')}
+              style={{ display: 'block', width: '100%', textAlign: 'left' }}
+            >
+              <FiShoppingBag style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+              Todos los pedidos
+            </button>
           </>
         )}
+
       </aside>
 
       <section className="perfil-contenido">
