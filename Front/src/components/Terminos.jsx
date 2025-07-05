@@ -1,5 +1,5 @@
 // src/pages/Terminos.jsx
-
+import { Link} from 'react-router-dom';
 import React from 'react';
 import './Terminos.css';
 
@@ -27,7 +27,7 @@ const Terminos = () => {
       <p>Los envíos se realizan a través de transportadoras aliadas. El tiempo estimado de entrega es de 2 a 5 días hábiles, dependiendo de la ciudad. Los retrasos ocasionados por la transportadora están fuera de nuestro control.</p>
 
       <h2>5. Devoluciones</h2>
-      <p>Consulta nuestra <a href="/devoluciones">política de devoluciones</a> para conocer las condiciones bajo las cuales se puede devolver un producto.</p>
+      <p>Consulta nuestra <Link to="/devoluciones">política de devoluciones</Link> para conocer las condiciones bajo las cuales se puede devolver un producto.</p>
 
       <h2>6. Propiedad Intelectual</h2>
       <p>Todos los contenidos de este sitio web (imágenes, textos, logos, diseños) son propiedad de Beubek y están protegidos por derechos de autor. No está permitida su reproducción sin autorización.</p>
