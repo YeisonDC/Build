@@ -14,14 +14,13 @@ const Footer = () => {
         </div>
 
         <div className="footer-links">
-          <h4>Beubek</h4>
-          <ul>
-            <li><a href="/conocenos">Conócenos</a></li>
-            <li><link to="/devoluciones">Devoluciones</link></li>
-            <li><a href="/terminos">Términos y condiciones</a></li>
-          </ul>
-        </div>
-
+  <h4>Beubek</h4>
+  <ul>
+    <li><Link to="/conocenos">Conócenos</Link></li>
+    <li><Link to="/devoluciones">Devoluciones</Link></li>
+    <li><Link to="/terminos">Términos y condiciones</Link></li>
+  </ul>
+</div>
         <div className="footer-social">
           <h4>Síguenos</h4>
           <div className="social-icons">
