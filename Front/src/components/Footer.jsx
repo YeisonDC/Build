@@ -15,7 +15,7 @@ const Footer = () => {
           <h4>Beubek</h4>
           <ul>
             <li><a href="/conocenos">Conócenos</a></li>
-            <li><a href="/devoluciones">Devoluciones</a></li>
+            <li><a navigate="/devoluciones">Devoluciones</a></li>
             <li><a href="/terminos">Términos y condiciones</a></li>
           </ul>
         </div>
