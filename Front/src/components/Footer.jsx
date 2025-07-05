@@ -2,6 +2,8 @@ import React from 'react';
 import './Footer.css';
 import logo from '../assets/logo.png'; // Usa tu logo real
 import { FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa';
+import { Link} from 'react-router-dom';
+
 
 const Footer = () => {
   return (
@@ -15,7 +17,7 @@ const Footer = () => {
           <h4>Beubek</h4>
           <ul>
             <li><a href="/conocenos">Conócenos</a></li>
-            <li><a navigate="/devoluciones">Devoluciones</a></li>
+            <li><link to="/devoluciones">Devoluciones</link></li>
             <li><a href="/terminos">Términos y condiciones</a></li>
           </ul>
         </div>
