@@ -18,10 +18,10 @@ import ProductEdit from './pages/ProductEdit';      // Editar productos (Admin)
 import UpdateProduct from './pages/UpdateProduct';
 import PagoCheckout from './components/PagoCheckout';
 import PagoExitoso from './components/PagoExitoso.jsx';
-import Devoluciones from './components/Devoluciones.jsx'
-
+import TodosLosPedidos from './pages/TodosLosPedidos';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Devoluciones from './components/Devoluciones.jsx';
 
 
 function App() {
@@ -44,8 +44,8 @@ function App() {
             <Route path="/admin/productos" element={<ProductEdit />} />
             <Route path="/pago-exitoso" element={<PagoExitoso />} />
             <Route path="/pago" element={<PagoCheckout />} />
+            <Route path="/admin/pedidos" element={<TodosLosPedidos />} />
             <Route path="/devoluciones" element={<Devoluciones />} />
-
           </Routes>
           <Footer />
           <ToastContainer
