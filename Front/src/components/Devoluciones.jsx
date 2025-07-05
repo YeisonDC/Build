@@ -27,7 +27,7 @@ const Devoluciones = () => {
 
       <h2>¿Cómo solicito una devolución?</h2>
       <p>
-        Por favor, envíanos un correo a <strong>contacto@beubek.com</strong> con la siguiente información:
+        Por favor, envíanos un correo a <strong>infobeubek@gmail.com</strong> con la siguiente información:
       </p>
       <ul>
         <li>Nombre completo</li>

@@ -1,0 +1,32 @@
+/* src/pages/Terminos.css */
+
+.terminos-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.terminos-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.terminos-container h2 {
+  font-size: 1.3rem;
+  margin-top: 30px;
+  color: #222;
+}
+
+.terminos-container ul {
+  margin-left: 20px;
+  list-style-type: disc;
+}
+
+.terminos-container a {
+  color: #007BFF;
+  text-decoration: underline;
+}

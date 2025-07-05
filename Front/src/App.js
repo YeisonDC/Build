@@ -22,6 +22,7 @@ import TodosLosPedidos from './pages/TodosLosPedidos';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Devoluciones from './components/Devoluciones.jsx';
+import Terminos from './components/Terminos.jsx';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/pago" element={<PagoCheckout />} />
             <Route path="/admin/pedidos" element={<TodosLosPedidos />} />
             <Route path="/devoluciones" element={<Devoluciones />} />
+            <Route path="/terminos" element={<Terminos />} />
           </Routes>
           <Footer />
           <ToastContainer
