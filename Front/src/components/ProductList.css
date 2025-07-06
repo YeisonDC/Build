@@ -88,9 +88,10 @@
   z-index: 1000;
   display: none;
   width: calc(100% - 2rem); /* Asegura margen lateral */
-  max-width: 300px;
+  max-width: 300px;         /* No se sale del viewport */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .mobile-filter-modal {
