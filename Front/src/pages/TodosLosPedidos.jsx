@@ -31,17 +31,18 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
-  // Filtrado por fecha (convertimos yyyy-mm-dd a dd/mm/yyyy)
+  // ✅ Filtrado por fecha formateada a "dd/mm/yyyy"
   const pedidosFiltrados = pedidos.filter(p => {
     let coincideFecha = true;
 
     if (busquedaFecha) {
-      const [yyyy, mm, dd] = busquedaFecha.split('-');
-      const fechaFormateada = `${dd}/${mm}/${yyyy}`; // dd/mm/yyyy
+      const fechaInput = new Date(busquedaFecha);
+      const fechaFormateada = fechaInput.toLocaleDateString('es-CO'); // convierte a dd/mm/yyyy
       coincideFecha = (p.fecha_pedido || '').includes(fechaFormateada);
     }
 
     const coincideId = (p._id || '').toLowerCase().includes(busquedaId.toLowerCase());
+
     return coincideFecha && coincideId;
   });
 
