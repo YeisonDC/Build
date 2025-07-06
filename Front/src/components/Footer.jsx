@@ -5,8 +5,7 @@ import { FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa';
 
 const Footer = () => {
   const handleLinkClick = (ruta) => {
-    window.scrollTo(0, 0);
-    window.location.hash = `#${ruta}`; // ← ✅ cambia a hash para soporte con HashRouter
+    window.location.href = `/#${ruta}`; // ← fuerza recarga total y respeta hash
   };
 
   return (
@@ -28,10 +27,10 @@ const Footer = () => {
         <div className="footer-social">
           <h4>Síguenos</h4>
           <div className="social-icons">
-            <a href="https://www.instagram.com/beubek.col?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noreferrer" title="Instagram">
+            <a href="https://www.instagram.com/beubek.col" target="_blank" rel="noreferrer" title="Instagram">
               <FaInstagram />
             </a>
-            <a href="https://www.tiktok.com/@beubek.b?_t=ZS-8wumOpANrVp&_r=1" target="_blank" rel="noreferrer" title="TikTok">
+            <a href="https://www.tiktok.com/@beubek.b" target="_blank" rel="noreferrer" title="TikTok">
               <FaTiktok />
             </a>
           </div>
