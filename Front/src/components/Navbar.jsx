@@ -53,7 +53,7 @@ const MENUS = {
       { label: 'faldas', path: '/categoria/faldas' },
     ],
     images: [
-      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"), path: '/categoria/jeans  ' },
+      { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748732902/Pant_Bogota_Talla_6_afjriy.jpg"), path: '/categoria/jeans' },
       { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748744041/Pant_Bucaramanga_Talla_12_mk1vys.jpg"), path: '/categoria/jeans' },
       { url: mejorarCalidadCloudinary("https://res.cloudinary.com/dvj1tw3ui/image/upload/v1748745212/Pant_En_Tela_Denver_Talla_M_m7zp6o.jpg"), path: '/categoria/pantalones-en-tela' }
     ],
@@ -105,10 +105,9 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setUserDropdownOpen(false);
-    window.location.href = '/'; // 🔄 Recargar completamente la página al cerrar sesión
+    window.location.href = '/';
   };
 
-  // NUEVO: Manejo con delay para dropdown usuario
   const openUserDropdown = () => {
     if (userDropdownTimeout.current) clearTimeout(userDropdownTimeout.current);
     setUserDropdownOpen(true);
@@ -117,7 +116,7 @@ const Navbar = () => {
   const closeUserDropdown = () => {
     userDropdownTimeout.current = setTimeout(() => {
       setUserDropdownOpen(false);
-    }, 300); // delay para que no se cierre inmediatamente
+    }, 300);
   };
 
   const cancelCloseUserDropdown = () => {
@@ -166,8 +165,27 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Botón hamburguesa + íconos móviles */}
+      {/* Íconos móviles alineados derecha */}
       <div className="navbar-mobile-icons">
+        <button
+          className="mobile-icon"
+          onClick={() => user ? navigate('/perfil') : navigate('/login')}
+          aria-label="Usuario"
+        >
+          <FiUser size={20} />
+        </button>
+
+        <button
+          className="mobile-icon"
+          onClick={() => navigate("/carrito")}
+          aria-label="Carrito"
+        >
+          <FiShoppingBag size={20} />
+          {cantidadTotal > 0 && (
+            <span className="carrito-contador">{cantidadTotal}</span>
+          )}
+        </button>
+
         <button
           className="menu-toggle"
           onClick={() => {
@@ -177,25 +195,6 @@ const Navbar = () => {
           aria-label="Toggle menu"
         >
           {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </button>
-
-        <button
-          className="mobile-icon"
-          onClick={() => navigate("/carrito")}
-          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-        >
-          <FiShoppingBag size={20} />
-          {cantidadTotal > 0 && (
-            <span className="carrito-contador">{cantidadTotal}</span>
-          )}
-        </button>
-
-        <button
-          className="mobile-icon"
-          onClick={() => user ? navigate('/perfil') : navigate('/login')}
-          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-        >
-          <FiUser size={20} />
         </button>
       </div>
 
@@ -214,11 +213,12 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Acciones derecha */}
+      {/* Acciones derecha desktop */}
       <ul className="navbar-right nav-links">
         <li className="nav-item">
           <Link to="/productos" className="nav-link">Productos</Link>
         </li>
+
         <li className="nav-item">
           <button
             className="nav-link carrito-icon-container"
@@ -232,10 +232,8 @@ const Navbar = () => {
           </button>
         </li>
 
-        {/* Usuario con dropdown */}
         <li
           className="nav-item usuario-dropdown"
-          style={{ position: 'relative' }}
           onMouseEnter={openUserDropdown}
           onMouseLeave={closeUserDropdown}
         >
@@ -244,7 +242,6 @@ const Navbar = () => {
             onClick={() => {
               if (!user) navigate('/login');
             }}
-            type="button"
             aria-haspopup="true"
             aria-expanded={userDropdownOpen}
           >
@@ -258,11 +255,7 @@ const Navbar = () => {
               onMouseEnter={cancelCloseUserDropdown}
               onMouseLeave={closeUserDropdown}
             >
-              <Link
-                to="/perfil"
-                className="dropdown-item con-icono"
-                onClick={() => setUserDropdownOpen(false)}
-              >
+              <Link to="/perfil" className="dropdown-item con-icono" onClick={() => setUserDropdownOpen(false)}>
                 <FiUser className="dropdown-icon" />
                 Perfil
               </Link>
@@ -287,10 +280,7 @@ const Navbar = () => {
             <div key={key}>
               <div
                 className="mobile-link"
-                onClick={() =>
-                  setMobileSubmenuOpen(mobileSubmenuOpen === key ? null : key)
-                }
-                style={{ cursor: 'pointer' }}
+                onClick={() => setMobileSubmenuOpen(mobileSubmenuOpen === key ? null : key)}
               >
                 {MENUS[key].label}
               </div>
@@ -316,14 +306,9 @@ const Navbar = () => {
 
           <hr />
 
-          {/* Usuario en móvil */}
           {user ? (
             <>
-              <Link
-                to="/perfil"
-                className="mobile-link con-icono"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <Link to="/perfil" className="mobile-link con-icono" onClick={() => setIsMobileMenuOpen(false)}>
                 <FiUser className="dropdown-icon" />
                 Perfil
               </Link>
