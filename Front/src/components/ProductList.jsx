@@ -12,7 +12,7 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
-  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Nuevo estado para móvil
+  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Estado para mostrar filtros en móvil
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -108,9 +108,9 @@ const ProductList = ({ initialCategory = null }) => {
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
-    <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
       
-      {/* ✅ Botón flotante para móviles */}
+      {/* ✅ Botón flotante solo visible en móvil */}
       <button
         className="filtro-flotante"
         onClick={() => setMostrarFiltros(!mostrarFiltros)}
