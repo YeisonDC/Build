@@ -4,8 +4,11 @@ import logo from '../assets/logo.png';
 import { FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa';
 
 const Footer = () => {
-  const handleLinkClick = (ruta) => {
-    window.location.href = `/#${ruta}`; // ← fuerza recarga total y respeta hash
+  const forceNavigate = (ruta) => {
+    window.location.href = `/#${ruta}`;
+    setTimeout(() => {
+      window.location.reload();
+    }, 10);
   };
 
   return (
@@ -18,9 +21,9 @@ const Footer = () => {
         <div className="footer-links">
           <h4>Beubek</h4>
           <ul>
-            <li><span onClick={() => handleLinkClick('/conocenos')}>Conócenos</span></li>
-            <li><span onClick={() => handleLinkClick('/devoluciones')}>Devoluciones</span></li>
-            <li><span onClick={() => handleLinkClick('/terminos')}>Términos y condiciones</span></li>
+            <li><span onClick={() => forceNavigate('/conocenos')}>Conócenos</span></li>
+            <li><span onClick={() => forceNavigate('/devoluciones')}>Devoluciones</span></li>
+            <li><span onClick={() => forceNavigate('/terminos')}>Términos y condiciones</span></li>
           </ul>
         </div>
 
