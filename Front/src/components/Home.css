@@ -1,11 +1,9 @@
-/* ================== Sección HERO ================== */
 .hero-section {
   position: relative;
   width: 100%;
   height: 100vh;
   display: flex;
   overflow: hidden;
-  flex-direction: row;
 }
 
 .imagen-con-overlay {
@@ -45,7 +43,6 @@
   text-align: center;
   z-index: 2;
   color: white;
-  padding: 0 20px;
 }
 
 .mensaje-central h1 {
@@ -61,7 +58,7 @@
   color: #ffffff;
 }
 
-/* ================== Sección INFO ================== */
+/* Nueva sección debajo del hero */
 .info-section {
   display: flex;
   align-items: center;
@@ -102,78 +99,66 @@
   object-fit: cover;
 }
 
-/* ================== Newsletter ================== */
-.newsletter-section {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 60px 80px;
-  background-color: #fff5f5;
-  flex-wrap: wrap;
-  gap: 40px;
+/* Nueva sección de productos destacados (reemplaza newsletter) */
+.productos-section {
+  padding: 60px 20px;
+  background-color: #fffafc;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
 }
 
-.newsletter-contenido {
-  flex: 1;
-  min-width: 280px;
-}
-
-.newsletter-contenido h2 {
+.productos-title {
   font-size: 32px;
   color: #6e1212;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.newsletter-contenido p {
-  font-size: 18px;
+.productos-descripcion {
   color: #555;
-  margin-bottom: 25px;
+  font-size: 18px;
+  margin-bottom: 40px;
 }
 
-.newsletter-form {
+.productos-grid {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
 }
 
-.newsletter-form input[type="email"] {
-  padding: 12px 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  flex: 1;
-  min-width: 200px;
-  font-size: 16px;
-}
-
-.newsletter-form button {
-  padding: 12px 24px;
-  background-color: #6e1212;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.newsletter-form button:hover {
-  background-color: #500e0e;
-}
-
-.newsletter-imagen {
-  flex: 1;
-  min-width: 280px;
-}
-
-.newsletter-imagen img {
-  width: 100%;
-  max-width: 450px;
+.producto-card {
+  background-color: #fff;
   border-radius: 16px;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 250px;
+  transition: transform 0.2s ease;
+  text-align: center;
 }
 
-/* ================== WhatsApp flotante ================== */
+.producto-card:hover {
+  transform: translateY(-5px);
+}
+
+.producto-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  object-fit: cover;
+}
+
+.producto-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.producto-card p {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Botón flotante de WhatsApp */
 .whatsapp-button-home {
   position: fixed;
   bottom: 20px;
@@ -198,6 +183,7 @@
   transform: scale(1.1);
 }
 
+/* Tooltip hidden by default */
 .whatsapp-button-home .tooltip-text {
   visibility: hidden;
   width: max-content;
@@ -219,76 +205,8 @@
   z-index: 1100;
 }
 
+/* Mostrar tooltip on hover */
 .whatsapp-button-home:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
-}
-
-/* ================== Responsive MÓVIL ================== */
-@media (max-width: 768px) {
-  .hero-section {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .imagen-con-overlay {
-    height: 50vh;
-  }
-
-  .mensaje-central {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 10px;
-  }
-
-  .mensaje-central h1 {
-    font-size: 42px;
-    line-height: 1.2;
-  }
-
-  .mensaje-central p {
-    font-size: 16px;
-  }
-
-  .info-section {
-    padding: 40px 20px;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .info-texto {
-    padding-right: 0;
-  }
-
-  .info-texto h2 {
-    font-size: 26px;
-  }
-
-  .info-texto p {
-    font-size: 16px;
-  }
-
-  .newsletter-section {
-    padding: 40px 20px;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .newsletter-contenido h2 {
-    font-size: 24px;
-  }
-
-  .newsletter-contenido p {
-    font-size: 16px;
-  }
-
-  .newsletter-form {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .newsletter-imagen img {
-    max-width: 100%;
-  }
 }
