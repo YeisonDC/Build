@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
-import API from '../api'; // ✅ Importar API con baseURL dinámica
+import API from '../api';
 import './ProductList.css';
 
 const ProductList = ({ initialCategory = null }) => {
@@ -12,7 +12,10 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
-  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Estado para mostrar filtros en móvil
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
+
+  const [paginaActual, setPaginaActual] = useState(1);
+  const productosPorPagina = 9;
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -80,6 +83,7 @@ const ProductList = ({ initialCategory = null }) => {
     });
 
     setFilteredProducts(filtered);
+    setPaginaActual(1); // Reiniciar a la primera página al filtrar
   }, [selectedColor, selectedSize, selectedCategory, maxPrice, products]);
 
   const getAllColors = () => {
@@ -105,20 +109,25 @@ const ProductList = ({ initialCategory = null }) => {
     if (ref.current) ref.current.removeAttribute('open');
   };
 
+  const handleMostrarFiltros = () => {
+    setMostrarFiltros(!mostrarFiltros);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const indexInicio = (paginaActual - 1) * productosPorPagina;
+  const indexFinal = indexInicio + productosPorPagina;
+  const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
+  const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
+
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
       
-      {/* ✅ Botón flotante solo visible en móvil */}
-      <button
-        className="filtro-flotante"
-        onClick={() => setMostrarFiltros(!mostrarFiltros)}
-      >
-        Filtros
+      <button className="filtro-flotante" onClick={handleMostrarFiltros}>
+        &#128269;
       </button>
 
-      {/* Sidebar de filtros */}
       <aside
         className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
         style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
@@ -232,7 +241,6 @@ const ProductList = ({ initialCategory = null }) => {
         </details>
       </aside>
 
-      {/* Grid de productos */}
       <main
         style={{
           display: 'grid',
@@ -242,8 +250,8 @@ const ProductList = ({ initialCategory = null }) => {
           flex: 1
         }}
       >
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map(product => (
+        {productosPagina.length > 0 ? (
+          productosPagina.map(product => (
             <ProductCard key={product._id} product={product} />
           ))
         ) : (
@@ -260,6 +268,24 @@ const ProductList = ({ initialCategory = null }) => {
           </div>
         )}
       </main>
+
+      {/* Paginación */}
+      {totalPaginas > 1 && (
+        <div className="pagination-container">
+          {[...Array(totalPaginas)].map((_, i) => (
+            <button
+              key={i}
+              className={`pagination-button ${paginaActual === i + 1 ? 'active' : ''}`}
+              onClick={() => {
+                setPaginaActual(i + 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
