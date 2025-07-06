@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useContext, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
@@ -321,18 +322,6 @@ const Navbar = () => {
               )}
             </div>
           ))}
-
-          <hr />
-
-          {!user && (
-            <Link
-              to="/login"
-              className="mobile-link"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Iniciar sesión / Registro
-            </Link>
-          )}
         </div>
       )}
     </nav>
