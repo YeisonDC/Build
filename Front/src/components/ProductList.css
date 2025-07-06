@@ -76,8 +76,9 @@
 /* ==== MOBILE ONLY ==== */
 .mobile-filter-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   background: #111;
   color: #fff;
   border: none;
@@ -86,7 +87,8 @@
   font-weight: 600;
   z-index: 1000;
   display: none;
-  max-width: calc(100% - 40px);
+  width: calc(100% - 2rem); /* Asegura margen lateral */
+  max-width: 300px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border-radius: 6px;
 }
