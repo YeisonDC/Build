@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 import API from '../api';
 import './ProductList.css';
+import { FiFilter } from 'react-icons/fi';
 
 const ProductList = ({ initialCategory = null }) => {
   const [products, setProducts] = useState([]);
@@ -119,13 +120,20 @@ const ProductList = ({ initialCategory = null }) => {
   const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
   const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
 
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-      
+
       <button className="filtro-flotante" onClick={handleMostrarFiltros}>
-        &#128269;
+        <FiFilter size={18} />
       </button>
 
       <aside
@@ -269,21 +277,17 @@ const ProductList = ({ initialCategory = null }) => {
         )}
       </main>
 
-      {/* Paginación */}
       {totalPaginas > 1 && (
-        <div className="pagination-container">
-          {[...Array(totalPaginas)].map((_, i) => (
-            <button
-              key={i}
-              className={`pagination-button ${paginaActual === i + 1 ? 'active' : ''}`}
-              onClick={() => {
-                setPaginaActual(i + 1);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              {i + 1}
-            </button>
-          ))}
+        <div className="product-list__paginacion" style={{ textAlign: 'center', padding: '2rem' }}>
+          <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
+            &laquo; Anterior
+          </button>
+          <span style={{ margin: '0 1rem' }}>
+            Página {paginaActual} de {totalPaginas}
+          </span>
+          <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
+            Siguiente &raquo;
+          </button>
         </div>
       )}
     </div>
