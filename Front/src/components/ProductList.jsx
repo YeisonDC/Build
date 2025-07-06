@@ -84,7 +84,7 @@ const ProductList = ({ initialCategory = null }) => {
     });
 
     setFilteredProducts(filtered);
-    setPaginaActual(1); // Reiniciar a la primera página al filtrar
+    setPaginaActual(1);
   }, [selectedColor, selectedSize, selectedCategory, maxPrice, products]);
 
   const getAllColors = () => {
@@ -124,12 +124,12 @@ const ProductList = ({ initialCategory = null }) => {
 
   return (
     <>
-      <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-        
-        <button className="filtro-flotante" onClick={handleMostrarFiltros}>
-          <FiFilter size={18} />
-        </button>
+      {/* ✅ Botón flotante fuera del contenedor para evitar desbordamientos */}
+      <button className="filtro-flotante" onClick={handleMostrarFiltros}>
+        <FiFilter size={18} />
+      </button>
 
+      <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
         <aside
           className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
           style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
