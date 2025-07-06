@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
-import API from '../api';
+import API from '../api'; // ✅ Importar API con baseURL dinámica
 import './ProductList.css';
 
 const ProductList = ({ initialCategory = null }) => {
@@ -12,7 +12,7 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
-  const [mostrarFiltros, setMostrarFiltros] = useState(false);
+  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Estado para mostrar filtros en móvil
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -61,14 +61,18 @@ const ProductList = ({ initialCategory = null }) => {
 
       const matchesSize =
         selectedSize === 'Todas' ||
-        product.colores.some(c => c.tallas.some(t => t.talla === selectedSize));
+        product.colores.some(c =>
+          c.tallas.some(t => t.talla === selectedSize)
+        );
 
       const matchesCategory =
         selectedCategory === 'Todas' ||
-        (Array.isArray(product.categoria) &&
+        (
+          Array.isArray(product.categoria) &&
           product.categoria.some(cat =>
             cat.toLowerCase().trim() === selectedCategory.toLowerCase().trim()
-          ));
+          )
+        );
 
       const matchesPrice = product.precio <= maxPrice;
 
@@ -105,98 +109,128 @@ const ProductList = ({ initialCategory = null }) => {
 
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-      <button className="filtro-flotante" onClick={() => setMostrarFiltros(!mostrarFiltros)}>Filtros</button>
+      
+      {/* ✅ Botón flotante solo visible en móvil */}
+      <button
+        className="filtro-flotante"
+        onClick={() => setMostrarFiltros(!mostrarFiltros)}
+      >
+        Filtros
+      </button>
 
-      {/* ✅ Sidebar móvil con animación */}
-      <div className={`sidebar-mobile-wrapper ${mostrarFiltros ? 'slide-up' : ''}`}>
-        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}>
-          <h2 className="filter-title">Filtros</h2>
+      {/* Sidebar de filtros */}
+      <aside
+        className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
+        style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
+      >
+        <h2 className="filter-title">Filtros</h2>
 
-          <details ref={colorRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
-            <div className="color-filter-dots">
+        <details ref={colorRef}>
+          <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
+          <div className="color-filter-dots">
+            <span
+              className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
+              style={{
+                backgroundColor: '#e0e0e0',
+                border: '1px solid #aaa',
+                width: '22px',
+                height: '22px',
+                cursor: 'pointer'
+              }}
+              title="Todos"
+              onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
+            ></span>
+            {getAllColors().map((colorHex, idx) => (
               <span
-                className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
-                style={{ backgroundColor: '#e0e0e0', border: '1px solid #aaa', width: '22px', height: '22px' }}
-                title="Todos"
-                onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
+                key={idx}
+                className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+                style={{
+                  backgroundColor: colorHex,
+                  width: '22px',
+                  height: '22px',
+                  borderRadius: '50%',
+                  border: '1px solid #aaa',
+                  cursor: 'pointer',
+                  marginRight: '4px'
+                }}
+                title={colorHex}
+                onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
               ></span>
-              {getAllColors().map((colorHex, idx) => (
-                <span
-                  key={idx}
-                  className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                  style={{
-                    backgroundColor: colorHex,
-                    width: '22px',
-                    height: '22px',
-                    borderRadius: '50%',
-                    border: '1px solid #aaa',
-                    cursor: 'pointer',
-                    marginRight: '4px'
-                  }}
-                  title={colorHex}
-                  onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
-                ></span>
-              ))}
-            </div>
-          </details>
+            ))}
+          </div>
+        </details>
 
-          <details ref={sizeRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                style={{ ...sizeButtonStyle, ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {}) }}>
+        <details ref={sizeRef}>
+          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+            <button
+              onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
+              style={{
+                ...sizeButtonStyle,
+                ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
+              }}
+            >
+              Todas
+            </button>
+            {getAllSizes().map((size, idx) => (
+              <button
+                key={idx}
+                onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
+                style={{
+                  ...sizeButtonStyle,
+                  ...(selectedSize === size ? selectedSizeButtonStyle : {})
+                }}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </details>
+
+        {!initialCategory && (
+          <details ref={categoryRef}>
+            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <button
+                onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
+                style={{
+                  ...sizeButtonStyle,
+                  ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
+                }}
+              >
                 Todas
               </button>
-              {getAllSizes().map((size, idx) => (
+              {getAllCategories().map((cat, idx) => (
                 <button
                   key={idx}
-                  onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                  style={{ ...sizeButtonStyle, ...(selectedSize === size ? selectedSizeButtonStyle : {}) }}
+                  onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
+                  style={{
+                    ...sizeButtonStyle,
+                    ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
+                  }}
                 >
-                  {size}
+                  {cat}
                 </button>
               ))}
             </div>
           </details>
+        )}
 
-          {!initialCategory && (
-            <details ref={categoryRef}>
-              <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-                <button onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
-                  style={{ ...sizeButtonStyle, ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {}) }}>
-                  Todas
-                </button>
-                {getAllCategories().map((cat, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
-                    style={{ ...sizeButtonStyle, ...(selectedCategory === cat ? selectedSizeButtonStyle : {}) }}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </details>
-          )}
-
-          <details ref={priceRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
-            <input
-              type="range"
-              min={0}
-              max={300000}
-              step={50000}
-              value={maxPrice}
-              onChange={e => setMaxPrice(Number(e.target.value))}
-              onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
-              onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
-            />
-            <p>Hasta ${maxPrice.toLocaleString()}</p>
-          </details>
-        </aside>
-      </div>
+        <details ref={priceRef}>
+          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
+          <input
+            type="range"
+            min={0}
+            max={300000}
+            step={50000}
+            value={maxPrice}
+            onChange={e => setMaxPrice(Number(e.target.value))}
+            onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+            onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+          />
+          <p>Hasta ${maxPrice.toLocaleString()}</p>
+        </details>
+      </aside>
 
       {/* Grid de productos */}
       <main
