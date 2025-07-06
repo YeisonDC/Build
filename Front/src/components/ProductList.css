@@ -135,3 +135,26 @@
     cursor: pointer;
   }
 }
+
+/* ============================
+   ✅ Filtros móviles animados
+   ============================ */
+@media (max-width: 768px) {
+  .mobile-filter-panel {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: #fff;
+    z-index: 999;
+    border-top: 1px solid #ccc;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.15);
+    transition: bottom 0.4s ease-in-out;
+  }
+
+  .mobile-filter-panel.slide-up {
+    bottom: 0;
+  }
+}
