@@ -84,7 +84,7 @@ const ProductList = ({ initialCategory = null }) => {
     });
 
     setFilteredProducts(filtered);
-    setPaginaActual(1);
+    setPaginaActual(1); // Reiniciar a la primera página al filtrar
   }, [selectedColor, selectedSize, selectedCategory, maxPrice, products]);
 
   const getAllColors = () => {
@@ -120,175 +120,171 @@ const ProductList = ({ initialCategory = null }) => {
   const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
   const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
 
-  const cambiarPagina = (nuevaPagina) => {
-    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
-      setPaginaActual(nuevaPagina);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
   return (
-    <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-      
-      <button className="filtro-flotante" onClick={handleMostrarFiltros}>
-        <FiFilter size={18} />
-      </button>
+    <>
+      <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
+        
+        <button className="filtro-flotante" onClick={handleMostrarFiltros}>
+          <FiFilter size={18} />
+        </button>
 
-      <aside
-        className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
-        style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
-      >
-        <h2 className="filter-title">Filtros</h2>
+        <aside
+          className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
+          style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
+        >
+          <h2 className="filter-title">Filtros</h2>
 
-        <details ref={colorRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
-          <div className="color-filter-dots">
-            <span
-              className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
-              style={{
-                backgroundColor: '#e0e0e0',
-                border: '1px solid #aaa',
-                width: '22px',
-                height: '22px',
-                cursor: 'pointer'
-              }}
-              title="Todos"
-              onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
-            ></span>
-            {getAllColors().map((colorHex, idx) => (
+          <details ref={colorRef}>
+            <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
+            <div className="color-filter-dots">
               <span
-                key={idx}
-                className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+                className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
                 style={{
-                  backgroundColor: colorHex,
+                  backgroundColor: '#e0e0e0',
+                  border: '1px solid #aaa',
                   width: '22px',
                   height: '22px',
-                  borderRadius: '50%',
-                  border: '1px solid #aaa',
-                  cursor: 'pointer',
-                  marginRight: '4px'
+                  cursor: 'pointer'
                 }}
-                title={colorHex}
-                onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
+                title="Todos"
+                onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
               ></span>
-            ))}
-          </div>
-        </details>
+              {getAllColors().map((colorHex, idx) => (
+                <span
+                  key={idx}
+                  className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+                  style={{
+                    backgroundColor: colorHex,
+                    width: '22px',
+                    height: '22px',
+                    borderRadius: '50%',
+                    border: '1px solid #aaa',
+                    cursor: 'pointer',
+                    marginRight: '4px'
+                  }}
+                  title={colorHex}
+                  onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
+                ></span>
+              ))}
+            </div>
+          </details>
 
-        <details ref={sizeRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-            <button
-              onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
-              style={{
-                ...sizeButtonStyle,
-                ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
-              }}
-            >
-              Todas
-            </button>
-            {getAllSizes().map((size, idx) => (
+          <details ref={sizeRef}>
+            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
               <button
-                key={idx}
-                onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
+                onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
                 style={{
                   ...sizeButtonStyle,
-                  ...(selectedSize === size ? selectedSizeButtonStyle : {})
-                }}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </details>
-
-        {!initialCategory && (
-          <details ref={categoryRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button
-                onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
-                style={{
-                  ...sizeButtonStyle,
-                  ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
+                  ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
                 }}
               >
                 Todas
               </button>
-              {getAllCategories().map((cat, idx) => (
+              {getAllSizes().map((size, idx) => (
                 <button
                   key={idx}
-                  onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
+                  onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
                   style={{
                     ...sizeButtonStyle,
-                    ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
+                    ...(selectedSize === size ? selectedSizeButtonStyle : {})
                   }}
                 >
-                  {cat}
+                  {size}
                 </button>
               ))}
             </div>
           </details>
-        )}
 
-        <details ref={priceRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
-          <input
-            type="range"
-            min={0}
-            max={300000}
-            step={50000}
-            value={maxPrice}
-            onChange={e => setMaxPrice(Number(e.target.value))}
-            onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
-            onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
-          />
-          <p>Hasta ${maxPrice.toLocaleString()}</p>
-        </details>
-      </aside>
+          {!initialCategory && (
+            <details ref={categoryRef}>
+              <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
+                <button
+                  onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
+                  style={{
+                    ...sizeButtonStyle,
+                    ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
+                  }}
+                >
+                  Todas
+                </button>
+                {getAllCategories().map((cat, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
+                    style={{
+                      ...sizeButtonStyle,
+                      ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </details>
+          )}
 
-      <main
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-          gap: '2rem',
-          padding: '2rem',
-          flex: 1
-        }}
-      >
-        {productosPagina.length > 0 ? (
-          productosPagina.map(product => (
-            <ProductCard key={product._id} product={product} />
-          ))
-        ) : (
-          <div style={{
-            gridColumn: '1 / -1',
-            textAlign: 'center',
-            padding: '3rem',
-            backgroundColor: '#f8f8f8',
-            borderRadius: '8px',
-            color: '#555',
-            fontSize: '1.1rem'
-          }}>
-            No se encontraron productos que coincidan con los filtros seleccionados.
-          </div>
-        )}
-      </main>
+          <details ref={priceRef}>
+            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
+            <input
+              type="range"
+              min={0}
+              max={300000}
+              step={50000}
+              value={maxPrice}
+              onChange={e => setMaxPrice(Number(e.target.value))}
+              onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+              onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+            />
+            <p>Hasta ${maxPrice.toLocaleString()}</p>
+          </details>
+        </aside>
 
+        <main
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+            gap: '2rem',
+            padding: '2rem',
+            flex: 1
+          }}
+        >
+          {productosPagina.length > 0 ? (
+            productosPagina.map(product => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            <div style={{
+              gridColumn: '1 / -1',
+              textAlign: 'center',
+              padding: '3rem',
+              backgroundColor: '#f8f8f8',
+              borderRadius: '8px',
+              color: '#555',
+              fontSize: '1.1rem'
+            }}>
+              No se encontraron productos que coincidan con los filtros seleccionados.
+            </div>
+          )}
+        </main>
+      </div>
+
+      {/* ✅ Paginación fuera del contenedor principal para que quede centrada */}
       {totalPaginas > 1 && (
         <div className="product-list__paginacion">
-          <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
+          <button onClick={() => setPaginaActual(paginaActual - 1)} disabled={paginaActual === 1}>
             &laquo; Anterior
           </button>
           <span>Página {paginaActual} de {totalPaginas}</span>
-          <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
+          <button onClick={() => setPaginaActual(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
             Siguiente &raquo;
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
