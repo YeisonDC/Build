@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import API from '../api';
+import './TodosLosPedidos.css';
 
 const TodosLosPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
-  const [busqueda, setBusqueda] = useState('');
   const [cargando, setCargando] = useState(true);
+  const [busquedaFecha, setBusquedaFecha] = useState('');
+  const [busquedaId, setBusquedaId] = useState('');
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [detallesVisibles, setDetallesVisibles] = useState({});
+  const pedidosPorPagina = 5;
 
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
-        const token = localStorage.getItem('token'); // Obtener token del localStorage
-
+        const token = localStorage.getItem('token');
         const res = await API.get('/pedido/todos', {
-          headers: {
-            Authorization: `Bearer ${token}` // Incluir token en los headers
-          }
+          headers: { Authorization: `Bearer ${token}` }
         });
-
         setPedidos(res.data);
       } catch (err) {
         console.error('Error al obtener pedidos:', err);
@@ -28,53 +29,104 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
-  const pedidosFiltrados = pedidos.filter(p =>
-    (p.nombre_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
-    (p.correo_cliente || '').toLowerCase().includes(busqueda.toLowerCase()) ||
-    (p.celular_cliente || '').includes(busqueda)
-  );
+  // Filtrado con formato correcto de fecha
+  const pedidosFiltrados = pedidos.filter((p) => {
+    const fechaFormateada = busquedaFecha
+      ? new Date(busquedaFecha).toLocaleDateString('es-CO')
+      : '';
+    return (
+      (!busquedaFecha || (p.fecha_pedido || '').includes(fechaFormateada)) &&
+      (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
+    );
+  });
+
+  // Paginación
+  const totalPaginas = Math.ceil(pedidosFiltrados.length / pedidosPorPagina);
+  const indiceInicio = (paginaActual - 1) * pedidosPorPagina;
+  const pedidosPaginados = pedidosFiltrados.slice(indiceInicio, indiceInicio + pedidosPorPagina);
+
+  const cambiarPagina = (nuevaPagina) => {
+    if (nuevaPagina >= 1 && nuevaPagina <= totalPaginas) {
+      setPaginaActual(nuevaPagina);
+    }
+  };
+
+  const toggleDetalles = (id) => {
+    setDetallesVisibles((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
+
+  if (cargando) return <p className="admin-pedidos__cargando">Cargando pedidos...</p>;
+  if (pedidos.length === 0) return <p className="admin-pedidos__vacio">No hay pedidos aún.</p>;
 
   return (
     <div className="admin-pedidos">
-      <h2>Todos los Pedidos</h2>
+      <h2 className="admin-pedidos__titulo">Todos los Pedidos</h2>
 
-      <input
-        type="text"
-        placeholder="Buscar por nombre, correo o celular..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        style={{ marginBottom: '1rem', padding: '0.5rem', width: '100%' }}
-      />
+      <div className="admin-pedidos__filtros">
+        <input
+          type="date"
+          value={busquedaFecha}
+          onChange={(e) => setBusquedaFecha(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Filtrar por ID de pedido"
+          value={busquedaId}
+          onChange={(e) => setBusquedaId(e.target.value)}
+        />
+      </div>
 
-      {cargando ? (
-        <p>Cargando pedidos...</p>
-      ) : pedidosFiltrados.length === 0 ? (
-        <p>No se encontraron pedidos.</p>
-      ) : (
-        pedidosFiltrados.map((pedido) => (
-          <div key={pedido._id} className="pedido-card">
+      <p className="admin-pedidos__contador">Total de pedidos: {pedidosFiltrados.length}</p>
+
+      {pedidosPaginados.map((pedido) => (
+        <div key={pedido._id} className="admin-pedidos__card">
+          <div className="admin-pedidos__info">
             <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
             <p><strong>Correo:</strong> {pedido.correo_cliente}</p>
             <p><strong>Celular:</strong> {pedido.celular_cliente}</p>
-            <p><strong>Dirección:</strong> {pedido.direccion_envio}</p>
             <p><strong>Fecha:</strong> {pedido.fecha_pedido}</p>
             <p><strong>Total:</strong> ${pedido.total_pedido.toLocaleString()}</p>
+            <p><strong>Envío:</strong> ${pedido.valor_envio?.toLocaleString() || 0}</p>
+            <p><strong>ID:</strong> {pedido._id}</p>
+          </div>
 
-            <div className="productos-lista">
+          <button
+            className="admin-pedidos__ver-detalles"
+            onClick={() => toggleDetalles(pedido._id)}
+          >
+            {detallesVisibles[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
+          </button>
+
+          {detallesVisibles[pedido._id] && (
+            <div className="admin-pedidos__productos">
               {pedido.productos.map((prod, i) => (
-                <div key={i} className="producto-item">
-                  <img src={prod.imagen} alt={prod.nombre} width="60" />
-                  <div>
-                    <p>{prod.nombre}</p>
-                    <p>Talla: {prod.talla} – Cantidad: {prod.cantidad}</p>
-                    <p>Precio total: ${prod.precio_total.toLocaleString()}</p>
+                <div key={i} className="admin-pedidos__producto">
+                  <img src={prod.imagen} alt={prod.nombre} />
+                  <div className="admin-pedidos__producto-info">
+                    <p className="nombre">{prod.nombre}</p>
+                    <p className="detalle">Talla: {prod.talla} – Cantidad: {prod.cantidad}</p>
+                    <p className="precio">Precio total: ${prod.precio_total.toLocaleString()}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <hr />
-          </div>
-        ))
+          )}
+        </div>
+      ))}
+
+      {totalPaginas > 1 && (
+        <div className="admin-pedidos__paginacion">
+          <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
+            &laquo; Anterior
+          </button>
+          <span>Página {paginaActual} de {totalPaginas}</span>
+          <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
+            Siguiente &raquo;
+          </button>
+        </div>
       )}
     </div>
   );
