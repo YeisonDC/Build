@@ -110,12 +110,12 @@ const ProductList = ({ initialCategory = null }) => {
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap' }}>
       
-      {/* ✅ Botón móvil para mostrar filtros */}
+      {/* ✅ Botón flotante para móviles */}
       <button
-        className="toggle-filters-btn"
+        className="filtro-flotante"
         onClick={() => setMostrarFiltros(!mostrarFiltros)}
       >
-        {mostrarFiltros ? 'Ocultar filtros' : 'Mostrar filtros'}
+        Filtros
       </button>
 
       {/* Sidebar de filtros */}
@@ -138,7 +138,7 @@ const ProductList = ({ initialCategory = null }) => {
                 cursor: 'pointer'
               }}
               title="Todos"
-              onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); }}
+              onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
             ></span>
             {getAllColors().map((colorHex, idx) => (
               <span
@@ -154,7 +154,7 @@ const ProductList = ({ initialCategory = null }) => {
                   marginRight: '4px'
                 }}
                 title={colorHex}
-                onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); }}
+                onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
               ></span>
             ))}
           </div>
@@ -164,7 +164,7 @@ const ProductList = ({ initialCategory = null }) => {
           <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
             <button
-              onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); }}
+              onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
               style={{
                 ...sizeButtonStyle,
                 ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
@@ -175,7 +175,7 @@ const ProductList = ({ initialCategory = null }) => {
             {getAllSizes().map((size, idx) => (
               <button
                 key={idx}
-                onClick={() => { setSelectedSize(size); closeDetails(sizeRef); }}
+                onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
                 style={{
                   ...sizeButtonStyle,
                   ...(selectedSize === size ? selectedSizeButtonStyle : {})
@@ -192,7 +192,7 @@ const ProductList = ({ initialCategory = null }) => {
             <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
               <button
-                onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); }}
+                onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
                 style={{
                   ...sizeButtonStyle,
                   ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
@@ -203,7 +203,7 @@ const ProductList = ({ initialCategory = null }) => {
               {getAllCategories().map((cat, idx) => (
                 <button
                   key={idx}
-                  onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); }}
+                  onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
                   style={{
                     ...sizeButtonStyle,
                     ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
@@ -225,8 +225,8 @@ const ProductList = ({ initialCategory = null }) => {
             step={50000}
             value={maxPrice}
             onChange={e => setMaxPrice(Number(e.target.value))}
-            onMouseUp={() => closeDetails(priceRef)}
-            onTouchEnd={() => closeDetails(priceRef)}
+            onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+            onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
           />
           <p>Hasta ${maxPrice.toLocaleString()}</p>
         </details>

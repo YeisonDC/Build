@@ -109,3 +109,28 @@
     border-bottom: 1px solid #ccc;
   }
 }
+
+/* ============================
+   ✅ Botón flotante en móvil
+   ============================ */
+.filtro-flotante {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .filtro-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #111;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+}
