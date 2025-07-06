@@ -16,7 +16,9 @@ const TodosLosPedidos = () => {
       try {
         const token = localStorage.getItem('token');
         const res = await API.get('/pedido/todos', {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
         setPedidos(res.data);
       } catch (err) {
@@ -29,10 +31,10 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
-  // Filtrado con formato correcto de fecha
-  const pedidosFiltrados = pedidos.filter((p) => {
+  // Filtrado
+  const pedidosFiltrados = pedidos.filter(p => {
     const fechaFormateada = busquedaFecha
-      ? new Date(busquedaFecha).toLocaleDateString('es-CO')
+      ? new Date(busquedaFecha).toLocaleDateString('es-CO') // dd/mm/yyyy
       : '';
     return (
       (!busquedaFecha || (p.fecha_pedido || '').includes(fechaFormateada)) &&
@@ -52,10 +54,7 @@ const TodosLosPedidos = () => {
   };
 
   const toggleDetalles = (id) => {
-    setDetallesVisibles((prev) => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+    setDetallesVisibles(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
   if (cargando) return <p className="admin-pedidos__cargando">Cargando pedidos...</p>;
@@ -84,36 +83,36 @@ const TodosLosPedidos = () => {
       {pedidosPaginados.map((pedido) => (
         <div key={pedido._id} className="admin-pedidos__card">
           <div className="admin-pedidos__info">
-            <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
-            <p><strong>Correo:</strong> {pedido.correo_cliente}</p>
-            <p><strong>Celular:</strong> {pedido.celular_cliente}</p>
+            <p><strong>ID:</strong> {pedido._id}</p>
             <p><strong>Fecha:</strong> {pedido.fecha_pedido}</p>
             <p><strong>Total:</strong> ${pedido.total_pedido.toLocaleString()}</p>
             <p><strong>Envío:</strong> ${pedido.valor_envio?.toLocaleString() || 0}</p>
-            <p><strong>ID:</strong> {pedido._id}</p>
+            <button className="admin-pedidos__detalles-btn" onClick={() => toggleDetalles(pedido._id)}>
+              {detallesVisibles[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
+            </button>
           </div>
 
-          <button
-            className="admin-pedidos__ver-detalles"
-            onClick={() => toggleDetalles(pedido._id)}
-          >
-            {detallesVisibles[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
-          </button>
-
           {detallesVisibles[pedido._id] && (
-            <div className="admin-pedidos__productos">
-              {pedido.productos.map((prod, i) => (
-                <div key={i} className="admin-pedidos__producto">
-                  <img src={prod.imagen} alt={prod.nombre} />
-                  <div className="admin-pedidos__producto-info">
-                    <p className="nombre">{prod.nombre}</p>
-                    <p className="detalle">Talla: {prod.talla} – Cantidad: {prod.cantidad}</p>
-                    <p className="precio">Precio total: ${prod.precio_total.toLocaleString()}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="admin-pedidos__detalles">
+              <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
+              <p><strong>Correo:</strong> {pedido.correo_cliente}</p>
+              <p><strong>Celular:</strong> {pedido.celular_cliente}</p>
+              <p><strong>Dirección:</strong> {pedido.direccion_envio}</p>
             </div>
           )}
+
+          <div className="admin-pedidos__productos">
+            {pedido.productos.map((prod, i) => (
+              <div key={i} className="admin-pedidos__producto">
+                <img src={prod.imagen} alt={prod.nombre} />
+                <div className="admin-pedidos__producto-info">
+                  <p className="nombre">{prod.nombre}</p>
+                  <p className="detalle">Talla: {prod.talla} – Cantidad: {prod.cantidad}</p>
+                  <p className="precio">Precio total: ${prod.precio_total.toLocaleString()}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
 

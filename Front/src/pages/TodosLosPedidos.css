@@ -38,7 +38,7 @@
   border-radius: 12px;
   padding: 1.2rem 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .admin-pedidos__info {
@@ -48,18 +48,31 @@
   gap: 1rem;
   font-size: 0.95rem;
   margin-bottom: 1rem;
+  align-items: center;
 }
 
-.admin-pedidos__ver-detalles {
+.admin-pedidos__detalles-btn {
   background-color: #111;
-  color: white;
-  padding: 0.5rem 1rem;
+  color: #fff;
   border: none;
+  padding: 0.4rem 0.9rem;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.admin-pedidos__detalles-btn:hover {
+  background-color: #333;
+}
+
+.admin-pedidos__detalles {
+  background-color: #f1f1f1;
+  padding: 1rem;
+  border-radius: 8px;
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  color: #333;
 }
 
 .admin-pedidos__productos {
@@ -95,13 +108,6 @@
   color: #555;
 }
 
-.admin-pedidos__cargando,
-.admin-pedidos__vacio {
-  text-align: center;
-  font-size: 1rem;
-  margin-top: 2rem;
-}
-
 /* Paginación */
 .admin-pedidos__paginacion {
   display: flex;
@@ -130,4 +136,11 @@
 .admin-pedidos__paginacion span {
   font-size: 0.95rem;
   font-weight: 500;
+}
+
+.admin-pedidos__cargando,
+.admin-pedidos__vacio {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 2rem;
 }
