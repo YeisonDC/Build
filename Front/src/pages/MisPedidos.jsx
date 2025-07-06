@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import API from '../api';
-import './TodosLosPedidos.css';
+import { AuthContext } from '../context/AuthContext';
+import './MisPedidos.css';
 
-const TodosLosPedidos = () => {
+const MisPedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [busquedaFecha, setBusquedaFecha] = useState('');
   const [busquedaId, setBusquedaId] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
   const pedidosPorPagina = 5;
-  const [detallesAbiertos, setDetallesAbiertos] = useState({});
+
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchPedidos = async () => {
+    const obtenerPedidos = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const res = await API.get('/pedido/todos', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await API.get('/pedido/mis-pedidos');
         setPedidos(res.data);
       } catch (err) {
         console.error('Error al obtener pedidos:', err);
@@ -28,10 +25,12 @@ const TodosLosPedidos = () => {
       }
     };
 
-    fetchPedidos();
-  }, []);
+    if (user) {
+      obtenerPedidos();
+    }
+  }, [user]);
 
-  // Filtrado por fecha (formato dd/mm/yyyy) y por ID
+  // Filtrado con conversión de fecha (de yyyy-mm-dd a dd/mm/yyyy)
   const pedidosFiltrados = pedidos.filter(p => {
     let coincideFecha = true;
     if (busquedaFecha) {
@@ -41,9 +40,11 @@ const TodosLosPedidos = () => {
     }
 
     const coincideId = (p._id || '').toLowerCase().includes(busquedaId.toLowerCase());
+
     return coincideFecha && coincideId;
   });
 
+  // Paginación
   const totalPaginas = Math.ceil(pedidosFiltrados.length / pedidosPorPagina);
   const indiceInicio = (paginaActual - 1) * pedidosPorPagina;
   const pedidosPaginados = pedidosFiltrados.slice(indiceInicio, indiceInicio + pedidosPorPagina);
@@ -54,21 +55,14 @@ const TodosLosPedidos = () => {
     }
   };
 
-  const toggleDetalles = (id) => {
-    setDetallesAbiertos(prev => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
-
-  if (cargando) return <p className="admin-pedidos__cargando">Cargando pedidos...</p>;
-  if (pedidos.length === 0) return <p className="admin-pedidos__vacio">No hay pedidos registrados.</p>;
+  if (cargando) return <p className="perfil-pedidos__cargando">Cargando pedidos...</p>;
+  if (pedidos.length === 0) return <p className="perfil-pedidos__vacio">No tienes pedidos aún.</p>;
 
   return (
-    <div className="admin-pedidos">
-      <h2 className="admin-pedidos__titulo">Todos los Pedidos</h2>
+    <div className="perfil-pedidos">
+      <h2 className="perfil-pedidos__titulo">Mis Pedidos</h2>
 
-      <div className="admin-pedidos__filtros">
+      <div className="perfil-pedidos__filtros">
         <input
           type="date"
           value={busquedaFecha}
@@ -82,37 +76,22 @@ const TodosLosPedidos = () => {
         />
       </div>
 
-      <p className="admin-pedidos__contador">Total de pedidos: {pedidosFiltrados.length}</p>
+      <p className="perfil-pedidos__contador">Total de pedidos: {pedidosFiltrados.length}</p>
 
       {pedidosPaginados.map((pedido) => (
-        <div key={pedido._id} className="admin-pedidos__card">
-          <div className="admin-pedidos__info">
+        <div key={pedido._id} className="perfil-pedidos__card">
+          <div className="perfil-pedidos__info">
             <p><strong>Fecha:</strong> {pedido.fecha_pedido}</p>
             <p><strong>Total:</strong> ${pedido.total_pedido.toLocaleString()}</p>
             <p><strong>Envío:</strong> ${pedido.valor_envio?.toLocaleString() || 0}</p>
             <p><strong>ID:</strong> {pedido._id}</p>
-            <button
-              className="admin-pedidos__detalles-btn"
-              onClick={() => toggleDetalles(pedido._id)}
-            >
-              {detallesAbiertos[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
-            </button>
           </div>
 
-          {detallesAbiertos[pedido._id] && (
-            <div className="admin-pedidos__detalles">
-              <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
-              <p><strong>Correo:</strong> {pedido.correo_cliente}</p>
-              <p><strong>Celular:</strong> {pedido.celular_cliente}</p>
-              <p><strong>Dirección:</strong> {pedido.direccion_envio}</p>
-            </div>
-          )}
-
-          <div className="admin-pedidos__productos">
+          <div className="perfil-pedidos__productos">
             {pedido.productos.map((prod, i) => (
-              <div key={i} className="admin-pedidos__producto">
+              <div key={i} className="perfil-pedidos__producto">
                 <img src={prod.imagen} alt={prod.nombre} />
-                <div className="admin-pedidos__producto-info">
+                <div className="perfil-pedidos__producto-info">
                   <p className="nombre">{prod.nombre}</p>
                   <p className="detalle">Talla: {prod.talla} – Cantidad: {prod.cantidad}</p>
                   <p className="precio">Precio total: ${prod.precio_total.toLocaleString()}</p>
@@ -124,7 +103,7 @@ const TodosLosPedidos = () => {
       ))}
 
       {totalPaginas > 1 && (
-        <div className="admin-pedidos__paginacion">
+        <div className="perfil-pedidos__paginacion">
           <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
             &laquo; Anterior
           </button>
@@ -138,4 +117,4 @@ const TodosLosPedidos = () => {
   );
 };
 
-export default TodosLosPedidos;
+export default MisPedidos;

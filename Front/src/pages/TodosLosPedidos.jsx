@@ -8,8 +8,8 @@ const TodosLosPedidos = () => {
   const [busquedaFecha, setBusquedaFecha] = useState('');
   const [busquedaId, setBusquedaId] = useState('');
   const [paginaActual, setPaginaActual] = useState(1);
-  const [detallesVisibles, setDetallesVisibles] = useState({});
   const pedidosPorPagina = 5;
+  const [detallesAbiertos, setDetallesAbiertos] = useState({});
 
   useEffect(() => {
     const fetchPedidos = async () => {
@@ -17,8 +17,8 @@ const TodosLosPedidos = () => {
         const token = localStorage.getItem('token');
         const res = await API.get('/pedido/todos', {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
         setPedidos(res.data);
       } catch (err) {
@@ -31,18 +31,20 @@ const TodosLosPedidos = () => {
     fetchPedidos();
   }, []);
 
-  // Filtrado
+  // Filtrado por fecha (convertimos yyyy-mm-dd a dd/mm/yyyy)
   const pedidosFiltrados = pedidos.filter(p => {
-    const fechaFormateada = busquedaFecha
-      ? new Date(busquedaFecha).toLocaleDateString('es-CO') // dd/mm/yyyy
-      : '';
-    return (
-      (!busquedaFecha || (p.fecha_pedido || '').includes(fechaFormateada)) &&
-      (p._id || '').toLowerCase().includes(busquedaId.toLowerCase())
-    );
+    let coincideFecha = true;
+
+    if (busquedaFecha) {
+      const [yyyy, mm, dd] = busquedaFecha.split('-');
+      const fechaFormateada = `${dd}/${mm}/${yyyy}`; // dd/mm/yyyy
+      coincideFecha = (p.fecha_pedido || '').includes(fechaFormateada);
+    }
+
+    const coincideId = (p._id || '').toLowerCase().includes(busquedaId.toLowerCase());
+    return coincideFecha && coincideId;
   });
 
-  // Paginación
   const totalPaginas = Math.ceil(pedidosFiltrados.length / pedidosPorPagina);
   const indiceInicio = (paginaActual - 1) * pedidosPorPagina;
   const pedidosPaginados = pedidosFiltrados.slice(indiceInicio, indiceInicio + pedidosPorPagina);
@@ -54,11 +56,14 @@ const TodosLosPedidos = () => {
   };
 
   const toggleDetalles = (id) => {
-    setDetallesVisibles(prev => ({ ...prev, [id]: !prev[id] }));
+    setDetallesAbiertos(prev => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   if (cargando) return <p className="admin-pedidos__cargando">Cargando pedidos...</p>;
-  if (pedidos.length === 0) return <p className="admin-pedidos__vacio">No hay pedidos aún.</p>;
+  if (pedidos.length === 0) return <p className="admin-pedidos__vacio">No hay pedidos registrados.</p>;
 
   return (
     <div className="admin-pedidos">
@@ -83,16 +88,19 @@ const TodosLosPedidos = () => {
       {pedidosPaginados.map((pedido) => (
         <div key={pedido._id} className="admin-pedidos__card">
           <div className="admin-pedidos__info">
-            <p><strong>ID:</strong> {pedido._id}</p>
             <p><strong>Fecha:</strong> {pedido.fecha_pedido}</p>
             <p><strong>Total:</strong> ${pedido.total_pedido.toLocaleString()}</p>
             <p><strong>Envío:</strong> ${pedido.valor_envio?.toLocaleString() || 0}</p>
-            <button className="admin-pedidos__detalles-btn" onClick={() => toggleDetalles(pedido._id)}>
-              {detallesVisibles[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
+            <p><strong>ID:</strong> {pedido._id}</p>
+            <button
+              className="admin-pedidos__detalles-btn"
+              onClick={() => toggleDetalles(pedido._id)}
+            >
+              {detallesAbiertos[pedido._id] ? 'Ocultar detalles' : 'Ver detalles'}
             </button>
           </div>
 
-          {detallesVisibles[pedido._id] && (
+          {detallesAbiertos[pedido._id] && (
             <div className="admin-pedidos__detalles">
               <p><strong>Cliente:</strong> {pedido.nombre_cliente}</p>
               <p><strong>Correo:</strong> {pedido.correo_cliente}</p>
