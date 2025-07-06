@@ -1,11 +1,14 @@
 import React from 'react';
 import './Footer.css';
-import logo from '../assets/logo.png'; // Usa tu logo real
+import logo from '../assets/logo.png';
 import { FaInstagram, FaFacebook, FaTiktok } from 'react-icons/fa';
-import { Link} from 'react-router-dom';
-
 
 const Footer = () => {
+  const handleLinkClick = (ruta) => {
+    window.scrollTo(0, 0); // Por si el navegador no recarga automáticamente al top
+    window.location.href = ruta; // Recarga la página por completo
+  };
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -14,13 +17,14 @@ const Footer = () => {
         </div>
 
         <div className="footer-links">
-  <h4>Beubek</h4>
-  <ul>
-    <li><Link to="/conocenos">Conócenos</Link></li>
-    <li><Link to="/devoluciones">Devoluciones</Link></li>
-    <li><Link to="/terminos">Términos y condiciones</Link></li>
-  </ul>
-</div>
+          <h4>Beubek</h4>
+          <ul>
+            <li><span onClick={() => handleLinkClick('/conocenos')}>Conócenos</span></li>
+            <li><span onClick={() => handleLinkClick('/devoluciones')}>Devoluciones</span></li>
+            <li><span onClick={() => handleLinkClick('/terminos')}>Términos y condiciones</span></li>
+          </ul>
+        </div>
+
         <div className="footer-social">
           <h4>Síguenos</h4>
           <div className="social-icons">
