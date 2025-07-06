@@ -30,7 +30,12 @@ const MisPedidos = () => {
     }
   }, [user]);
 
-  // Filtrado con conversión de fecha (de yyyy-mm-dd a dd/mm/yyyy)
+  // 🔁 Reiniciar a la primera página cuando se filtra
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [busquedaFecha, busquedaId]);
+
+  // ✅ Filtrado con conversión de fecha (de yyyy-mm-dd a dd/mm/yyyy)
   const pedidosFiltrados = pedidos.filter(p => {
     let coincideFecha = true;
     if (busquedaFecha) {

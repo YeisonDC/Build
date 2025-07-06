@@ -11,6 +11,7 @@ const TodosLosPedidos = () => {
   const pedidosPorPagina = 5;
   const [detallesAbiertos, setDetallesAbiertos] = useState({});
 
+  // 🔁 Obtener todos los pedidos
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
@@ -30,6 +31,11 @@ const TodosLosPedidos = () => {
 
     fetchPedidos();
   }, []);
+
+  // 🔁 Reiniciar a la primera página cuando se filtra
+  useEffect(() => {
+    setPaginaActual(1);
+  }, [busquedaFecha, busquedaId]);
 
   // ✅ Filtrado corregido por fecha y ID
   const pedidosFiltrados = pedidos.filter(p => {
