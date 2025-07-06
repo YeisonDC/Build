@@ -25,6 +25,7 @@
   flex-direction: column;
 }
 
+/* ✅ Estilo corregido para todos los inputs, incluyendo type="tel" */
 .pago-checkout-container .formulario input {
   width: 100%;
   margin-bottom: 12px;
@@ -34,6 +35,10 @@
   font-size: 0.95rem;
   transition: border-color 0.2s ease;
   box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
 }
 
 .pago-checkout-container .formulario input:focus {
