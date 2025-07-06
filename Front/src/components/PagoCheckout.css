@@ -1,0 +1,64 @@
+.pago-checkout-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.pago-checkout-container .titulo {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.pago-checkout-container .total {
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pago-checkout-container .formulario input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+}
+
+.pago-checkout-container .formulario input:focus {
+  border-color: #333;
+  outline: none;
+}
+
+.pago-checkout-container .formulario button {
+  width: 100%;
+  background-color: #111;
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pago-checkout-container .formulario button:hover {
+  background-color: #222;
+}
+
+.pago-checkout-container .formulario button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.pago-checkout-container .formulario .error {
+  margin-top: 12px;
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+}

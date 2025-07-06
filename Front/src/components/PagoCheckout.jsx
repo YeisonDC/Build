@@ -3,12 +3,13 @@ import API from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import './PagoCheckout.css'; // ✅ Nuevo archivo CSS
 
 const PagoCheckout = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
   const totalConEnvio = Number(location.state?.totalConEnvio || 0);
-  const valorEnvio = Number(location.state?.valorEnvio || 0); // ← ✅ Nuevo valor extraído
+  const valorEnvio = Number(location.state?.valorEnvio || 0);
 
   const [sessionId, setSessionId] = useState(null);
 
@@ -84,7 +85,7 @@ const PagoCheckout = () => {
         correo_cliente: correo,
         celular_cliente: celular,
         direccion_envio: `${direccion.calle}, ${direccion.ciudad}, ${direccion.departamento}, ${direccion.pais}, ${direccion.codigo_postal}`,
-        valor_envio: valorEnvio // ← ✅ Valor del envío ahora viene desde CartPage
+        valor_envio: valorEnvio
       };
 
       if (!user?.id) {
@@ -101,7 +102,7 @@ const PagoCheckout = () => {
         nombre_cliente: nombre,
         celular_cliente: celular,
         direccion_envio: direccion,
-        valor_envio: valorEnvio // ← ✅ También se envía en la creación del checkout
+        valor_envio: valorEnvio
       };
 
       if (!user?.id) {
@@ -125,9 +126,9 @@ const PagoCheckout = () => {
   };
 
   return (
-    <div style={{ maxWidth: 500, margin: 'auto', padding: 20 }}>
-      <h2>Pagar con Wompi</h2>
-      <p>
+    <div className="pago-checkout-container">
+      <h2 className="titulo">Pagar con Wompi</h2>
+      <p className="total">
         Total a pagar:{' '}
         <b>
           {totalConEnvio.toLocaleString('es-CO', {
@@ -137,71 +138,22 @@ const PagoCheckout = () => {
         </b>
       </p>
 
-      <input
-        type="text"
-        placeholder="Nombre completo"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
+      <div className="formulario">
+        <input type="text" placeholder="Nombre completo" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        <input type="email" placeholder="Correo electrónico" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+        <input type="tel" placeholder="Número de celular" value={celular} onChange={(e) => setCelular(e.target.value)} />
+        <input type="text" placeholder="Calle / dirección" value={direccion.calle} onChange={(e) => setDireccion({ ...direccion, calle: e.target.value })} />
+        <input type="text" placeholder="Ciudad" value={direccion.ciudad} onChange={(e) => setDireccion({ ...direccion, ciudad: e.target.value })} />
+        <input type="text" placeholder="Departamento" value={direccion.departamento} onChange={(e) => setDireccion({ ...direccion, departamento: e.target.value })} />
+        <input type="text" placeholder="País" value={direccion.pais} onChange={(e) => setDireccion({ ...direccion, pais: e.target.value })} />
+        <input type="text" placeholder="Código postal" value={direccion.codigo_postal} onChange={(e) => setDireccion({ ...direccion, codigo_postal: e.target.value })} />
 
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        value={correo}
-        onChange={(e) => setCorreo(e.target.value)}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
+        <button onClick={manejarPago} disabled={cargando}>
+          {cargando ? 'Generando pago...' : 'Pagar'}
+        </button>
 
-      <input
-        type="tel"
-        placeholder="Número de celular"
-        value={celular}
-        onChange={(e) => setCelular(e.target.value)}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-
-      <input
-        type="text"
-        placeholder="Calle / dirección"
-        value={direccion.calle}
-        onChange={(e) => setDireccion({ ...direccion, calle: e.target.value })}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-      <input
-        type="text"
-        placeholder="Ciudad"
-        value={direccion.ciudad}
-        onChange={(e) => setDireccion({ ...direccion, ciudad: e.target.value })}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-      <input
-        type="text"
-        placeholder="Departamento"
-        value={direccion.departamento}
-        onChange={(e) => setDireccion({ ...direccion, departamento: e.target.value })}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-      <input
-        type="text"
-        placeholder="País"
-        value={direccion.pais}
-        onChange={(e) => setDireccion({ ...direccion, pais: e.target.value })}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-      <input
-        type="text"
-        placeholder="Código postal"
-        value={direccion.codigo_postal}
-        onChange={(e) => setDireccion({ ...direccion, codigo_postal: e.target.value })}
-        style={{ width: '100%', marginBottom: 10, padding: 8 }}
-      />
-
-      <button onClick={manejarPago} disabled={cargando} style={{ width: '100%', padding: 10 }}>
-        {cargando ? 'Generando pago...' : 'Pagar'}
-      </button>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p className="error">{error}</p>}
+      </div>
     </div>
   );
 };
