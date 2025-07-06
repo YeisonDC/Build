@@ -208,12 +208,12 @@ const ProductList = ({ initialCategory = null }) => {
         {renderFilters()}
       </aside>
 
-      {/* Botón flotante solo en mobile */}
-      <button className="mobile-filter-button" onClick={() => setIsMobileFilterOpen(true)}>
-        Filtros
-      </button>
+      {!isMobileFilterOpen && (
+        <button className="mobile-filter-button" onClick={() => setIsMobileFilterOpen(true)}>
+          Filtros
+        </button>
+      )}
 
-      {/* Modal de filtros mobile */}
       {isMobileFilterOpen && (
         <div className="mobile-filter-modal">
           <div className="mobile-filter-header">
