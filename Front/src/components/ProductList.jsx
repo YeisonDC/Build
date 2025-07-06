@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
-import API from '../api';
+import API from '../api'; // ✅ Importar API con baseURL dinámica
 import './ProductList.css';
 
 const ProductList = ({ initialCategory = null }) => {
@@ -12,7 +12,7 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
-  const [mostrarFiltros, setMostrarFiltros] = useState(false);
+  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Estado para mostrar filtros en móvil
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -110,7 +110,7 @@ const ProductList = ({ initialCategory = null }) => {
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
       
-      {/* ✅ Botón flotante móvil */}
+      {/* ✅ Botón flotante solo visible en móvil */}
       <button
         className="filtro-flotante"
         onClick={() => setMostrarFiltros(!mostrarFiltros)}
@@ -118,9 +118,10 @@ const ProductList = ({ initialCategory = null }) => {
         Filtros
       </button>
 
-      {/* ✅ Sidebar con animación */}
+      {/* Sidebar de filtros */}
       <aside
-        className={`sidebar mobile-filter-panel ${mostrarFiltros ? 'slide-up' : ''}`}
+        className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
+        style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
       >
         <h2 className="filter-title">Filtros</h2>
 
@@ -231,6 +232,7 @@ const ProductList = ({ initialCategory = null }) => {
         </details>
       </aside>
 
+      {/* Grid de productos */}
       <main
         style={{
           display: 'grid',
