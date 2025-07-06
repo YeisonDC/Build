@@ -119,6 +119,7 @@
 
 @media (max-width: 768px) {
   .filtro-flotante {
+    display: block;
     position: fixed;
     bottom: 20px;
     right: 20px;
