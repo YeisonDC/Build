@@ -306,25 +306,7 @@ const Navbar = () => {
 
           <hr />
 
-          {user ? (
-            <>
-              <Link to="/perfil" className="mobile-link con-icono" onClick={() => setIsMobileMenuOpen(false)}>
-                <FiUser className="dropdown-icon" />
-                Perfil
-              </Link>
-              <button
-                className="mobile-link con-icono"
-                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                onClick={() => {
-                  handleLogout();
-                  setIsMobileMenuOpen(false);
-                }}
-              >
-                <FiLogOut className="dropdown-icon" />
-                Cerrar sesión
-              </button>
-            </>
-          ) : (
+          {!user && (
             <Link
               to="/login"
               className="mobile-link"

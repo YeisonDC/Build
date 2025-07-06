@@ -134,7 +134,7 @@
   transform: scale(1.05);
 }
 
-/* ---------- Carrito ---------- */
+/* ---------- Carrito y usuario ---------- */
 .carrito-icon-container,
 .usuario-icon-container {
   position: relative;
@@ -243,7 +243,6 @@
     z-index: 9999;
   }
 
-  /* Links dentro del menú móvil */
   .mobile-link {
     padding: 10px 0;
     font-size: 16px;
@@ -253,17 +252,15 @@
     cursor: pointer;
   }
 
-  /* Submenú dentro del menú móvil (acordeón) */
   .mobile-submenu {
     padding-left: 20px;
-    display: flex; /* Mostrar submenu activo con flex */
+    display: flex;
     flex-direction: column;
     border-left: 2px solid #6e1212;
     margin-top: 5px;
     margin-bottom: 10px;
   }
 
-  /* Links dentro del submenú móvil */
   .mobile-submenu a {
     padding: 6px 0;
     font-size: 14px;
@@ -271,7 +268,6 @@
     text-decoration: none;
   }
 
-  /* Hover links submenú móvil */
   .mobile-submenu a:hover {
     color: #6e1212;
   }
@@ -296,7 +292,7 @@
 }
 
 .usuario-icon-container:hover {
-  color: #6e1212; /* mismo efecto que el carrito */
+  color: #6e1212;
 }
 
 .usuario-dropdown-menu {
@@ -310,12 +306,10 @@
   display: flex;
   flex-direction: column;
   padding: 10px 0;
-  border: none;
   border-radius: 0;
   font-family: inherit;
 }
 
-/* Ítems del menú */
 .usuario-dropdown-menu a,
 .usuario-dropdown-menu button {
   display: flex;
@@ -336,14 +330,12 @@
   gap: 10px;
 }
 
-/* Hover sutil */
 .usuario-dropdown-menu a:hover,
 .usuario-dropdown-menu button:hover {
   background-color: #f2f2f2;
   color: #000;
 }
 
-/* Separador visual antes del cierre de sesión */
 .usuario-dropdown-menu .separador {
   height: 1px;
   background-color: #e6e6e6;
