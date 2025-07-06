@@ -84,7 +84,7 @@ const ProductList = ({ initialCategory = null }) => {
     });
 
     setFilteredProducts(filtered);
-    setPaginaActual(1); // Reiniciar a la primera página al filtrar
+    setPaginaActual(1);
   }, [selectedColor, selectedSize, selectedCategory, maxPrice, products]);
 
   const getAllColors = () => {
@@ -131,7 +131,7 @@ const ProductList = ({ initialCategory = null }) => {
 
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-
+      
       <button className="filtro-flotante" onClick={handleMostrarFiltros}>
         <FiFilter size={18} />
       </button>
@@ -278,13 +278,11 @@ const ProductList = ({ initialCategory = null }) => {
       </main>
 
       {totalPaginas > 1 && (
-        <div className="product-list__paginacion" style={{ textAlign: 'center', padding: '2rem' }}>
+        <div className="product-list__paginacion">
           <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
             &laquo; Anterior
           </button>
-          <span style={{ margin: '0 1rem' }}>
-            Página {paginaActual} de {totalPaginas}
-          </span>
+          <span>Página {paginaActual} de {totalPaginas}</span>
           <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
             Siguiente &raquo;
           </button>
