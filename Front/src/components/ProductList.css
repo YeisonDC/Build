@@ -73,4 +73,39 @@
   color: #222;
 }
 
+/* ============================
+   ✅ Responsive para móviles
+   ============================ */
 
+.toggle-filters-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .toggle-filters-btn {
+    display: block;
+    margin: 1rem auto 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #111;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .sidebar {
+    display: none;
+    width: 100%;
+    border-right: none;
+    padding: 0 1rem;
+  }
+
+  .sidebar.show-mobile {
+    display: block;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+}

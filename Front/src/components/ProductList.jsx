@@ -12,6 +12,7 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
+  const [mostrarFiltros, setMostrarFiltros] = useState(false); // ✅ Nuevo estado para móvil
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -108,8 +109,20 @@ const ProductList = ({ initialCategory = null }) => {
 
   return (
     <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap' }}>
+      
+      {/* ✅ Botón móvil para mostrar filtros */}
+      <button
+        className="toggle-filters-btn"
+        onClick={() => setMostrarFiltros(!mostrarFiltros)}
+      >
+        {mostrarFiltros ? 'Ocultar filtros' : 'Mostrar filtros'}
+      </button>
+
       {/* Sidebar de filtros */}
-      <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
+      <aside
+        className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
+        style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
+      >
         <h2 className="filter-title">Filtros</h2>
 
         <details ref={colorRef}>
@@ -219,7 +232,7 @@ const ProductList = ({ initialCategory = null }) => {
         </details>
       </aside>
 
-      {/* Grid de productos (alineado como CategoryPage) */}
+      {/* Grid de productos */}
       <main
         style={{
           display: 'grid',
