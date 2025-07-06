@@ -7,8 +7,9 @@ const Footer = () => {
   const forceNavigate = (ruta) => {
     window.location.href = `/#${ruta}`;
     setTimeout(() => {
-      window.location.reload();
-    }, 10);
+      window.scrollTo(0, 0);      // ← Desplaza hacia el inicio
+      window.location.reload();  // ← Recarga la página
+    }, 20);
   };
 
   return (
