@@ -73,4 +73,76 @@
   color: #222;
 }
 
+/* ==== MOBILE ONLY ==== */
+.mobile-filter-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #111;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 0;
+  z-index: 1000;
+  display: none;
+}
 
+.mobile-filter-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 2px solid #ccc;
+  z-index: 999;
+  padding: 1rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mobile-filter-header button {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .sidebar.desktop-only {
+    display: none;
+  }
+
+  .mobile-filter-button {
+    display: block;
+  }
+}
+
+/* Extra estilos opcionales */
+.no-products-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.size-filter-buttons,
+.category-filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

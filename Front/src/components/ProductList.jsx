@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
-import API from '../api'; // ✅ Importar API con baseURL dinámica
+import API from '../api';
 import './ProductList.css';
 
 const ProductList = ({ initialCategory = null }) => {
@@ -12,6 +12,7 @@ const ProductList = ({ initialCategory = null }) => {
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory || 'Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
 
   const colorRef = useRef(null);
   const sizeRef = useRef(null);
@@ -104,145 +105,134 @@ const ProductList = ({ initialCategory = null }) => {
     if (ref.current) ref.current.removeAttribute('open');
   };
 
-  if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
-
-  return (
-    <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {/* Sidebar de filtros */}
-      <aside className="sidebar" style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
-        <h2 className="filter-title">Filtros</h2>
-
-        <details ref={colorRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
-          <div className="color-filter-dots">
+  const renderFilters = () => (
+    <>
+      <details ref={colorRef}>
+        <summary>Color</summary>
+        <div className="color-filter-dots">
+          <span
+            className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
+            style={{ backgroundColor: '#e0e0e0' }}
+            title="Todos"
+            onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); }}
+          />
+          {getAllColors().map((colorHex, idx) => (
             <span
-              className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
-              style={{
-                backgroundColor: '#e0e0e0',
-                border: '1px solid #aaa',
-                width: '22px',
-                height: '22px',
-                cursor: 'pointer'
-              }}
-              title="Todos"
-              onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); }}
-            ></span>
-            {getAllColors().map((colorHex, idx) => (
-              <span
-                key={idx}
-                className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                style={{
-                  backgroundColor: colorHex,
-                  width: '22px',
-                  height: '22px',
-                  borderRadius: '50%',
-                  border: '1px solid #aaa',
-                  cursor: 'pointer',
-                  marginRight: '4px'
-                }}
-                title={colorHex}
-                onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); }}
-              ></span>
-            ))}
-          </div>
-        </details>
+              key={idx}
+              className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+              style={{ backgroundColor: colorHex }}
+              title={colorHex}
+              onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); }}
+            />
+          ))}
+        </div>
+      </details>
 
-        <details ref={sizeRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
+      <details ref={sizeRef}>
+        <summary>Talla</summary>
+        <div className="size-filter-buttons">
+          <button
+            onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); }}
+            style={{
+              ...sizeButtonStyle,
+              ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
+            }}
+          >
+            Todas
+          </button>
+          {getAllSizes().map((size, idx) => (
             <button
-              onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); }}
+              key={idx}
+              onClick={() => { setSelectedSize(size); closeDetails(sizeRef); }}
               style={{
                 ...sizeButtonStyle,
-                ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
+                ...(selectedSize === size ? selectedSizeButtonStyle : {})
+              }}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </details>
+
+      {!initialCategory && (
+        <details ref={categoryRef}>
+          <summary>Categoría</summary>
+          <div className="category-filter-buttons">
+            <button
+              onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); }}
+              style={{
+                ...sizeButtonStyle,
+                ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
               }}
             >
               Todas
             </button>
-            {getAllSizes().map((size, idx) => (
+            {getAllCategories().map((cat, idx) => (
               <button
                 key={idx}
-                onClick={() => { setSelectedSize(size); closeDetails(sizeRef); }}
+                onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); }}
                 style={{
                   ...sizeButtonStyle,
-                  ...(selectedSize === size ? selectedSizeButtonStyle : {})
+                  ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
                 }}
               >
-                {size}
+                {cat}
               </button>
             ))}
           </div>
         </details>
+      )}
 
-        {!initialCategory && (
-          <details ref={categoryRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button
-                onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); }}
-                style={{
-                  ...sizeButtonStyle,
-                  ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
-                }}
-              >
-                Todas
-              </button>
-              {getAllCategories().map((cat, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); }}
-                  style={{
-                    ...sizeButtonStyle,
-                    ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
-                  }}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </details>
-        )}
+      <details ref={priceRef}>
+        <summary>Rango de precio</summary>
+        <input
+          type="range"
+          min={0}
+          max={300000}
+          step={50000}
+          value={maxPrice}
+          onChange={e => setMaxPrice(Number(e.target.value))}
+        />
+        <p>Hasta ${maxPrice.toLocaleString()}</p>
+      </details>
+    </>
+  );
 
-        <details ref={priceRef}>
-          <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
-          <input
-            type="range"
-            min={0}
-            max={300000}
-            step={50000}
-            value={maxPrice}
-            onChange={e => setMaxPrice(Number(e.target.value))}
-            onMouseUp={() => closeDetails(priceRef)}
-            onTouchEnd={() => closeDetails(priceRef)}
-          />
-          <p>Hasta ${maxPrice.toLocaleString()}</p>
-        </details>
+  if (loading) return <p className="loading-text">Cargando productos...</p>;
+
+  return (
+    <div className="product-list">
+      <aside className="sidebar desktop-only">
+        <h2 className="filter-title">Filtros</h2>
+        {renderFilters()}
       </aside>
 
-      {/* Grid de productos (alineado como CategoryPage) */}
-      <main
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-          gap: '2rem',
-          padding: '2rem',
-          flex: 1
-        }}
-      >
+      {/* Botón flotante solo en mobile */}
+      <button className="mobile-filter-button" onClick={() => setIsMobileFilterOpen(true)}>
+        Filtros
+      </button>
+
+      {/* Modal de filtros mobile */}
+      {isMobileFilterOpen && (
+        <div className="mobile-filter-modal">
+          <div className="mobile-filter-header">
+            <h2>Filtros</h2>
+            <button onClick={() => setIsMobileFilterOpen(false)}>Cerrar</button>
+          </div>
+          <div className="mobile-filter-content">
+            {renderFilters()}
+          </div>
+        </div>
+      )}
+
+      <main className="products-grid">
         {filteredProducts.length > 0 ? (
           filteredProducts.map(product => (
             <ProductCard key={product._id} product={product} />
           ))
         ) : (
-          <div style={{
-            gridColumn: '1 / -1',
-            textAlign: 'center',
-            padding: '3rem',
-            backgroundColor: '#f8f8f8',
-            borderRadius: '8px',
-            color: '#555',
-            fontSize: '1.1rem'
-          }}>
+          <div className="no-products-message">
             No se encontraron productos que coincidan con los filtros seleccionados.
           </div>
         )}
