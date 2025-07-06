@@ -25,7 +25,6 @@ body {
   flex-direction: column;
   gap: 0.5rem;   /* un poco menos para compactar */
   width: fit-content;  /* que tome el ancho de su contenido */
-  /* agrego esta línea para alinear los hijos */
   align-items: flex-start; /* importante para que miniaturas empiecen al borde */
 }
 
@@ -59,12 +58,12 @@ body {
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
-  padding: 0;              /* eliminar padding para alinear */
-  margin: 0;               /* eliminar márgenes */
-  width: 100%;             /* que ocupe el ancho de su contenedor padre */
-  justify-content: center; /* miniaturas alineadas a la izquierda */
-  box-sizing: border-box;  /* asegurar ancho correcto */
-  scroll-behavior: smooth; /* para scroll más suave si hay overflow */
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .thumbnail {
@@ -100,15 +99,15 @@ body {
   line-height: 1.1;
   letter-spacing: 0;
   color: #111;
-  margin-bottom: 0; /* eliminar margen inferior */
+  margin-bottom: 0;
 }
 
 .product-price {
   font-weight: 600;
   font-size: 1.6rem;
   color: #111;
-  margin-top: 0; /* eliminar margen superior */
-  margin-bottom: 0.3rem; /* margen pequeño para separar ligeramente */
+  margin-top: 0;
+  margin-bottom: 0.3rem;
 }
 
 /* Stock */
@@ -119,10 +118,10 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border: 1px solid #ccc;
-  padding: 4px 10px; /* un poco menos padding */
+  padding: 4px 10px;
   border-radius: 0;
   width: fit-content;
-  margin-bottom: 1rem; /* menos margen */
+  margin-bottom: 1rem;
 }
 
 /* Colores */
@@ -160,7 +159,7 @@ body {
 .size-button {
   font-weight: 500;
   font-size: 1rem;
-  padding: 6px 16px; /* menos padding */
+  padding: 6px 16px;
   border: 1px solid #ccc;
   border-radius: 0;
   background-color: transparent;
@@ -184,8 +183,8 @@ body {
 .add-to-cart {
   padding: 12px 30px;
   border: none;
-  background-color: #222;  /* color oscuro */
-  color: #fff;             /* texto blanco */
+  background-color: #222;
+  color: #fff;
   font-weight: 600;
   font-size: 1.05rem;
   cursor: pointer;
@@ -199,13 +198,13 @@ body {
 }
 
 .add-to-cart:hover {
-  background-color: #000;  /* más oscuro al pasar mouse */
+  background-color: #000;
 }
 
 /* Botón WhatsApp */
 .whatsapp-button {
   margin-top: 0.8rem;
-  background-color: #222;  /* mismo color que el otro botón */
+  background-color: #222;
   border: none;
   padding: 12px 30px;
   font-weight: 600;
@@ -214,14 +213,14 @@ body {
   width: 100%;
   max-width: 500px;
   border-radius: 0;
-  color: #fff;             /* texto blanco */
+  color: #fff;
   transition: background-color 0.25s ease;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .whatsapp-button:hover {
-  background-color: #000;  /* efecto hover igual que el otro */
+  background-color: #000;
 }
 
 /* Acordeón */
@@ -269,20 +268,18 @@ summary::after {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #111; /* fondo sobrio */
+  background: #111;
   color: #fff;
   padding: 8px 14px;
   font-size: 0.85rem;
   font-weight: 500;
   border: 1px solid #444;
-  border-radius: 0; /* sin bordes redondeados */
+  border-radius: 0;
   z-index: 1000;
   animation: fadeInOut 3s forwards;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   pointer-events: none;
 }
-
-
 
 @keyframes fadeInOut {
   0% {
@@ -313,7 +310,7 @@ summary::after {
   }
 
   .main-image-container {
-    aspect-ratio: 1 / 1; /* más cuadrado para móviles */
+    aspect-ratio: 1 / 1;
     width: 100%;
   }
 
@@ -352,10 +349,27 @@ summary::after {
 
   .color-options {
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .color-circle {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #ccc;
   }
 
   .size-options {
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .size-button {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+    border-radius: 6px;
   }
 
   .pd-confirmation {
