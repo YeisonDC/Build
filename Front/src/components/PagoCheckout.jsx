@@ -142,7 +142,7 @@ const PagoCheckout = () => {
         <h3 className="seccion-titulo">Datos personales</h3>
         <input type="text" placeholder="Nombre completo" value={nombre} onChange={(e) => setNombre(e.target.value)} />
         <input type="email" placeholder="Correo electrónico" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        <input type="tel" placeholder="Número de celular" value={celular} onChange={(e) => setCelular(e.target.value)} className="input-celular" />
+        <input type="tel" placeholder="Número de celular" value={celular} onChange={(e) => setCelular(e.target.value)} />
 
         <h3 className="seccion-titulo">Dirección de envío</h3>
         <input type="text" placeholder="Calle / dirección" value={direccion.calle} onChange={(e) => setDireccion({ ...direccion, calle: e.target.value })} />
