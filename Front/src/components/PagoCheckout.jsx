@@ -3,7 +3,7 @@ import API from '../api';
 import { AuthContext } from '../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import './PagoCheckout.css'; // ✅ Nuevo archivo CSS
+import './PagoCheckout.css';
 
 const PagoCheckout = () => {
   const { user } = useContext(AuthContext);
@@ -139,9 +139,12 @@ const PagoCheckout = () => {
       </p>
 
       <div className="formulario">
+        <h3 className="seccion-titulo">Datos personales</h3>
         <input type="text" placeholder="Nombre completo" value={nombre} onChange={(e) => setNombre(e.target.value)} />
         <input type="email" placeholder="Correo electrónico" value={correo} onChange={(e) => setCorreo(e.target.value)} />
-        <input type="tel" placeholder="Número de celular" value={celular} onChange={(e) => setCelular(e.target.value)} />
+        <input type="tel" placeholder="Número de celular" value={celular} onChange={(e) => setCelular(e.target.value)} className="input-celular" />
+
+        <h3 className="seccion-titulo">Dirección de envío</h3>
         <input type="text" placeholder="Calle / dirección" value={direccion.calle} onChange={(e) => setDireccion({ ...direccion, calle: e.target.value })} />
         <input type="text" placeholder="Ciudad" value={direccion.ciudad} onChange={(e) => setDireccion({ ...direccion, ciudad: e.target.value })} />
         <input type="text" placeholder="Departamento" value={direccion.departamento} onChange={(e) => setDireccion({ ...direccion, departamento: e.target.value })} />

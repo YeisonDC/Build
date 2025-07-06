@@ -20,6 +20,11 @@
   margin-bottom: 1.5rem;
 }
 
+.pago-checkout-container .formulario {
+  display: flex;
+  flex-direction: column;
+}
+
 .pago-checkout-container .formulario input {
   width: 100%;
   margin-bottom: 12px;
@@ -35,6 +40,10 @@
   outline: none;
 }
 
+.pago-checkout-container .formulario .input-celular {
+  max-width: 100%;
+}
+
 .pago-checkout-container .formulario button {
   width: 100%;
   background-color: #111;
@@ -45,6 +54,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 .pago-checkout-container .formulario button:hover {
@@ -61,4 +71,14 @@
   color: red;
   font-size: 0.9rem;
   text-align: center;
+}
+
+.pago-checkout-container .formulario .seccion-titulo {
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
 }
