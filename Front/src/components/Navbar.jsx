@@ -87,6 +87,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState(null);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [mobileUserMenuOpen, setMobileUserMenuOpen] = useState(false);
   const userDropdownTimeout = useRef(null);
   const timeoutRef = useRef(null);
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
     setUserDropdownOpen(false);
+    setMobileUserMenuOpen(false);
     window.location.href = '/';
   };
 
@@ -167,19 +169,36 @@ const Navbar = () => {
 
       {/* Íconos móviles alineados derecha */}
       <div className="navbar-mobile-icons">
-        <button
-          className="mobile-icon"
-          onClick={() => user ? navigate('/perfil') : navigate('/login')}
-          aria-label="Usuario"
-        >
-          <FiUser size={20} />
-        </button>
+        <div className="usuario-dropdown">
+          <button
+            className="mobile-icon"
+            onClick={() => {
+              if (user) {
+                setMobileUserMenuOpen(!mobileUserMenuOpen);
+              } else {
+                navigate('/login');
+              }
+            }}
+            aria-label="Usuario"
+          >
+            <FiUser size={20} />
+          </button>
 
-        <button
-          className="mobile-icon"
-          onClick={() => navigate("/carrito")}
-          aria-label="Carrito"
-        >
+          {user && mobileUserMenuOpen && (
+            <div className="usuario-dropdown-menu" role="menu">
+              <Link to="/perfil" className="dropdown-item con-icono" onClick={() => setMobileUserMenuOpen(false)}>
+                <FiUser className="dropdown-icon" />
+                Perfil
+              </Link>
+              <button onClick={handleLogout} className="dropdown-item con-icono logout" type="button">
+                <FiLogOut className="dropdown-icon" />
+                Cerrar sesión
+              </button>
+            </div>
+          )}
+        </div>
+
+        <button className="mobile-icon" onClick={() => navigate("/carrito")} aria-label="Carrito">
           <FiShoppingBag size={20} />
           {cantidadTotal > 0 && (
             <span className="carrito-contador">{cantidadTotal}</span>
@@ -259,7 +278,6 @@ const Navbar = () => {
                 <FiUser className="dropdown-icon" />
                 Perfil
               </Link>
-
               <button
                 onClick={handleLogout}
                 className="dropdown-item con-icono logout"
