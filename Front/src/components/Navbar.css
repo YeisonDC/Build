@@ -350,3 +350,49 @@
   margin: 6px 0;
   pointer-events: none;
 }
+
+/* === Íconos móviles fuera del menú hamburguesa === */
+.navbar-mobile-icons {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-mobile-icons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .navbar-mobile-icons .mobile-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-mobile-icons .mobile-icon:hover {
+    color: #6e1212;
+  }
+
+  .navbar-mobile-icons .carrito-contador {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #6e1212;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    pointer-events: none;
+  }
+}

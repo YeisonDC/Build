@@ -166,17 +166,38 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Botón hamburguesa móvil */}
-      <button
-        className="menu-toggle"
-        onClick={() => {
-          setIsMobileMenuOpen(!isMobileMenuOpen);
-          setMobileSubmenuOpen(null);
-        }}
-        aria-label="Toggle menu"
-      >
-        {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-      </button>
+      {/* Botón hamburguesa + íconos móviles */}
+      <div className="navbar-mobile-icons">
+        <button
+          className="menu-toggle"
+          onClick={() => {
+            setIsMobileMenuOpen(!isMobileMenuOpen);
+            setMobileSubmenuOpen(null);
+          }}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
+
+        <button
+          className="mobile-icon"
+          onClick={() => navigate("/carrito")}
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+        >
+          <FiShoppingBag size={20} />
+          {cantidadTotal > 0 && (
+            <span className="carrito-contador">{cantidadTotal}</span>
+          )}
+        </button>
+
+        <button
+          className="mobile-icon"
+          onClick={() => user ? navigate('/perfil') : navigate('/login')}
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+        >
+          <FiUser size={20} />
+        </button>
+      </div>
 
       {/* Menú desktop */}
       <ul className="navbar-center">
