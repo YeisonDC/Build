@@ -162,11 +162,11 @@
 }
 
 /* ============================
-   ✅ Grid responsive adaptativo
+   ✅ Grid responsive adaptativo con clamp
    ============================ */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.5rem;
+  gap: clamp(10px, 2.5vw, 24px);
   justify-items: center;
 }
