@@ -146,3 +146,62 @@
 .cartpage-pay-btn:hover {
   background-color: #333;
 }
+
+/* ==========================
+   📱 Responsive Mobile View
+   ========================== */
+@media (max-width: 768px) {
+  .cartpage-container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .cartpage-left {
+    max-height: none;
+    padding-right: 0;
+    overflow: visible;
+  }
+
+  .cartpage-product {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cartpage-product img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .cartpage-product-info {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .cartpage-price-remove {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ddd;
+  }
+
+  .cartpage-quantity {
+    justify-content: center;
+  }
+
+  .cartpage-summary {
+    position: static;
+    top: auto;
+    align-self: auto;
+    margin-top: 2rem;
+  }
+
+  .cartpage-pay-btn {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
