@@ -1,10 +1,8 @@
-// src/pages/CategoryPage.jsx
-
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import API from '../api'; // instancia axios configurada
+import API from '../api';
 import ProductCard from '../components/ProductCard';
-import '../components/ProductList.css'; // reutilizamos estilos, con clases específicas en JSX para evitar conflictos
+import '../components/ProductList.css';
 import { FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const CategoryPage = () => {
@@ -96,31 +94,7 @@ const CategoryPage = () => {
     if (ref.current) ref.current.removeAttribute('open');
   };
 
-  // Estilos inline para botones de talla/color
-  const buttonStyle = {
-    fontSize: '0.72rem',
-    backgroundColor: '#f8f8f8',
-    padding: '3px 7px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    border: '1px solid #ccc',
-    transition: 'all 0.2s ease',
-    fontFamily: 'inherit',
-  };
-
-  const selectedButtonStyle = {
-    backgroundColor: '#111',
-    color: '#fff',
-    borderColor: '#111',
-  };
-
-  // Manejo paginación
-  const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
-  const indexInicio = (paginaActual - 1) * productosPorPagina;
-  const indexFinal = indexInicio + productosPorPagina;
-  const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
-
-  // Resetea página actual si cambia el filtro
+  // Resetea página actual si cambia filtro o categoría
   useEffect(() => {
     setPaginaActual(1);
   }, [selectedColor, selectedSize, maxPrice, categoria]);
@@ -130,6 +104,11 @@ const CategoryPage = () => {
     setMostrarFiltros(!mostrarFiltros);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
+  const indexInicio = (paginaActual - 1) * productosPorPagina;
+  const indexFinal = indexInicio + productosPorPagina;
+  const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
 
   if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
 
@@ -150,13 +129,7 @@ const CategoryPage = () => {
             <div className="color-filter-dots">
               <span
                 className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
-                style={{
-                  backgroundColor: '#e0e0e0',
-                  border: '1px solid #aaa',
-                  width: '22px',
-                  height: '22px',
-                  cursor: 'pointer'
-                }}
+                style={{ backgroundColor: '#e0e0e0' }}
                 title="Todos"
                 onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
               ></span>
@@ -164,15 +137,7 @@ const CategoryPage = () => {
                 <span
                   key={idx}
                   className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                  style={{
-                    backgroundColor: colorHex,
-                    width: '22px',
-                    height: '22px',
-                    borderRadius: '50%',
-                    border: '1px solid #aaa',
-                    cursor: 'pointer',
-                    marginRight: '4px'
-                  }}
+                  style={{ backgroundColor: colorHex }}
                   title={colorHex}
                   onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
                 ></span>
@@ -182,27 +147,21 @@ const CategoryPage = () => {
 
           <details ref={sizeRef}>
             <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button
+            <div>
+              <span
+                className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
                 onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                style={{
-                  ...buttonStyle,
-                  ...(selectedSize === 'Todas' ? selectedButtonStyle : {})
-                }}
               >
                 Todas
-              </button>
+              </span>
               {getAllSizes().map((size, idx) => (
-                <button
+                <span
                   key={idx}
+                  className={`selector-tag ${selectedSize === size ? 'selected' : ''}`}
                   onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                  style={{
-                    ...buttonStyle,
-                    ...(selectedSize === size ? selectedButtonStyle : {})
-                  }}
                 >
                   {size}
-                </button>
+                </span>
               ))}
             </div>
           </details>
