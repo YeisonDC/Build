@@ -107,20 +107,17 @@ const ProductList = ({ initialCategory = null }) => {
 
   return (
     <>
-      {/* ✅ Botón flotante fuera del contenedor para evitar desbordamientos */}
+      {/* Botón flotante para filtros */}
       <button className="filtro-flotante" onClick={handleMostrarFiltros}>
         <FiFilter size={18} />
       </button>
 
-      <div className="product-list-container" style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
-        <aside
-          className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}
-          style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}
-        >
+      <div className="product-list-container">
+        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}>
           <h2 className="filter-title">Filtros</h2>
 
           <details ref={colorRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
+            <summary className="summary-clickable">Color</summary>
             <div className="color-filter-dots">
               <span
                 className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
@@ -141,7 +138,7 @@ const ProductList = ({ initialCategory = null }) => {
           </details>
 
           <details ref={sizeRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
+            <summary className="summary-clickable">Talla</summary>
             <div>
               <span
                 className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
@@ -163,8 +160,8 @@ const ProductList = ({ initialCategory = null }) => {
 
           {!initialCategory && (
             <details ref={categoryRef}>
-              <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
+              <summary className="summary-clickable">Categoría</summary>
+              <div className="category-list">
                 <span
                   className={`selector-tag ${selectedCategory === 'Todas' ? 'selected' : ''}`}
                   onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
@@ -185,7 +182,7 @@ const ProductList = ({ initialCategory = null }) => {
           )}
 
           <details ref={priceRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
+            <summary className="summary-clickable">Rango de precio</summary>
             <input
               type="range"
               min={0}
@@ -200,36 +197,20 @@ const ProductList = ({ initialCategory = null }) => {
           </details>
         </aside>
 
-        <main
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-            gap: '2rem',
-            padding: '2rem',
-            flex: 1
-          }}
-        >
+        <main className="products-grid">
           {productosPagina.length > 0 ? (
             productosPagina.map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           ) : (
-            <div style={{
-              gridColumn: '1 / -1',
-              textAlign: 'center',
-              padding: '3rem',
-              backgroundColor: '#f8f8f8',
-              borderRadius: '8px',
-              color: '#555',
-              fontSize: '1.1rem'
-            }}>
+            <div className="no-products-message">
               No se encontraron productos que coincidan con los filtros seleccionados.
             </div>
           )}
         </main>
       </div>
 
-      {/* ✅ Paginación fuera del contenedor principal para que quede centrada */}
+      {/* Paginación */}
       {totalPaginas > 1 && (
         <div className="product-list__paginacion">
           <button onClick={() => setPaginaActual(paginaActual - 1)} disabled={paginaActual === 1}>
