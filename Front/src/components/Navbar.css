@@ -386,3 +386,15 @@
     pointer-events: none;
   }
 }
+
+/* Ocultar "Productos" en escritorio */
+.navbar-right .nav-item.productos {
+  display: none;
+}
+
+/* Mostrar "Productos" en móvil dentro del menú hamburguesa */
+@media (max-width: 768px) {
+  .navbar-right .nav-item.productos {
+    display: flex;
+  }
+}
