@@ -89,6 +89,8 @@
   border: 1px solid #ccc;
   transition: all 0.2s ease;
   user-select: none;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
 }
 
 .product-card-size-tag:hover {
@@ -132,7 +134,7 @@
 }
 
 /* ============================
-   ✅ Responsive: Ajuste móvil proporcional
+   ✅ Responsive: Ajuste móvil proporcional y scroll tallas
    ============================ */
 @media (max-width: 768px) {
   .product-card-container {
@@ -185,13 +187,17 @@
     gap: 4px;
   }
 
+  /* Scroll horizontal para tallas con snap y límite ancho para que se vean 3 tallas exactas */
   .product-card-sizes {
     gap: 3px;
     overflow-x: auto;
-    max-width: 100%;
+    max-width: calc((3 * 40px) + (2 * 3px)); /* ancho aproximado de 3 botones + gaps */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
   }
 
+  /* Scrollbar estilos */
   .product-card-sizes::-webkit-scrollbar {
     height: 4px;
   }
@@ -199,5 +205,22 @@
   .product-card-sizes::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 4px;
+  }
+}
+
+/* ============================
+   ✅ Ajuste espacio entre tarjetas en grid responsive mobile
+   ============================ */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 1rem; /* reduce espacio horizontal entre las dos columnas */
+    justify-items: center; /* centra las tarjetas */
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
   }
 }
