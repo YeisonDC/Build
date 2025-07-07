@@ -235,3 +235,91 @@
   min-width: 300px;
   margin-left: 50px;
 }
+
+/* === Responsive mobile (solo pantallas <= 768px) === */
+@media screen and (max-width: 768px) {
+  .update-product-wrapper {
+    padding: 15px 10px 30px;
+    margin: 20px auto;
+    max-width: 100%;
+  }
+
+  .update-product-container {
+    flex-direction: column;
+    gap: 20px;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .update-product-form {
+    min-width: 100%;
+  }
+
+  .update-product-wrapper .product-preview-wrapper {
+    margin-left: 0;
+    min-width: 100%;
+  }
+
+  .update-product-container form input[type="text"],
+  .update-product-container form input[type="number"],
+  .update-product-container form textarea {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .update-product-wrapper .btn-back {
+    top: 10px;
+    left: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+  }
+
+  /* Ajustes para botones más grandes y que no se vean pegados */
+  .update-product-wrapper .btn-add,
+  .update-product-wrapper .btn-remove,
+  .update-product-wrapper .btn-submit,
+  .update-product-wrapper .btn-remove-color,
+  .update-product-wrapper .btn-remove-talla,
+  .update-product-wrapper .btn-add-talla,
+  .update-product-wrapper .btn-add-color {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .update-product-wrapper .categoria-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .update-product-wrapper .btn-remove {
+    margin-left: 0;
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+
+  .update-product-wrapper .color-section {
+    padding: 15px;
+  }
+
+  .update-product-wrapper .talla-section {
+    padding-left: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .update-product-wrapper .talla-section input[type="text"],
+  .update-product-wrapper .talla-section input[type="number"] {
+    margin-top: 8px;
+  }
+
+  .update-product-wrapper .btn-remove-talla {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    top: 10px;
+    right: 10px;
+  }
+}
