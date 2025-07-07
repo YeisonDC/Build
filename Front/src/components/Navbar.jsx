@@ -235,7 +235,7 @@ const Navbar = () => {
 
       {/* Acciones derecha desktop */}
       <ul className="navbar-right nav-links">
-        <li className="nav-item productos">
+        <li className="nav-item">
           <Link to="/productos" className="nav-link">Productos</Link>
         </li>
 
@@ -295,20 +295,18 @@ const Navbar = () => {
       {/* Menú móvil */}
       {isMobileMenuOpen && (
         <div className="mobile-menu">
-          {/* Link Productos en móvil */}
-          <ul className="mobile-submenu">
-            <li>
-              <Link
-                to="/productos"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setMobileSubmenuOpen(null);
-                }}
-              >
-                Productos
-              </Link>
-            </li>
-          </ul>
+          {/* Link Productos en móvil con estilo igual a otros títulos */}
+          <div
+            className="mobile-link"
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setMobileSubmenuOpen(null);
+            }}
+          >
+            <Link to="/productos" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Productos
+            </Link>
+          </div>
 
           {/* Otros menús */}
           {Object.keys(MENUS).map((key) => (
