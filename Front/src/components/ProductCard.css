@@ -132,31 +132,59 @@
 }
 
 /* ============================
-   ✅ Responsive: Ajuste móvil
+   ✅ Responsive: Ajuste móvil proporcional
    ============================ */
 @media (max-width: 768px) {
   .product-card-container {
     width: 100%;
-    max-width: 160px;
+    max-width: 140px;
     padding: 0.4rem;
-    font-size: 0.9rem;
-  }
-
-  .product-card-title {
-    font-size: 0.9rem;
-  }
-
-  .product-card-add-btn {
     font-size: 0.85rem;
-    padding: 0.4rem;
   }
 
   .product-card-image {
-    max-height: 140px;
-    object-fit: contain;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .product-card-title {
+    font-size: 0.85rem;
+  }
+
+  .product-card-category-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .product-card-color-dot {
+    width: 11px;
+    height: 11px;
+  }
+
+  .product-card-size-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
   }
 
   .product-card-price {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .product-card-add-btn {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .product-card-color-dots {
+    gap: 4px;
+  }
+
+  .product-card-category-tags {
+    gap: 4px;
+  }
+
+  .product-card-sizes {
+    gap: 3px;
   }
 }
