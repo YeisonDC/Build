@@ -48,19 +48,62 @@
   margin-top: 0.5rem;
 }
 
+/* ============================
+   ✅ Estilo mejorado: color-dot
+   ============================ */
 .color-dot {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid #ccc;
+  border: 1px solid #aaa;
   cursor: pointer;
   box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.color-dot:hover {
+  border: 1px solid #333;
+  transform: scale(1.05);
 }
 
 .color-dot.selected {
-  border-color: #000;
+  border: 2px solid #000;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
+/* ============================
+   ✅ Estilo mejorado: tallas y categorías
+   ============================ */
+.size-box,
+.category-box {
+  font-size: 0.8rem;
+  background-color: #f8f8f8;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+  user-select: none;
+  display: inline-block;
+}
+
+.size-box:hover,
+.category-box:hover {
+  background-color: #e0e0e0;
+  border-color: #333;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.size-box.selected,
+.category-box.selected {
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* ============================
+   ✅ Resto de estilos
+   ============================ */
 .pd-description {
   white-space: pre-line;
   line-height: 1.5;
@@ -113,7 +156,7 @@
 }
 
 /* ============================
-   ✅ Botón flotante en móvil (ajustado para quedar más pegado)
+   ✅ Botón flotante en móvil
    ============================ */
 .filtro-flotante {
   display: none;
@@ -142,7 +185,7 @@
 }
 
 /* ============================
-   ✅ Paginación centrada con botones oscuros
+   ✅ Paginación
    ============================ */
 .product-list__paginacion {
   width: 100%;
@@ -184,9 +227,6 @@
   font-weight: 500;
 }
 
-/* ============================
-   ✅ Paginación: responsive mejorado
-   ============================ */
 @media (max-width: 768px) {
   .product-list__paginacion {
     flex-wrap: wrap;
@@ -231,7 +271,7 @@
 }
 
 /* ============================
-   ✅ Íconos de paginación: ajustes y hover
+   ✅ Íconos de paginación
    ============================ */
 .product-list__paginacion svg {
   width: 18px;
