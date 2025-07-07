@@ -1,100 +1,86 @@
-/* ============================
-   ✅ Estilos generales
-   ============================ */
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem;
-  width: 100%;
-}
-
-.product-list-container {
-  display: flex;
-  position: relative;
-  width: 100%;
-}
-
-.sidebar {
+.product-card-container {
   width: 250px;
-  border-right: 1px solid #ddd;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
 }
 
-.sidebar select,
-.sidebar input[type='range'] {
+.product-card-image {
   width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
+  height: auto;
+  aspect-ratio: 5 / 6;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
 }
 
-.products-grid {
-  flex-grow: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-  justify-items: start;
-  justify-content: end;
+.product-card-info {
+  padding: 0.5rem 0;
 }
 
-.loading-text {
-  padding: 2rem;
-  font-size: 1.2rem;
-}
-
-.color-filter-dots {
+.product-card-category-tags {
+  margin-bottom: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  margin-top: 0.5rem;
+  gap: 6px;
 }
 
-/* --- Círculos de colores con efectos como ProductCard --- */
-.color-dot {
-  width: 22px;
-  height: 22px;
+.product-card-category-tag {
+  background-color: #eee;
+  color: #555;
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.product-card-title {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+}
+
+.product-card-color-dots {
+  display: flex;
+  gap: 5px;
+  margin: 0.5rem 0 0.3rem 0;
+}
+
+.product-card-color-dot {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 1px solid #aaa;
   cursor: pointer;
-  box-sizing: border-box;
   transition: all 0.2s ease;
-  display: inline-block;
-  margin-right: 6px;
 }
 
-.color-dot:hover {
+.product-card-color-dot:hover {
   border: 1px solid #333;
   transform: scale(1.05);
 }
 
-.color-dot.selected {
+.product-card-color-dot.selected {
   border: 2px solid #000;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
-.pd-description {
-  white-space: pre-line;
-  line-height: 1.5;
-  margin-top: 1rem;
+.product-card-size-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
-.filter-title {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  letter-spacing: 0.5px;
-  color: #222;
+.product-card-sizes {
+  display: flex;
+  gap: 4px;
 }
 
-/* --- Cuadritos de talla y categoría con efectos como ProductCard --- */
-.selector-tag {
+.product-card-size-tag {
   font-size: 0.72rem;
   background-color: #f8f8f8;
   padding: 3px 7px;
@@ -103,70 +89,134 @@
   border: 1px solid #ccc;
   transition: all 0.2s ease;
   user-select: none;
-  display: inline-block;
-  margin: 2px 4px 2px 0;
-  font-family: inherit;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
 }
 
-.selector-tag:hover {
+.product-card-size-tag:hover {
   background-color: #e0e0e0;
 }
 
-.selector-tag.selected {
+.product-card-size-tag.selected {
   background-color: #111;
   color: #fff;
   border-color: #111;
 }
 
+.product-card-price {
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.product-card-add-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-card-add-btn:hover {
+  background-color: #111;
+}
+
+.product-card-add-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
 /* ============================
-   ✅ Responsive para móviles
+   ✅ Responsive: Ajuste móvil proporcional y scroll tallas
    ============================ */
-.toggle-filters-btn {
-  display: none;
-}
-
 @media (max-width: 768px) {
-  .toggle-filters-btn {
-    display: block;
-    margin: 1rem auto 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #111;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    width: fit-content;
-  }
-
-  .sidebar {
-    display: none;
+  .product-card-container {
     width: 100%;
-    border-right: none;
-    padding: 0 1rem;
+    max-width: 140px;
+    padding: 0.4rem;
+    font-size: 0.85rem;
   }
 
-  .sidebar.show-mobile {
-    display: block;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ccc;
+  .product-card-image {
+    max-height: 150px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 4px;
   }
 
-  /* Aquí está el ajuste clave para el grid responsive:
-     - Mínimo ancho más pequeño para que entren más columnas
-     - Gap reducido a 6px
-     - Padding reducido */
-  .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 6px;
-    padding: 1rem;
+  .product-card-title {
+    font-size: 0.85rem;
+  }
+
+  .product-card-category-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .product-card-color-dot {
+    width: 11px;
+    height: 11px;
+  }
+
+  .product-card-size-tag {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .product-card-price {
+    font-size: 0.8rem;
+    margin-left: 5px; /* <--- MARGEN IZQUIERDO AGREGADO */
+  }
+
+  .product-card-add-btn {
+    padding: 0.4rem;
+    font-size: 0.8rem;
+  }
+
+  .product-card-color-dots {
+    gap: 4px;
+  }
+
+  .product-card-category-tags {
+    gap: 4px;
+  }
+
+  /* Scroll horizontal para tallas con snap y límite ancho para que se vean 3 tallas exactas */
+  .product-card-sizes {
+    gap: 3px;
+    overflow-x: auto;
+    max-width: calc((3 * 40px) + (2 * 3px)); /* ancho aproximado de 3 botones + gaps */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  /* Scrollbar estilos */
+  .product-card-sizes::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .product-card-sizes::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
   }
 }
 
-@media (max-width: 536px) {
+/* ============================
+   ✅ Ajuste espacio entre tarjetas en grid responsive mobile
+   ============================ */
+@media (max-width: 768px) {
   .products-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 1rem; /* reduce espacio horizontal entre las dos columnas */
+    justify-items: center; /* centra las tarjetas */
   }
 }
 
@@ -174,169 +224,4 @@
   .products-grid {
     grid-template-columns: 1fr;
   }
-}
-
-/* ============================
-   ✅ Botón flotante en móvil
-   ============================ */
-.filtro-flotante {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .filtro-flotante {
-    display: block;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    background-color: #111;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 0.8rem;
-    font-size: 1.2rem;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    width: 48px;
-    height: 48px;
-    text-align: center;
-    max-width: 90vw;
-  }
-}
-
-/* ============================
-   ✅ Paginación centrada con botones oscuros
-   ============================ */
-.product-list__paginacion {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 2rem 1rem 3rem;
-  font-family: inherit;
-  font-size: 1rem;
-  margin-top: auto;
-  box-sizing: border-box;
-  max-width: 100%;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.product-list__paginacion button {
-  background-color: #333;
-  color: white;
-  border: 1px solid #222;
-  padding: 6px 12px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
-}
-
-.product-list__paginacion button:hover:not(:disabled) {
-  background-color: #555;
-}
-
-.product-list__paginacion button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.product-list__paginacion span {
-  font-weight: 500;
-}
-
-/* ============================
-   ✅ Paginación: responsive mejorado
-   ============================ */
-@media (max-width: 768px) {
-  .product-list__paginacion {
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    padding: 1rem;
-    text-align: center;
-    gap: 0.5rem;
-  }
-
-  .product-list__paginacion span {
-    font-size: 0.9rem;
-    width: auto;
-    flex: 0 0 auto;
-  }
-
-  .product-list__paginacion button {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.85rem;
-    width: auto;
-    max-width: 100%;
-    flex: 0 0 auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .product-list__paginacion {
-    padding: 1rem;
-  }
-
-  .product-list__paginacion button {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.6rem;
-    width: auto;
-    max-width: 100%;
-    margin: 4px 2px;
-  }
-
-  .product-list__paginacion span {
-    font-size: 0.8rem;
-  }
-}
-
-/* ============================
-   ✅ Íconos de paginación: ajustes y hover
-   ============================ */
-.product-list__paginacion svg {
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-}
-
-.product-list__paginacion button:hover svg {
-  filter: brightness(1.3);
-  transform: scale(1.1);
-  transition: all 0.2s ease;
-}
-
-/* ============================
-   ✅ Resumen mensajes sin productos
-   ============================ */
-.no-products-message {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 3rem;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  color: #555;
-  font-size: 1.1rem;
-}
-
-/* ============================
-   ✅ Estilo para summary clickable
-   ============================ */
-.summary-clickable {
-  cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-/* ============================
-   ✅ Lista categoría (vertical con gap)
-   ============================ */
-.category-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
 }
