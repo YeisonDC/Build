@@ -23,23 +23,6 @@ const ProductList = ({ initialCategory = null }) => {
   const categoryRef = useRef(null);
   const priceRef = useRef(null);
 
-  const sizeButtonStyle = {
-    fontSize: '0.72rem',
-    backgroundColor: '#f8f8f8',
-    padding: '3px 7px',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    border: '1px solid #ccc',
-    transition: 'all 0.2s ease',
-    fontFamily: 'inherit',
-  };
-
-  const selectedSizeButtonStyle = {
-    backgroundColor: '#111',
-    color: '#fff',
-    borderColor: '#111',
-  };
-
   useEffect(() => {
     setSelectedCategory(initialCategory || 'Todas');
   }, [initialCategory]);
@@ -141,13 +124,7 @@ const ProductList = ({ initialCategory = null }) => {
             <div className="color-filter-dots">
               <span
                 className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
-                style={{
-                  backgroundColor: '#e0e0e0',
-                  border: '1px solid #aaa',
-                  width: '22px',
-                  height: '22px',
-                  cursor: 'pointer'
-                }}
+                style={{ backgroundColor: '#e0e0e0' }}
                 title="Todos"
                 onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
               ></span>
@@ -155,15 +132,7 @@ const ProductList = ({ initialCategory = null }) => {
                 <span
                   key={idx}
                   className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
-                  style={{
-                    backgroundColor: colorHex,
-                    width: '22px',
-                    height: '22px',
-                    borderRadius: '50%',
-                    border: '1px solid #aaa',
-                    cursor: 'pointer',
-                    marginRight: '4px'
-                  }}
+                  style={{ backgroundColor: colorHex }}
                   title={colorHex}
                   onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
                 ></span>
@@ -173,27 +142,21 @@ const ProductList = ({ initialCategory = null }) => {
 
           <details ref={sizeRef}>
             <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.5rem' }}>
-              <button
+            <div>
+              <span
+                className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
                 onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                style={{
-                  ...sizeButtonStyle,
-                  ...(selectedSize === 'Todas' ? selectedSizeButtonStyle : {})
-                }}
               >
                 Todas
-              </button>
+              </span>
               {getAllSizes().map((size, idx) => (
-                <button
+                <span
                   key={idx}
+                  className={`selector-tag ${selectedSize === size ? 'selected' : ''}`}
                   onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
-                  style={{
-                    ...sizeButtonStyle,
-                    ...(selectedSize === size ? selectedSizeButtonStyle : {})
-                  }}
                 >
                   {size}
-                </button>
+                </span>
               ))}
             </div>
           </details>
@@ -202,26 +165,20 @@ const ProductList = ({ initialCategory = null }) => {
             <details ref={categoryRef}>
               <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Categoría</summary>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
-                <button
+                <span
+                  className={`selector-tag ${selectedCategory === 'Todas' ? 'selected' : ''}`}
                   onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
-                  style={{
-                    ...sizeButtonStyle,
-                    ...(selectedCategory === 'Todas' ? selectedSizeButtonStyle : {})
-                  }}
                 >
                   Todas
-                </button>
+                </span>
                 {getAllCategories().map((cat, idx) => (
-                  <button
+                  <span
                     key={idx}
+                    className={`selector-tag ${selectedCategory === cat ? 'selected' : ''}`}
                     onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
-                    style={{
-                      ...sizeButtonStyle,
-                      ...(selectedCategory === cat ? selectedSizeButtonStyle : {})
-                    }}
                   >
                     {cat}
-                  </button>
+                  </span>
                 ))}
               </div>
             </details>
