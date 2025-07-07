@@ -10,13 +10,10 @@ const CategoryPage = () => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [selectedColor, setSelectedColor] = useState('Todos');
   const [selectedSize, setSelectedSize] = useState('Todas');
   const [maxPrice, setMaxPrice] = useState(300000);
-
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
-
   const [paginaActual, setPaginaActual] = useState(1);
   const productosPorPagina = 9;
 
@@ -24,7 +21,6 @@ const CategoryPage = () => {
   const sizeRef = useRef(null);
   const priceRef = useRef(null);
 
-  // Normaliza string para comparar categorías
   const normalizeCategory = (str) =>
     str.toLowerCase().replace(/\s+/g, '').replace(/-/g, '');
 
@@ -45,7 +41,6 @@ const CategoryPage = () => {
 
   const catNormalized = normalizeCategory(categoria);
 
-  // Filtrado con categorías, colores, tallas y precio
   const filteredProducts = products.filter(product => {
     const matchesCategory =
       catNormalized === 'todas' ||
@@ -74,7 +69,6 @@ const CategoryPage = () => {
     return matchesCategory && matchesColor && matchesSize && matchesPrice;
   });
 
-  // Opciones dinámicas para filtros desde los productos filtrados
   const getAllColors = () => {
     const colors = filteredProducts.flatMap(p =>
       p.colores.map(c => Array.isArray(c.color) ? c.color[1] : c.color)
@@ -89,17 +83,14 @@ const CategoryPage = () => {
     return Array.from(new Set(sizes));
   };
 
-  // Para cerrar detalles en móvil
   const closeDetails = (ref) => {
     if (ref.current) ref.current.removeAttribute('open');
   };
 
-  // Resetea página actual si cambia filtro o categoría
   useEffect(() => {
     setPaginaActual(1);
   }, [selectedColor, selectedSize, maxPrice, categoria]);
 
-  // Alterna mostrar filtros en móvil
   const toggleFiltros = () => {
     setMostrarFiltros(!mostrarFiltros);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -110,22 +101,21 @@ const CategoryPage = () => {
   const indexFinal = indexInicio + productosPorPagina;
   const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
 
-  if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
+  if (loading) return <p className="loading-text">Cargando productos...</p>;
 
   return (
     <>
-      {/* Botón flotante para filtros en móvil */}
       <button className="filtro-flotante" onClick={toggleFiltros}>
         <FiFilter size={18} />
       </button>
 
-      <div className={`category-page ${mostrarFiltros ? 'show-mobile' : ''}`} style={{ display: 'flex', flexWrap: 'wrap', position: 'relative' }}>
+      <div className={`product-list-container ${mostrarFiltros ? 'show-mobile' : ''}`}>
         {/* Sidebar filtros */}
-        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`} style={{ padding: '2rem', borderRight: '1px solid #ddd', minWidth: '250px' }}>
+        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}>
           <h4 className="filter-title">Filtros</h4>
 
           <details ref={colorRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', marginBottom: '0.5rem' }}>Color</summary>
+            <summary className="summary-clickable">Color</summary>
             <div className="color-filter-dots">
               <span
                 className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
@@ -146,7 +136,7 @@ const CategoryPage = () => {
           </details>
 
           <details ref={sizeRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Talla</summary>
+            <summary className="summary-clickable">Talla</summary>
             <div>
               <span
                 className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
@@ -167,7 +157,7 @@ const CategoryPage = () => {
           </details>
 
           <details ref={priceRef}>
-            <summary style={{ cursor: 'pointer', fontWeight: 'bold', margin: '1rem 0 0.5rem' }}>Rango de precio</summary>
+            <summary className="summary-clickable">Rango de precio</summary>
             <input
               type="range"
               min={0}
@@ -183,30 +173,13 @@ const CategoryPage = () => {
         </aside>
 
         {/* Grid productos */}
-        <main
-          className="product-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
-            gap: '2rem',
-            padding: '2rem',
-            flex: 1
-          }}
-        >
+        <main className="products-grid">
           {productosPagina.length > 0 ? (
             productosPagina.map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           ) : (
-            <div style={{
-              gridColumn: '1 / -1',
-              textAlign: 'center',
-              padding: '3rem',
-              backgroundColor: '#f8f8f8',
-              borderRadius: '8px',
-              color: '#555',
-              fontSize: '1.1rem'
-            }}>
+            <div className="no-products-message">
               No se encontraron productos que coincidan con los filtros seleccionados en esta categoría.
             </div>
           )}
