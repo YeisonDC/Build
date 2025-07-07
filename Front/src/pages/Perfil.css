@@ -22,7 +22,7 @@
 .perfil-sidebar button {
   display: flex;
   align-items: center;
-  gap: 8px; /* aumentado para mejor separación entre icono y texto */
+  gap: 14px; /* aumentado para mejor separación entre icono y texto */
   background-color: transparent;
   border: none;
   box-shadow: 0 0 0 1.5px transparent;
