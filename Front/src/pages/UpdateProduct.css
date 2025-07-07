@@ -240,16 +240,28 @@
    📱 Versión Mobile Responsive
    ============================ */
 @media screen and (max-width: 768px) {
+  .update-product-wrapper {
+    padding: 10px;
+  }
+
   .update-product-container {
     flex-direction: column;
-    padding: 20px 15px;
-    gap: 30px;
-    margin: 20px auto;
+    gap: 25px;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .update-product-form {
-    min-width: unset;
     width: 100%;
+    min-width: unset;
+  }
+
+  .update-product-wrapper .product-preview-wrapper {
+    margin-left: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .update-product-wrapper .categoria-row {
@@ -257,26 +269,29 @@
     align-items: stretch;
   }
 
-  .update-product-wrapper .product-preview-wrapper {
-    margin-left: 0;
+  .update-product-wrapper input,
+  .update-product-wrapper textarea {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .update-product-wrapper .btn-add,
   .update-product-wrapper .btn-submit,
   .update-product-wrapper .btn-add-color,
-  .update-product-wrapper .btn-add-talla {
+  .update-product-wrapper .btn-add-talla,
+  .update-product-wrapper .btn-remove {
     width: 100%;
+    box-sizing: border-box;
   }
 
-  .update-product-wrapper .btn-remove,
-  .update-product-wrapper .btn-remove-color {
-    width: auto;
-    font-size: 16px;
+  .update-product-wrapper .color-section {
+    padding: 15px;
   }
 
   .update-product-wrapper .talla-section {
-    padding-left: 10px;
+    padding: 15px 10px;
+    border-left: none;
   }
 
   .update-product-wrapper .btn-remove-talla {

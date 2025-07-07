@@ -120,7 +120,7 @@ const UpdateProduct = () => {
   }
 
   return (
-    <div className="create-product-wrapper">
+    <div className="update-product-wrapper">
       <Link to="/admin/productos" className="btn-back" title="Volver">
         <FaArrowLeft />
       </Link>
