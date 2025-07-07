@@ -1,15 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import TopBanner from './TopBanner'; // <-- Importación del banner
+import TopBanner from './TopBanner';
 import imgIzquierda from '../assets/imagen-izquierda.jpg';
 import imgDerecha from '../assets/imagen-derecha.jpg';
 import infoImagen from '../assets/info-imagen.jpg';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <TopBanner /> {/* <-- Aquí se muestra el banner superior */}
+      <TopBanner />
 
       <div className="hero-section">
         <div className="imagen-con-overlay">
@@ -33,6 +36,15 @@ const Home = () => {
             Nuestra nueva colección está inspirada en la belleza natural, combinando diseño contemporáneo
             con detalles únicos. Explora piezas pensadas para destacar tu estilo personal.
           </p>
+
+          {/* Botón con estilo y navegación */}
+          <button
+            className="btn"
+            onClick={() => navigate('/categoria/eljardin')}
+            type="button"
+          >
+            Explorar colección
+          </button>
         </div>
         <div className="info-imagen">
           <img src={infoImagen} alt="Colección" />
@@ -45,7 +57,7 @@ const Home = () => {
           <p>Suscríbete a nuestro boletín y recibe promociones exclusivas.</p>
           <form className="newsletter-form">
             <input type="email" placeholder="Tu E-mail" required />
-            <button type="submit">Suscribirme</button>
+            <button type="submit" className="btn">Suscribirme</button>
           </form>
         </div>
         <div className="newsletter-imagen">

@@ -102,6 +102,22 @@
   object-fit: cover;
 }
 
+/* ======= Nueva clase para botón reutilizable ======= */
+.btn {
+  padding: 12px 24px;
+  background-color: #6e1212;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #500e0e;
+}
+
 /* ================== Newsletter ================== */
 .newsletter-section {
   display: flex;
@@ -145,6 +161,7 @@
   font-size: 16px;
 }
 
+/* Puedes eliminar o dejar este estilo, porque ahora usas .btn */
 .newsletter-form button {
   padding: 12px 24px;
   background-color: #6e1212;
