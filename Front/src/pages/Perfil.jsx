@@ -351,14 +351,14 @@ const Perfil = () => {
         {rol === 'ADMIN' && (
           <>
             <button
-              className="btn-admin"
+              className="btn-admin btn-esconder-mobile"
               onClick={() => navigate('/crear-producto')}
             >
               <FiPlusSquare className="icon-left" />
               Crear artículo
             </button>
             <button
-              className="btn-admin"
+              className="btn-admin btn-esconder-mobile"
               onClick={() => navigate('/admin/productos')}
             >
               <FiList className="icon-left" />
