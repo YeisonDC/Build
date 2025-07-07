@@ -1,7 +1,20 @@
-html {
+/* ============================
+   ✅ Reglas base globales
+   ============================ */
+html, body {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* ============================
+   ✅ Estilos generales
+   ============================ */
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -80,7 +93,6 @@ html {
 /* ============================
    ✅ Responsive para móviles
    ============================ */
-
 .toggle-filters-btn {
   display: none;
 }
@@ -156,6 +168,8 @@ html {
   font-family: inherit;
   font-size: 1rem;
   margin-top: auto;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .product-list__paginacion button {
@@ -196,17 +210,23 @@ html {
   .product-list__paginacion button {
     padding: 0.5rem 0.8rem;
     font-size: 0.85rem;
+    width: auto;
     min-width: auto;
-    max-width: 40%;
+    max-width: 100%;
     flex: 0 0 auto;
   }
 }
 
 @media (max-width: 480px) {
+  .product-list__paginacion {
+    padding: 1rem;
+  }
+
   .product-list__paginacion button {
     font-size: 0.8rem;
     padding: 0.4rem 0.6rem;
-    max-width: 45%;
+    width: auto;
+    max-width: 100%;
     margin: 4px 2px;
   }
 
