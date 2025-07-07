@@ -1,6 +1,14 @@
 /* ============================
    ✅ Estilos generales
    ============================ */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+}
+
 .product-list-container {
   display: flex;
   position: relative;
@@ -24,27 +32,14 @@
   font-size: 1rem;
 }
 
-/* Masonry grid container */
-.products-masonry-grid {
-  display: flex;
-  width: 100%;
+.products-grid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 2rem;
   padding: 2rem;
-  box-sizing: border-box;
-  gap: 2rem;
-}
-
-/* Masonry columns */
-.products-masonry-column {
-  background-clip: padding-box;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Ajusta los cards para que tomen 100% del contenedor columna */
-.products-masonry-column > div {
-  width: 100%;
+  justify-items: start;
+  justify-content: end;
 }
 
 .loading-text {
@@ -158,15 +153,13 @@
     border-bottom: 1px solid #ccc;
   }
 
-  /* Masonry grid for mobile */
-  .products-masonry-grid {
+  /* Ajustes para eliminar espacio horrible y mejorar layout móvil */
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 150px));
+    gap: 20px;
     padding: 1rem;
-    gap: 1rem;
-  }
-
-  /* Columns become 1 on mobile */
-  .products-masonry-column {
-    gap: 1rem;
+    justify-content: start;
+    justify-items: start;
   }
 }
 
