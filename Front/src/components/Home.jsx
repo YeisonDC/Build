@@ -51,17 +51,21 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Nueva sección de catálogo reemplazando newsletter */}
       <div className="newsletter-section">
         <div className="newsletter-contenido">
-          <h2>¡Obtén 10% de descuento en tu primera compra!</h2>
-          <p>Suscríbete a nuestro boletín y recibe promociones exclusivas.</p>
-          <form className="newsletter-form">
-            <input type="email" placeholder="Tu E-mail" required />
-            <button type="submit" className="btn">Suscribirme</button>
-          </form>
+          <h2>Explora nuestro Amplio catálogo</h2>
+          <p>Encuentra las mejores prendas para cada ocasión, con variedad y estilo que te encantará.</p>
+          <button
+            className="btn"
+            onClick={() => navigate('/productos')}
+            type="button"
+          >
+            Catálogo
+          </button>
         </div>
         <div className="newsletter-imagen">
-          <img src={require('../assets/newsletter-imagen.jpg')} alt="Descuento" />
+          <img src={require('../assets/newsletter-imagen.jpg')} alt="Catálogo" />
         </div>
       </div>
 
