@@ -22,11 +22,11 @@
 .perfil-sidebar button {
   display: flex;
   align-items: center;
-  gap: 0.5px;
+  gap: 8px; /* aumentado para mejor separación entre icono y texto */
   background-color: transparent;
   border: none;
   box-shadow: 0 0 0 1.5px transparent;
-  padding: 10px 15px;
+  padding: 10px 16px; /* un poco más de padding horizontal */
   text-align: left;
   border-radius: 8px;
   font-size: 16px;
@@ -37,6 +37,14 @@
   box-sizing: border-box;
   line-height: 1.4;
   margin: 0;
+}
+
+.perfil-sidebar button svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  color: inherit;
 }
 
 .perfil-sidebar button:hover {
