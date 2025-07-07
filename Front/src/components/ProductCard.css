@@ -139,6 +139,7 @@
 @media (max-width: 768px) {
   .product-card-container {
     width: 100%;
+    max-width: 140px;
     padding: 0.4rem;
     font-size: 0.85rem;
   }
@@ -171,7 +172,7 @@
 
   .product-card-price {
     font-size: 0.8rem;
-    margin-left: 5px;
+    margin-left: 5px; /* <--- MARGEN IZQUIERDO AGREGADO */
   }
 
   .product-card-add-btn {
@@ -187,15 +188,17 @@
     gap: 4px;
   }
 
+  /* Scroll horizontal para tallas con snap y límite ancho para que se vean 3 tallas exactas */
   .product-card-sizes {
     gap: 3px;
     overflow-x: auto;
-    max-width: calc((3 * 40px) + (2 * 3px));
+    max-width: calc((3 * 40px) + (2 * 3px)); /* ancho aproximado de 3 botones + gaps */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
   }
 
+  /* Scrollbar estilos */
   .product-card-sizes::-webkit-scrollbar {
     height: 4px;
   }
@@ -212,8 +215,8 @@
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, minmax(140px, 1fr));
-    gap: 1rem;
-    justify-items: center;
+    gap: 0.5rem; /* reduce espacio horizontal entre las dos columnas */
+    justify-items: center; /* centra las tarjetas */
   }
 }
 
