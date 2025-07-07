@@ -2,7 +2,7 @@
   display: flex;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fafafa; /* gris mucho más suave y luminoso */
+  background-color: #fafafa;
   color: #333;
   padding: 20px;
   gap: 20px;
@@ -20,9 +20,12 @@
 }
 
 .perfil-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 0.5px;
   background-color: transparent;
   border: none;
-  box-shadow: 0 0 0 1.5px transparent; /* espacio para borde */
+  box-shadow: 0 0 0 1.5px transparent;
   padding: 10px 15px;
   text-align: left;
   border-radius: 8px;
@@ -46,9 +49,6 @@
   background-color: #333;
   color: white;
   box-shadow: 0 0 0 1.5px #333;
-  box-sizing: border-box;
-  line-height: 1.4;
-  margin: 0;
 }
 
 .perfil-contenido {
@@ -108,8 +108,6 @@
   color: white;
   box-shadow: 0 0 0 1.5px #333;
   font-weight: 600;
-  line-height: 1.4;
-  margin: 0;
 }
 
 label {
@@ -141,7 +139,6 @@ input[type="date"]:focus {
   outline: none;
 }
 
-/* Botones internos del perfil: fondo blanco, texto negro, sombra suave */
 .perfil-contenido button,
 .perfil-sidebar button:not(.active),
 .sub-menu button:not(.active) {
@@ -168,30 +165,6 @@ input[type="date"]:focus {
   box-shadow: 0 0 0 1.5px #333;
 }
 
-/* Responsive para pantallas pequeñas */
-@media screen and (max-width: 768px) {
-  .perfil-container {
-    flex-direction: column;
-  }
-
-  .perfil-sidebar {
-    width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 10px;
-    padding: 10px;
-  }
-
-  .perfil-contenido {
-    padding: 20px;
-  }
-
-  .sub-menu {
-    flex-direction: column;
-  }
-}
-
-/* Sección de información del perfil (solo lectura) */
 .perfil-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -222,22 +195,86 @@ input[type="date"]:focus {
   font-size: 1rem;
 }
 
-.perfil-sidebar button {
-  display: flex; /* <-- Añadido */
-  align-items: center; /* <-- Añadido */
-  gap: 0.5px; /* <-- Añadido: espacio entre ícono y texto */
-  background-color: transparent;
-  border: none;
-  box-shadow: 0 0 0 1.5px transparent;
-  padding: 10px 15px;
-  text-align: left;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-  color: #333;
-  font-weight: 600;
-  box-sizing: border-box;
-  line-height: 1.4;
-  margin: 0;
+/* 
+==================================================
+✅ ESTILOS RESPONSIVE MOBILE (solo < 768px)
+==================================================
+*/
+@media screen and (max-width: 768px) {
+  .perfil-container {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .perfil-sidebar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+    border-radius: 8px;
+    box-shadow: inset 0 -1px 0 #eee;
+  }
+
+  .perfil-sidebar button {
+    min-width: max-content;
+    padding: 8px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .perfil-contenido {
+    padding: 16px;
+    font-size: 15px;
+  }
+
+  .sub-menu {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sub-menu button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"] {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .perfil-info {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .perfil-info p {
+    font-size: 14px;
+  }
+
+  .perfil-contenido h2 {
+    font-size: 1.5rem;
+  }
+
+  .perfil-contenido h3 {
+    font-size: 1.1rem;
+  }
+
+  .perfil-contenido button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
 }
