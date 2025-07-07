@@ -1,18 +1,4 @@
 /* ============================
-   ✅ Reglas base globales
-   ============================ */
-html, body {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-/* ============================
    ✅ Estilos generales
    ============================ */
 .product-list {
@@ -54,9 +40,6 @@ html, body {
   font-size: 1.2rem;
 }
 
-/* ============================
-   ✅ Color filter dots (importado de tu CSS antiguo)
-   ============================ */
 .color-filter-dots {
   display: flex;
   flex-wrap: wrap;
@@ -78,18 +61,12 @@ html, body {
   border-color: #000;
 }
 
-/* ============================
-   ✅ Descripción producto
-   ============================ */
 .pd-description {
   white-space: pre-line;
   line-height: 1.5;
   margin-top: 1rem;
 }
 
-/* ============================
-   ✅ Título filtro
-   ============================ */
 .filter-title {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
@@ -136,7 +113,7 @@ html, body {
 }
 
 /* ============================
-   ✅ Botón flotante en móvil (más pegado a la esquina)
+   ✅ Botón flotante en móvil (ajustado para quedar más pegado)
    ============================ */
 .filtro-flotante {
   display: none;
@@ -146,8 +123,8 @@ html, body {
   .filtro-flotante {
     display: block;
     position: fixed;
-    bottom: 10px;  /* ajustado para quedar más pegado */
-    right: 10px;   /* ajustado para quedar más pegado */
+    bottom: 10px;
+    right: 10px;
     background-color: #111;
     color: white;
     border: none;
