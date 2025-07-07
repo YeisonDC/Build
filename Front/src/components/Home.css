@@ -311,9 +311,8 @@
 }
 
 .info-texto .btn {
-  display: block;
   width: auto;
   max-width: 200px;
-  margin: 0 auto 30px;
+  margin-top: 30px;
   padding: 12px 24px;
 }
