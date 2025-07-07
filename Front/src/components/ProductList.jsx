@@ -3,6 +3,14 @@ import ProductCard from './ProductCard';
 import API from '../api';
 import './ProductList.css';
 import { FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import Masonry from 'react-masonry-css';
+
+const breakpointColumnsObj = {
+  default: 4,
+  1200: 3,
+  768: 2,
+  480: 1,
+};
 
 const ProductList = ({ initialCategory = null }) => {
   const [products, setProducts] = useState([]);
@@ -199,9 +207,15 @@ const ProductList = ({ initialCategory = null }) => {
 
         <main className="products-grid">
           {productosPagina.length > 0 ? (
-            productosPagina.map(product => (
-              <ProductCard key={product._id} product={product} />
-            ))
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="products-masonry-grid"
+              columnClassName="products-masonry-column"
+            >
+              {productosPagina.map(product => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </Masonry>
           ) : (
             <div className="no-products-message">
               No se encontraron productos que coincidan con los filtros seleccionados.
