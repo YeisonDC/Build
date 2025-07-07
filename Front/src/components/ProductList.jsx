@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 import API from '../api';
 import './ProductList.css';
-import { FiFilter } from 'react-icons/fi';
+import { FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const ProductList = ({ initialCategory = null }) => {
   const [products, setProducts] = useState([]);
@@ -276,11 +276,11 @@ const ProductList = ({ initialCategory = null }) => {
       {totalPaginas > 1 && (
         <div className="product-list__paginacion">
           <button onClick={() => setPaginaActual(paginaActual - 1)} disabled={paginaActual === 1}>
-            &laquo; Anterior
+            <FiChevronLeft />
           </button>
-          <span>Página {paginaActual} de {totalPaginas}</span>
+          <span>Página {paginaActual}</span>
           <button onClick={() => setPaginaActual(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
-            Siguiente &raquo;
+            <FiChevronRight />
           </button>
         </div>
       )}
