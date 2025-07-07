@@ -309,3 +309,9 @@
     max-width: 100%;
   }
 }
+
+.info-texto .btn {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
