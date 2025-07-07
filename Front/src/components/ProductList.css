@@ -145,10 +145,22 @@
     padding-bottom: 1rem;
     border-bottom: 1px solid #ccc;
   }
+
+  /* ✅ Ajuste para que productos tengan dos columnas en mobile */
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(160px, 1fr));
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============================
-   ✅ Botón flotante en móvil (ajustado para quedar más pegado)
+   ✅ Botón flotante en móvil
    ============================ */
 .filtro-flotante {
   display: none;
