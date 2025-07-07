@@ -156,7 +156,7 @@ html, body {
 }
 
 /* ============================
-   ✅ Paginación centrada abajo
+   ✅ Paginación centrada con botones oscuros
    ============================ */
 .product-list__paginacion {
   width: 100%;
@@ -170,11 +170,14 @@ html, body {
   margin-top: auto;
   box-sizing: border-box;
   max-width: 100%;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }
 
 .product-list__paginacion button {
-  background-color: #eee;
-  border: 1px solid #ccc;
+  background-color: #333;
+  color: white;
+  border: 1px solid #222;
   padding: 6px 12px;
   cursor: pointer;
   border-radius: 4px;
@@ -183,12 +186,16 @@ html, body {
 }
 
 .product-list__paginacion button:hover:not(:disabled) {
-  background-color: #ddd;
+  background-color: #555;
 }
 
 .product-list__paginacion button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.product-list__paginacion span {
+  font-weight: 500;
 }
 
 /* ============================
@@ -197,21 +204,23 @@ html, body {
 @media (max-width: 768px) {
   .product-list__paginacion {
     flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
     padding: 1rem;
     text-align: center;
     gap: 0.5rem;
   }
 
   .product-list__paginacion span {
-    width: 100%;
     font-size: 0.9rem;
+    width: auto;
+    flex: 0 0 auto;
   }
 
   .product-list__paginacion button {
     padding: 0.5rem 0.8rem;
     font-size: 0.85rem;
     width: auto;
-    min-width: auto;
     max-width: 100%;
     flex: 0 0 auto;
   }
