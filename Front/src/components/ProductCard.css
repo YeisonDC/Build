@@ -143,7 +143,8 @@
   }
 
   .product-card-image {
-    max-height: 120px;
+    max-height: 150px;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: 4px;
   }
@@ -186,5 +187,17 @@
 
   .product-card-sizes {
     gap: 3px;
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 4px;
+  }
+
+  .product-card-sizes::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .product-card-sizes::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
   }
 }
