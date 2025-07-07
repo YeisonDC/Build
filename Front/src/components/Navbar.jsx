@@ -235,10 +235,9 @@ const Navbar = () => {
 
       {/* Acciones derecha desktop */}
       <ul className="navbar-right nav-links">
-        {/* PRODUCTOS QUITADO DEL ESCRITORIO */}
-        {/* <li className="nav-item">
+        <li className="nav-item productos">
           <Link to="/productos" className="nav-link">Productos</Link>
-        </li> */}
+        </li>
 
         <li className="nav-item">
           <button
@@ -296,19 +295,22 @@ const Navbar = () => {
       {/* Menú móvil */}
       {isMobileMenuOpen && (
         <div className="mobile-menu">
-          {/* Agregamos Productos dentro del menú móvil */}
-          <div className="mobile-link">
-            <Link
-              to="/productos"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                setMobileSubmenuOpen(null);
-              }}
-            >
-              Productos
-            </Link>
-          </div>
+          {/* Link Productos en móvil */}
+          <ul className="mobile-submenu">
+            <li>
+              <Link
+                to="/productos"
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setMobileSubmenuOpen(null);
+                }}
+              >
+                Productos
+              </Link>
+            </li>
+          </ul>
 
+          {/* Otros menús */}
           {Object.keys(MENUS).map((key) => (
             <div key={key}>
               <div
