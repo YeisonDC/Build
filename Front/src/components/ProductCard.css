@@ -1,34 +1,33 @@
 .product-card-container {
-  width: 250px;
   background-color: #fff;
-  padding: 0.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
-
+  box-shadow: 0 2px 5px #0000001a;
   display: flex;
   flex-direction: column;
-  height: 530px; /* altura fija para igualar tarjetas */
+  font-family: sans-serif;
+  height: 435px;
+  padding: 0.5rem;
+  width: 250px;
 }
 
 .product-card-image {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 5 / 8;
-  object-fit: cover;
+  aspect-ratio: 4 / 5.5;
   border-radius: 4px;
-  display: block;
-  margin: 0 auto;
   cursor: pointer;
+  display: block;
   flex-shrink: 0;
+  height: auto;
+  margin: 0 auto;
+  object-fit: cover;
+  width: 100%;
 }
 
 .product-card-info {
-  flex: 1;
-  display: flex;
+  display: inline-block;
+  flex: 1 1;
   flex-direction: column;
-  justify-content: flex-end; /* baja el texto para no dejar espacio abajo */
-  padding: 0.8rem 0 0.5rem 0;
+  justify-content: flex-end;
+  padding: 0.8rem 0 0.5rem;
 }
 
 .product-card-category-tags {
@@ -52,18 +51,17 @@
   margin: 0.4rem 0 0.3rem;
 }
 
-/* Nuevo contenedor para color dots y precio alineados */
+/* Contenedor conjunto color + precio */
 .product-card-color-price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.6rem; /* margen arriba para separar del título */
+  margin-top: 0.6rem;
 }
 
 .product-card-color-dots {
   display: flex;
   gap: 5px;
-  margin: 0; /* quitamos márgenes verticales para mejor alineación */
 }
 
 .product-card-color-dot {
@@ -85,32 +83,29 @@
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
-.product-card-size-price-row {
-  display: none !important; /* ocultamos fila vieja si existía */
-}
-
-.product-card-sizes {
-  display: none !important;
-}
-
-.product-card-size-tag {
-  display: none !important;
+.product-card-price-only {
+  margin-left: auto;
 }
 
 .product-card-price {
-  font-weight: normal; /* quitamos negrita */
+  font-weight: normal;
   font-size: 0.95rem;
   text-align: right;
-  flex-shrink: 0;
-  margin: 0; /* quitamos margen para quedar alineado verticalmente */
+  margin: 0;
 }
 
+.product-card-size-price-row {
+  display: none;
+}
+
+.product-card-sizes,
+.product-card-size-tag,
 .product-card-add-btn {
   display: none !important;
 }
 
 /* ============================
-   Responsive ajustes móvil
+   ✅ Responsive ajustes móvil
    ============================ */
 @media (max-width: 768px) {
   .product-card-container {
@@ -118,7 +113,7 @@
     max-width: 140px;
     padding: 0.4rem;
     font-size: 0.85rem;
-    height: 310px;
+    height: 265px;
   }
 
   .product-card-image {
@@ -130,11 +125,11 @@
   }
 
   .product-card-info {
-    flex: 1;
-    display: flex;
+    display: inline-block;
+    flex: 1 1;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 1rem 0 0.8rem 0;
+    justify-content: normal;
+    padding: 0.5rem 0 0.5rem;
   }
 
   .product-card-title {
@@ -152,11 +147,6 @@
     height: 11px;
   }
 
-  /* Reutilizamos el mismo contenedor en móvil */
-  .product-card-color-price-row {
-    margin-top: 0.5rem;
-  }
-
   .product-card-price {
     font-size: 0.8rem;
     margin: 0;
@@ -169,16 +159,10 @@
   .product-card-category-tags {
     gap: 4px;
   }
-
-  .product-card-sizes,
-  .product-card-size-tag,
-  .product-card-add-btn {
-    display: none !important;
-  }
 }
 
 /* ============================
-   Grid Responsive móvil
+   ✅ Grid Responsive móvil
    ============================ */
 @media (max-width: 768px) {
   .products-grid {
