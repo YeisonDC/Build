@@ -153,14 +153,13 @@
     border-bottom: 1px solid #ccc;
   }
 
-  /* Aquí está el ajuste clave para el grid responsive:
-     - Mínimo ancho más pequeño para que entren más columnas
-     - Gap reducido a 6px
-     - Padding reducido */
+  /* Ajustes para eliminar espacio horrible y mejorar layout móvil */
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(130px, 150px));
     gap: 6px;
     padding: 1rem;
+    justify-content: start;
+    justify-items: start;
   }
 }
 
