@@ -311,8 +311,10 @@
 }
 
 .info-texto .btn {
+  display: block;
   width: auto;
-  max-width: 280px;
+  max-width: 200px;
   margin: 0 auto 30px;
   padding: 12px 24px;
+  text-align: center;
 }
