@@ -228,6 +228,32 @@ input[type="date"]:focus {
     flex-shrink: 0;
   }
 
+  /* Aquí está la integración para btn-admin en mobile */
+  .perfil-sidebar .btn-admin {
+    width: auto !important;
+    min-width: max-content;
+    padding: 8px 12px;
+    font-size: 14px;
+    white-space: nowrap;
+    margin: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 0 0 1.5px #ccc;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .perfil-sidebar .btn-admin:hover {
+    background-color: #333;
+    color: white;
+    box-shadow: 0 0 0 1.5px #333;
+  }
+
   .perfil-contenido {
     padding: 16px;
     font-size: 15px;

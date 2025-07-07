@@ -336,15 +336,15 @@ const Perfil = () => {
     <div className="perfil-container">
       <aside className="perfil-sidebar">
         <button onClick={() => setSeccionActiva('perfil')} className={seccionActiva === 'perfil' ? 'active' : ''}>
-          <FiUser style={{ marginRight: '8px' }} />
+          <FiUser className="icon-left" />
           Perfil
         </button>
         <button onClick={() => setSeccionActiva('pedidos')} className={seccionActiva === 'pedidos' ? 'active' : ''}>
-          <FiShoppingBag style={{ marginRight: '8px' }} />
+          <FiShoppingBag className="icon-left" />
           Pedidos
         </button>
         <button onClick={() => setSeccionActiva('configuracion')} className={seccionActiva === 'configuracion' ? 'active' : ''}>
-          <FiSettings style={{ marginRight: '8px' }} />
+          <FiSettings className="icon-left" />
           Configuración
         </button>
 
@@ -353,30 +353,26 @@ const Perfil = () => {
             <button
               className="btn-admin"
               onClick={() => navigate('/crear-producto')}
-              style={{ display: 'block', width: '100%', marginTop: '20px', marginBottom: '10px', textAlign: 'left' }}
             >
-              <FiPlusSquare style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+              <FiPlusSquare className="icon-left" />
               Crear artículo
             </button>
             <button
               className="btn-admin"
               onClick={() => navigate('/admin/productos')}
-              style={{ display: 'block', width: '100%', textAlign: 'left' }}
             >
-              <FiList style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+              <FiList className="icon-left" />
               Todos los artículos
             </button>
             <button
               className="btn-admin"
               onClick={() => navigate('/admin/pedidos')}
-              style={{ display: 'block', width: '100%', textAlign: 'left' }}
             >
-              <FiShoppingBag style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+              <FiShoppingBag className="icon-left" />
               Todos los pedidos
             </button>
           </>
         )}
-
       </aside>
 
       <section className="perfil-contenido">
