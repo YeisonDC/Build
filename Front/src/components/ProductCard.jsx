@@ -59,27 +59,30 @@ const ProductCard = ({ product }) => {
 
         <h3 className="product-card-title">{product.nombre}</h3>
 
-        <div className="product-card-color-dots">
-          {product.colores.map((colorObj, index) => (
-            <span
-              key={index}
-              className={`product-card-color-dot ${
-                JSON.stringify(selectedColor) === JSON.stringify(colorObj.color)
-                  ? 'selected'
-                  : ''
-              }`}
-              style={{ backgroundColor: colorObj.color[1] }}
-              onClick={() => setSelectedColor(colorObj.color)}
-              title={colorObj.color[0]}
-            ></span>
-          ))}
+        <div className="product-card-color-price-row">
+          <div className="product-card-color-dots">
+            {product.colores.map((colorObj, index) => (
+              <span
+                key={index}
+                className={`product-card-color-dot ${
+                  JSON.stringify(selectedColor) === JSON.stringify(colorObj.color)
+                    ? 'selected'
+                    : ''
+                }`}
+                style={{ backgroundColor: colorObj.color[1] }}
+                onClick={() => setSelectedColor(colorObj.color)}
+                title={colorObj.color[0]}
+              ></span>
+            ))}
+          </div>
+
+          <div className="product-card-price-only">
+            <p className="product-card-price">
+              {product.precio ? `$${product.precio.toLocaleString()}` : 'Precio no disponible'}
+            </p>
+          </div>
         </div>
 
-        <div className="product-card-price-only">
-          <p className="product-card-price">
-            {product.precio ? `$${product.precio.toLocaleString()}` : 'Precio no disponible'}
-          </p>
-        </div>
       </div>
     </div>
   );

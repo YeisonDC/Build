@@ -52,10 +52,18 @@
   margin: 0.4rem 0 0.3rem;
 }
 
+/* Nuevo contenedor para color dots y precio alineados */
+.product-card-color-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.6rem; /* margen arriba para separar del título */
+}
+
 .product-card-color-dots {
   display: flex;
   gap: 5px;
-  margin: 0.6rem 0 0.4rem 0;
+  margin: 0; /* quitamos márgenes verticales para mejor alineación */
 }
 
 .product-card-color-dot {
@@ -78,10 +86,7 @@
 }
 
 .product-card-size-price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.8rem;
+  display: none !important; /* ocultamos fila vieja si existía */
 }
 
 .product-card-sizes {
@@ -93,11 +98,11 @@
 }
 
 .product-card-price {
-  font-weight: bold;
+  font-weight: normal; /* quitamos negrita */
   font-size: 0.95rem;
   text-align: right;
   flex-shrink: 0;
-  margin-top: 0.6rem;
+  margin: 0; /* quitamos margen para quedar alineado verticalmente */
 }
 
 .product-card-add-btn {
@@ -113,7 +118,7 @@
     max-width: 140px;
     padding: 0.4rem;
     font-size: 0.85rem;
-    height: 310px; /* altura fija móvil para uniformidad */
+    height: 310px;
   }
 
   .product-card-image {
@@ -128,7 +133,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* baja contenido también en móvil */
+    justify-content: flex-end;
     padding: 1rem 0 0.8rem 0;
   }
 
@@ -147,10 +152,14 @@
     height: 11px;
   }
 
+  /* Reutilizamos el mismo contenedor en móvil */
+  .product-card-color-price-row {
+    margin-top: 0.5rem;
+  }
+
   .product-card-price {
     font-size: 0.8rem;
-    text-align: right;
-    margin-top: 0.5rem;
+    margin: 0;
   }
 
   .product-card-color-dots {
