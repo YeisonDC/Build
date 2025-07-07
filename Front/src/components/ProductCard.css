@@ -165,11 +165,12 @@
     height: 11px;
   }
 
-  /* FIX: ancho fijo para tallas, para calcular ancho contenedor */
+  /* Botones de talla: ancho fijo para evitar que se estiren */
   .product-card-size-tag {
     font-size: 0.65rem;
     padding: 2px 6px;
     min-width: 40px; /* ancho fijo para control */
+    max-width: 40px;
     flex: 0 0 auto;
     border-radius: 4px;
     cursor: pointer;
@@ -177,7 +178,8 @@
     transition: all 0.2s ease;
     user-select: none;
     scroll-snap-align: start;
-    text-align: center; /* para centrar texto */
+    text-align: center; /* centrar texto dentro */
+    white-space: nowrap; /* evitar salto de línea */
   }
 
   .product-card-price {
@@ -197,12 +199,12 @@
     gap: 4px;
   }
 
-  /* Scroll horizontal para tallas */
+  /* Contenedor tallas con scroll horizontal limitado a 3 botones */
   .product-card-sizes {
     display: flex;
-    gap: 4px; /* separacion entre tallas */
+    gap: 4px; /* espacio entre botones */
     overflow-x: auto;
-    max-width: calc((3 * 40px) + (2 * 4px)); /* 3 tallas + 2 gaps */
+    max-width: calc((3 * 40px) + (2 * 4px)); /* 3 botones + 2 gaps */
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 4px;
@@ -219,12 +221,14 @@
   }
 }
 
-/* Ajuste espacio entre tarjetas en grid responsive mobile */
+/* ============================
+   ✅ Ajuste espacio entre tarjetas en grid responsive mobile
+   ============================ */
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, minmax(140px, 1fr));
-    gap: 1rem; /* espacio horizontal reducido */
-    justify-items: center;
+    gap: 1rem; /* reduce espacio horizontal entre las dos columnas */
+    justify-items: center; /* centra las tarjetas */
   }
 }
 
