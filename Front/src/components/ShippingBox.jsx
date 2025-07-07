@@ -4,7 +4,7 @@ const ShippingBox = ({ envioActual, onCambioEnvio, total }) => {
   const opciones = {
     bga: {
       label: 'Bucaramanga y alrededores',
-      costo: 8000,
+      costo: 500,
       descripcion: '1-2 días hábiles',
     },
     nacional: {
