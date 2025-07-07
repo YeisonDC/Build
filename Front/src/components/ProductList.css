@@ -156,7 +156,7 @@
   /* Ajustes para eliminar espacio horrible y mejorar layout móvil */
   .products-grid {
     grid-template-columns: repeat(auto-fill, minmax(130px, 150px));
-    gap: 6px;
+    gap: 20px;
     padding: 1rem;
     justify-content: start;
     justify-items: start;
