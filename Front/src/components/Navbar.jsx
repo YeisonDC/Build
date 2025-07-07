@@ -235,7 +235,7 @@ const Navbar = () => {
 
       {/* Acciones derecha desktop */}
       <ul className="navbar-right nav-links">
-        <li className="nav-item">
+        <li className="nav-item productos">
           <Link to="/productos" className="nav-link">Productos</Link>
         </li>
 
