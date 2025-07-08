@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard';
 import API from '../api';
-import './ProductList.css';
 import { FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const ProductList = ({ initialCategory = null }) => {
@@ -103,45 +102,66 @@ const ProductList = ({ initialCategory = null }) => {
   const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
   const totalPaginas = Math.ceil(filteredProducts.length / productosPorPagina);
 
-  if (loading) return <p style={{ padding: '2rem' }}>Cargando productos...</p>;
+  if (loading) return <p className="p-8 text-center">Cargando productos...</p>;
 
   return (
     <>
-      {/* Botón flotante para filtros */}
-      <button className="filtro-flotante" onClick={handleMostrarFiltros}>
-        <FiFilter size={18} />
+      {/* Botón flotante para filtros en móvil */}
+      <button
+        className="fixed bottom-6 right-6 bg-[#333] text-white p-3 rounded-full shadow-lg z-50 md:hidden"
+        onClick={handleMostrarFiltros}
+        aria-label="Mostrar filtros"
+      >
+        <FiFilter size={20} />
       </button>
 
-      <div className="product-list-container">
-        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}>
-          <h2 className="filter-title">Filtros</h2>
+      <div className="flex flex-col md:flex-row container mx-auto px-4 py-6 gap-6">
+        {/* Sidebar filtros */}
+        <aside
+          className={`
+            fixed top-0 left-0 h-full w-64 bg-white shadow-lg p-4
+            transform transition-transform duration-300
+            z-40
+            md:relative md:translate-x-0 md:shadow-none md:w-64 md:block
+            ${mostrarFiltros ? 'translate-x-0' : '-translate-x-full'}
+          `}
+          aria-label="Filtros de productos"
+        >
+          <h2 className="text-xl font-semibold mb-4">Filtros</h2>
 
-          <details ref={colorRef}>
-            <summary className="summary-clickable">Color</summary>
-            <div className="color-filter-dots">
+          <details ref={colorRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Color</summary>
+            <div className="flex flex-wrap gap-2 mt-2">
               <span
-                className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
+                className={`w-6 h-6 rounded-full border cursor-pointer transition-all duration-200 
+                  ${selectedColor === 'Todos' ? 'ring-2 ring-[#333]' : 'border-gray-300'} 
+                  hover:ring-2 hover:ring-[#333]`}
                 style={{ backgroundColor: '#e0e0e0' }}
                 title="Todos"
                 onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
-              ></span>
+              />
               {getAllColors().map((colorHex, idx) => (
                 <span
                   key={idx}
-                  className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+                  className={`w-6 h-6 rounded-full cursor-pointer transition-all duration-200 
+                    ${selectedColor === colorHex ? 'ring-2 ring-[#333]' : ''} 
+                    hover:ring-2 hover:ring-[#333]`}
                   style={{ backgroundColor: colorHex }}
                   title={colorHex}
                   onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
-                ></span>
+                />
               ))}
             </div>
           </details>
 
-          <details ref={sizeRef}>
-            <summary className="summary-clickable">Talla</summary>
-            <div>
+          <details ref={sizeRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Talla</summary>
+            <div className="flex flex-wrap gap-2 mt-2">
               <span
-                className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
+                className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200 
+                  ${selectedSize === 'Todas'
+                    ? 'bg-[#333] text-white border-[#333]'
+                    : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                 onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
               >
                 Todas
@@ -149,7 +169,10 @@ const ProductList = ({ initialCategory = null }) => {
               {getAllSizes().map((size, idx) => (
                 <span
                   key={idx}
-                  className={`selector-tag ${selectedSize === size ? 'selected' : ''}`}
+                  className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200 
+                    ${selectedSize === size
+                      ? 'bg-[#333] text-white border-[#333]'
+                      : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                   onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
                 >
                   {size}
@@ -159,11 +182,14 @@ const ProductList = ({ initialCategory = null }) => {
           </details>
 
           {!initialCategory && (
-            <details ref={categoryRef}>
-              <summary className="summary-clickable">Categoría</summary>
-              <div className="category-list">
+            <details ref={categoryRef} className="mb-4">
+              <summary className="cursor-pointer font-medium mb-2">Categoría</summary>
+              <div className="flex flex-wrap gap-2 mt-2">
                 <span
-                  className={`selector-tag ${selectedCategory === 'Todas' ? 'selected' : ''}`}
+                  className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200 
+                    ${selectedCategory === 'Todas'
+                      ? 'bg-[#333] text-white border-[#333]'
+                      : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                   onClick={() => { setSelectedCategory('Todas'); closeDetails(categoryRef); setMostrarFiltros(false); }}
                 >
                   Todas
@@ -171,7 +197,10 @@ const ProductList = ({ initialCategory = null }) => {
                 {getAllCategories().map((cat, idx) => (
                   <span
                     key={idx}
-                    className={`selector-tag ${selectedCategory === cat ? 'selected' : ''}`}
+                    className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200 
+                      ${selectedCategory === cat
+                        ? 'bg-[#333] text-white border-[#333]'
+                        : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                     onClick={() => { setSelectedCategory(cat); closeDetails(categoryRef); setMostrarFiltros(false); }}
                   >
                     {cat}
@@ -181,8 +210,8 @@ const ProductList = ({ initialCategory = null }) => {
             </details>
           )}
 
-          <details ref={priceRef}>
-            <summary className="summary-clickable">Rango de precio</summary>
+          <details ref={priceRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Rango de precio</summary>
             <input
               type="range"
               min={0}
@@ -192,18 +221,20 @@ const ProductList = ({ initialCategory = null }) => {
               onChange={e => setMaxPrice(Number(e.target.value))}
               onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
               onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+              className="w-full mt-2"
             />
-            <p>Hasta ${maxPrice.toLocaleString()}</p>
+            <p className="mt-1">Hasta ${maxPrice.toLocaleString()}</p>
           </details>
         </aside>
 
-        <main className="products-grid">
+        {/* Grid de productos */}
+        <main className="flex-1 grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {productosPagina.length > 0 ? (
             productosPagina.map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           ) : (
-            <div className="no-products-message">
+            <div className="col-span-full text-center text-gray-600 p-6">
               No se encontraron productos que coincidan con los filtros seleccionados.
             </div>
           )}
@@ -212,13 +243,25 @@ const ProductList = ({ initialCategory = null }) => {
 
       {/* Paginación */}
       {totalPaginas > 1 && (
-        <div className="product-list__paginacion">
-          <button onClick={() => setPaginaActual(paginaActual - 1)} disabled={paginaActual === 1}>
-            <FiChevronLeft />
+        <div className="flex justify-center items-center gap-4 mt-6 mb-10">
+          <button
+            onClick={() => setPaginaActual(paginaActual - 1)}
+            disabled={paginaActual === 1}
+            className="p-2 rounded disabled:opacity-50 hover:bg-gray-200"
+            aria-label="Página anterior"
+          >
+            <FiChevronLeft size={20} />
           </button>
-          <span>Página {paginaActual}</span>
-          <button onClick={() => setPaginaActual(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
-            <FiChevronRight />
+          <span>
+            Página <strong>{paginaActual}</strong>
+          </span>
+          <button
+            onClick={() => setPaginaActual(paginaActual + 1)}
+            disabled={paginaActual === totalPaginas}
+            className="p-2 rounded disabled:opacity-50 hover:bg-gray-200"
+            aria-label="Página siguiente"
+          >
+            <FiChevronRight size={20} />
           </button>
         </div>
       )}

@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import API from '../api';
 import ProductCard from '../components/ProductCard';
-import '../components/ProductList.css';
 import { FiFilter, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const CategoryPage = () => {
@@ -25,18 +24,15 @@ const CategoryPage = () => {
     str.toLowerCase().replace(/\s+/g, '').replace(/-/g, '');
 
   useEffect(() => {
-    const obtenerProductos = async () => {
-      try {
-        const res = await API.get('/productos');
-        setProducts(res.data);
-      } catch (error) {
-        console.error('Error al cargar productos:', error);
-      } finally {
+    API.get('/productos')
+      .then(response => {
+        setProducts(response.data);
         setLoading(false);
-      }
-    };
-
-    obtenerProductos();
+      })
+      .catch(error => {
+        console.error('Error al cargar productos:', error);
+        setLoading(false);
+      });
   }, []);
 
   const catNormalized = normalizeCategory(categoria);
@@ -47,8 +43,10 @@ const CategoryPage = () => {
       (
         product.categoria &&
         (
-          (Array.isArray(product.categoria) && product.categoria.some(cat => normalizeCategory(cat) === catNormalized)) ||
-          (typeof product.categoria === 'string' && normalizeCategory(product.categoria) === catNormalized)
+          (Array.isArray(product.categoria) &&
+            product.categoria.some(cat => normalizeCategory(cat) === catNormalized)) ||
+          (typeof product.categoria === 'string' &&
+            normalizeCategory(product.categoria) === catNormalized)
         )
       );
 
@@ -101,45 +99,65 @@ const CategoryPage = () => {
   const indexFinal = indexInicio + productosPorPagina;
   const productosPagina = filteredProducts.slice(indexInicio, indexFinal);
 
-  if (loading) return <p className="loading-text">Cargando productos...</p>;
+  if (loading) return <p className="p-8 text-center">Cargando productos...</p>;
 
   return (
     <>
-      <button className="filtro-flotante" onClick={toggleFiltros}>
-        <FiFilter size={18} />
+      <button
+        className="fixed bottom-6 right-6 bg-[#333] text-white p-3 rounded-full shadow-lg z-50 md:hidden"
+        onClick={toggleFiltros}
+        aria-label="Mostrar filtros"
+      >
+        <FiFilter size={20} />
       </button>
 
-      <div className={`product-list-container ${mostrarFiltros ? 'show-mobile' : ''}`}>
+      <div className="flex flex-col md:flex-row container mx-auto px-4 py-6 gap-6">
         {/* Sidebar filtros */}
-        <aside className={`sidebar ${mostrarFiltros ? 'show-mobile' : ''}`}>
-          <h4 className="filter-title">Filtros</h4>
+        <aside
+          className={`
+            fixed top-0 left-0 h-full w-64 bg-white shadow-lg p-4
+            transform transition-transform duration-300
+            z-40
+            md:relative md:translate-x-0 md:shadow-none md:w-64 md:block
+            ${mostrarFiltros ? 'translate-x-0' : '-translate-x-full'}
+          `}
+          aria-label="Filtros de productos"
+        >
+          <h2 className="text-xl font-semibold mb-4">Filtros</h2>
 
-          <details ref={colorRef}>
-            <summary className="summary-clickable">Color</summary>
-            <div className="color-filter-dots">
+          <details ref={colorRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Color</summary>
+            <div className="flex flex-wrap gap-2 mt-2">
               <span
-                className={`color-dot ${selectedColor === 'Todos' ? 'selected' : ''}`}
+                className={`w-6 h-6 rounded-full border cursor-pointer transition-all duration-200
+                  ${selectedColor === 'Todos' ? 'ring-2 ring-[#333]' : 'border-gray-300'}
+                  hover:ring-2 hover:ring-[#333]`}
                 style={{ backgroundColor: '#e0e0e0' }}
                 title="Todos"
                 onClick={() => { setSelectedColor('Todos'); closeDetails(colorRef); setMostrarFiltros(false); }}
-              ></span>
+              />
               {getAllColors().map((colorHex, idx) => (
                 <span
                   key={idx}
-                  className={`color-dot ${selectedColor === colorHex ? 'selected' : ''}`}
+                  className={`w-6 h-6 rounded-full cursor-pointer transition-all duration-200
+                    ${selectedColor === colorHex ? 'ring-2 ring-[#333]' : ''}
+                    hover:ring-2 hover:ring-[#333]`}
                   style={{ backgroundColor: colorHex }}
                   title={colorHex}
                   onClick={() => { setSelectedColor(colorHex); closeDetails(colorRef); setMostrarFiltros(false); }}
-                ></span>
+                />
               ))}
             </div>
           </details>
 
-          <details ref={sizeRef}>
-            <summary className="summary-clickable">Talla</summary>
-            <div>
+          <details ref={sizeRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Talla</summary>
+            <div className="flex flex-wrap gap-2 mt-2">
               <span
-                className={`selector-tag ${selectedSize === 'Todas' ? 'selected' : ''}`}
+                className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200
+                  ${selectedSize === 'Todas'
+                    ? 'bg-[#333] text-white border-[#333]'
+                    : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                 onClick={() => { setSelectedSize('Todas'); closeDetails(sizeRef); setMostrarFiltros(false); }}
               >
                 Todas
@@ -147,7 +165,10 @@ const CategoryPage = () => {
               {getAllSizes().map((size, idx) => (
                 <span
                   key={idx}
-                  className={`selector-tag ${selectedSize === size ? 'selected' : ''}`}
+                  className={`px-3 py-1 rounded-full cursor-pointer border transition-colors duration-200
+                    ${selectedSize === size
+                      ? 'bg-[#333] text-white border-[#333]'
+                      : 'border-gray-300 hover:bg-[#333] hover:text-white hover:border-[#333]'}`}
                   onClick={() => { setSelectedSize(size); closeDetails(sizeRef); setMostrarFiltros(false); }}
                 >
                   {size}
@@ -156,8 +177,8 @@ const CategoryPage = () => {
             </div>
           </details>
 
-          <details ref={priceRef}>
-            <summary className="summary-clickable">Rango de precio</summary>
+          <details ref={priceRef} className="mb-4">
+            <summary className="cursor-pointer font-medium mb-2">Rango de precio</summary>
             <input
               type="range"
               min={0}
@@ -167,20 +188,21 @@ const CategoryPage = () => {
               onChange={e => setMaxPrice(Number(e.target.value))}
               onMouseUp={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
               onTouchEnd={() => { closeDetails(priceRef); setMostrarFiltros(false); }}
+              className="w-full mt-2"
             />
-            <p>Hasta ${maxPrice.toLocaleString()}</p>
+            <p className="mt-1">Hasta ${maxPrice.toLocaleString()}</p>
           </details>
         </aside>
 
         {/* Grid productos */}
-        <main className="products-grid">
+        <main className="flex-1 grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {productosPagina.length > 0 ? (
             productosPagina.map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           ) : (
-            <div className="no-products-message">
-              No se encontraron productos que coincidan con los filtros seleccionados en esta categoría.
+            <div className="col-span-full text-center text-gray-600 p-6">
+              No se encontraron productos que coincidan con los filtros seleccionados.
             </div>
           )}
         </main>
@@ -188,21 +210,25 @@ const CategoryPage = () => {
 
       {/* Paginación */}
       {totalPaginas > 1 && (
-        <div className="product-list__paginacion">
+        <div className="flex justify-center items-center gap-4 mt-6 mb-10">
           <button
             onClick={() => setPaginaActual(paginaActual - 1)}
             disabled={paginaActual === 1}
+            className="p-2 rounded disabled:opacity-50 hover:bg-gray-200"
             aria-label="Página anterior"
           >
-            <FiChevronLeft />
+            <FiChevronLeft size={20} />
           </button>
-          <span>Página {paginaActual}</span>
+          <span>
+            Página <strong>{paginaActual}</strong>
+          </span>
           <button
             onClick={() => setPaginaActual(paginaActual + 1)}
             disabled={paginaActual === totalPaginas}
+            className="p-2 rounded disabled:opacity-50 hover:bg-gray-200"
             aria-label="Página siguiente"
           >
-            <FiChevronRight />
+            <FiChevronRight size={20} />
           </button>
         </div>
       )}
