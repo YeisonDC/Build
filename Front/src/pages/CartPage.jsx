@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ShippingBox from '../components/ShippingBox';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './CartPage.css'; // Importa el CSS externo
+import './CartPage.css';
 
 const mejorarCalidadCloudinary = (url, width = 200, height = 260) => {
   if (!url || !url.includes("res.cloudinary.com")) return url;
@@ -64,7 +64,15 @@ const CartPage = () => {
     descripcion: '1-2 días hábiles',
   });
 
+  const [cuponAplicado, setCuponAplicado] = useState({ descuento: 0, codigo: '' });
+
+  const manejarCupon = (descuento, codigo) => {
+    setCuponAplicado({ descuento, codigo });
+  };
+
   const costoEnvioCalculado = total >= 300000 ? 0 : envio.costo;
+  const totalConDescuento = total * (1 - cuponAplicado.descuento / 100);
+  const totalFinal = totalConDescuento + costoEnvioCalculado;
 
   return (
     <div className="cartpage-container">
@@ -126,18 +134,31 @@ const CartPage = () => {
         <h3>Resumen del Pedido</h3>
         <p><strong>Productos:</strong> {totalProductos}</p>
 
-        <ShippingBox envioActual={envio} onCambioEnvio={setEnvio} total={total} />
+        <ShippingBox
+          envioActual={envio}
+          onCambioEnvio={setEnvio}
+          total={total}
+          onCuponAplicado={manejarCupon}
+        />
 
         <p><strong>Envío:</strong> ${costoEnvioCalculado.toLocaleString()}</p>
-        <p className="total"><strong>Total:</strong> ${(total + costoEnvioCalculado).toLocaleString()}</p>
+
+        {cuponAplicado.descuento > 0 && (
+          <p style={{ color: 'green' }}>
+            <strong>Descuento:</strong> -{cuponAplicado.descuento}% aplicado
+          </p>
+        )}
+
+        <p className="total"><strong>Total:</strong> ${totalFinal.toLocaleString()}</p>
 
         <button
           className="cartpage-pay-btn"
           onClick={() =>
             navigate('/pago', {
               state: {
-                totalConEnvio: total + costoEnvioCalculado,
+                totalConEnvio: totalFinal,
                 valorEnvio: costoEnvioCalculado,
+                cupon: cuponAplicado.codigo || null,
               },
             })
           }

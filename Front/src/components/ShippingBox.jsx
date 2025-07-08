@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import API from '../api';
+import { toast } from 'react-toastify';
 
-const ShippingBox = ({ envioActual, onCambioEnvio, total }) => {
+const ShippingBox = ({ envioActual, onCambioEnvio, total, onCuponAplicado }) => {
   const opciones = {
     bga: {
       label: 'Bucaramanga y alrededores',
-      costo: 500,
+      costo: 8000,
       descripcion: '1-2 días hábiles',
     },
     nacional: {
@@ -14,10 +16,11 @@ const ShippingBox = ({ envioActual, onCambioEnvio, total }) => {
     },
   };
 
-  // Detecta si se aplica envío gratis
   const envioGratis = total >= 300000;
 
-  // ⚠️ Se actualiza automáticamente cuando cambia el total o tipo
+  const [codigoCupon, setCodigoCupon] = useState('');
+  const [descuento, setDescuento] = useState(0);
+
   useEffect(() => {
     const opcion = opciones[envioActual.tipo];
 
@@ -30,12 +33,26 @@ const ShippingBox = ({ envioActual, onCambioEnvio, total }) => {
     };
 
     onCambioEnvio(nuevoEnvio);
-  }, [total, envioActual.tipo]); // ← dependencias importantes
+  }, [total, envioActual.tipo]);
 
-  // Cuando el usuario selecciona otro tipo de envío
   const handleChange = (e) => {
     const tipoSeleccionado = e.target.value;
     onCambioEnvio(prev => ({ ...prev, tipo: tipoSeleccionado }));
+  };
+
+  const aplicarCupon = async () => {
+    try {
+      const res = await API.post('/cupones/validar', { codigo: codigoCupon });
+      const porcentaje = res.data.descuento;
+
+      setDescuento(porcentaje);
+      toast.success(`¡Cupón aplicado! ${porcentaje}% de descuento`);
+      onCuponAplicado(porcentaje, codigoCupon);
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Cupón inválido');
+      setDescuento(0);
+      onCuponAplicado(0, '');
+    }
   };
 
   return (
@@ -68,6 +85,43 @@ const ShippingBox = ({ envioActual, onCambioEnvio, total }) => {
 
       <p><strong>Costo:</strong> ${envioActual.costo.toLocaleString()}</p>
       <p><strong>Entrega:</strong> {envioActual.descripcion}</p>
+
+      <hr style={{ margin: '1rem 0' }} />
+
+      <h4 style={{ marginBottom: '0.8rem' }}>Cupón de Descuento</h4>
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '0.5rem' }}>
+        <input
+          type="text"
+          value={codigoCupon}
+          onChange={(e) => setCodigoCupon(e.target.value)}
+          placeholder="Ingresa tu cupón"
+          style={{
+            flex: 1,
+            padding: '0.5rem',
+            borderRadius: '8px',
+            border: '1px solid #ccc',
+          }}
+        />
+        <button
+          onClick={aplicarCupon}
+          style={{
+            padding: '0.5rem 1rem',
+            borderRadius: '8px',
+            backgroundColor: '#222',
+            color: '#fff',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          Aplicar
+        </button>
+      </div>
+
+      {descuento > 0 && (
+        <p style={{ color: 'green', fontWeight: 'bold' }}>
+          Cupón aplicado: -{descuento}%
+        </p>
+      )}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+// src/pages/PagoCheckout.jsx
+
 import React, { useState, useContext, useEffect } from 'react';
 import API from '../api';
 import { AuthContext } from '../context/AuthContext';
@@ -8,8 +10,10 @@ import './PagoCheckout.css';
 const PagoCheckout = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
+
   const totalConEnvio = Number(location.state?.totalConEnvio || 0);
   const valorEnvio = Number(location.state?.valorEnvio || 0);
+  const cupon = location.state?.cupon || null; // ✅ Capturamos el cupón
 
   const [sessionId, setSessionId] = useState(null);
 
@@ -27,7 +31,6 @@ const PagoCheckout = () => {
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState('');
 
-  // ✅ Obtener datos del perfil desde el backend (más completo que el AuthContext)
   useEffect(() => {
     const fetchPerfil = async () => {
       if (!user) return;
@@ -92,10 +95,8 @@ const PagoCheckout = () => {
         bodyCliente.session_id = sessionId;
       }
 
-      // Paso 1: Actualizar los datos del cliente en el carrito
       await API.put('/carrito/actualizar-datos-cliente', bodyCliente);
 
-      // Paso 2: Generar el link de pago
       const body = {
         valor: totalConEnvio,
         correo,
@@ -107,6 +108,10 @@ const PagoCheckout = () => {
 
       if (!user?.id) {
         body.session_id = sessionId;
+      }
+
+      if (cupon) {
+        body.cupon = cupon; // ✅ ¡Aquí se envía el cupón!
       }
 
       const response = await API.post('/crear-checkout', body);
