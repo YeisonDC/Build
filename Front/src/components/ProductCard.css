@@ -113,7 +113,7 @@
     max-width: 140px;
     padding: 0.4rem;
     font-size: 0.85rem;
-    height: 265px;
+    height: auto;
   }
 
   .product-card-image {
