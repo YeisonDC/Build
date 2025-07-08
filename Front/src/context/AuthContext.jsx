@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import jwt_decode from "jwt-decode"; // Para decodificar token JWT
+import * as jwt_decode from "jwt-decode"; // Para decodificar token JWT
 import { toast } from "react-toastify"; // Para mostrar mensajes toast
 
 export const AuthContext = createContext();
