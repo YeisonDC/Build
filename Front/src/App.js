@@ -24,7 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Devoluciones from './components/Devoluciones.jsx';
 import Terminos from './components/Terminos.jsx';
 import Conocenos from './components/Conocenos.jsx';
-
+import Verificar from './components/Verificar'; // 🆕 Importar Verificar.jsx
 
 function App() {
   return (
@@ -40,6 +40,7 @@ function App() {
             <Route path="/categoria/:categoria" element={<CategoryPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/verificar" element={<Verificar />} /> {/* 🆕 Ruta añadida */}
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/crear-producto" element={<CreateProduct />} />
             <Route path="/editar-producto/:id" element={<UpdateProduct />} />
@@ -49,7 +50,7 @@ function App() {
             <Route path="/admin/pedidos" element={<TodosLosPedidos />} />
             <Route path="/devoluciones" element={<Devoluciones />} />
             <Route path="/terminos" element={<Terminos />} />
-            <Route path="/conocenos" element={<Conocenos/>} />
+            <Route path="/conocenos" element={<Conocenos />} />
           </Routes>
           <Footer />
           <ToastContainer

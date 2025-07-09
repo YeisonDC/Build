@@ -38,7 +38,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch(`${backendUrl}/usuarios`, {
+      const response = await fetch(`${backendUrl}/verificacion/solicitar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -46,21 +46,26 @@ const Register = () => {
           correo: formData.correo,
           contraseña: formData.contraseña,
           documento: formData.documento || "",
-          session_id,
           tratamiento_datos: formData.tratamiento_datos,
           boletin: formData.boletin,
+          session_id,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.mensaje || "Error al registrar usuario");
+        setError(data.mensaje || "Error al solicitar verificación");
         return;
       }
 
-      localStorage.setItem("token", data.token);
-      navigate("/");
+      // ✅ Navegar a la pantalla de verificación
+      navigate("/verificar", {
+        state: {
+          correo: formData.correo,
+          session_id,
+        },
+      });
     } catch (err) {
       setError("Error de conexión al servidor");
     }
