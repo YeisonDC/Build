@@ -25,7 +25,13 @@ const Home = () => {
         </div>
         <div className="mensaje-central">
           <h1>Viste a la moda</h1>
-          <p>Descubre nuestra nueva colección</p>
+          <button
+            className="btn"
+            onClick={() => navigate('/productos')}
+            type="button"
+          >
+            Todos Nuestros Productos
+          </button>
         </div>
       </div>
 
