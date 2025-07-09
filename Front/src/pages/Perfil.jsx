@@ -2,11 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import API from '../api';
 import { AuthContext } from '../context/AuthContext';
 import './Perfil.css';
-import { FiUser, FiShoppingBag, FiSettings, FiPlusSquare, FiList } from 'react-icons/fi';
+import { FiUser, FiShoppingBag, FiSettings, FiPlusSquare, FiList, FiTag } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { obtenerRol } from '../services/token';
 import MisPedidos from './MisPedidos';
+import CrearCupon from '../components/CrearCupones'; // ✅ Importamos el componente
 import { useNavigate } from 'react-router-dom';
 
 const Perfil = () => {
@@ -82,7 +83,6 @@ const Perfil = () => {
           pais: respuesta.data.direccion?.pais || '',
           codigo_postal: respuesta.data.direccion?.codigo_postal || '',
         });
-
       } catch (err) {
         console.error(err);
         setError('Error al cargar el perfil');
@@ -318,7 +318,7 @@ const Perfil = () => {
               </label>
               <label>
                 País:
-                <input type="text" name="pais" value={formDireccion.pais} onChange={handleChangeDireccion} />
+                `<input type="text" name="pais" value={formDireccion.pais} onChange={handleChangeDireccion} />`
               </label>
               <label>
                 Código Postal:
@@ -330,6 +330,13 @@ const Perfil = () => {
         </div>
       );
     }
+
+    // ✅ Si es Admin y sección cupones
+    if (seccionActiva === 'cupones' && rol === 'ADMIN') {
+      return <CrearCupon />;
+    }
+
+    return null;
   };
 
   return (
@@ -370,6 +377,13 @@ const Perfil = () => {
             >
               <FiShoppingBag className="icon-left" />
               Todos los pedidos
+            </button>
+            <button
+              className="btn-admin"
+              onClick={() => setSeccionActiva('cupones')}
+            >
+              <FiTag className="icon-left" />
+              Crear Cupones
             </button>
           </>
         )}
