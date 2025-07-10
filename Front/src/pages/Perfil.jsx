@@ -7,7 +7,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { obtenerRol } from '../services/token';
 import MisPedidos from './MisPedidos';
-import CrearCupon from '../components/CrearCupones'; // ✅ Importamos el componente
+import CrearCupon from '../components/CrearCupones';
+import AdministrarCupon from '../components/AdministrarCupon';
+import PerfilInfo from '../components/PerfilInfo';
+import EditarPerfil from '../components/EditarPerfil';
 import { useNavigate } from 'react-router-dom';
 
 const Perfil = () => {
@@ -19,7 +22,6 @@ const Perfil = () => {
   const [subSeccionConfig, setSubSeccionConfig] = useState('perfil');
 
   const rol = obtenerRol();
-
   const navigate = useNavigate();
 
   const [formulario, setFormulario] = useState({
@@ -47,15 +49,6 @@ const Perfil = () => {
     pais: '',
     codigo_postal: '',
   });
-
-  const formatearFecha = (fechaISO) => {
-    if (!fechaISO) return 'No registrada';
-    const fecha = new Date(fechaISO);
-    const dia = fecha.getUTCDate().toString().padStart(2, '0');
-    const mes = (fecha.getUTCMonth() + 1).toString().padStart(2, '0');
-    const anio = fecha.getUTCFullYear();
-    return `${dia}/${mes}/${anio}`;
-  };
 
   useEffect(() => {
     const fetchPerfil = async () => {
@@ -199,141 +192,38 @@ const Perfil = () => {
     if (!datosPerfil) return <p>No se encontraron datos.</p>;
 
     if (seccionActiva === 'perfil') {
-      const direccion = datosPerfil.direccion || {};
-      return (
-        <div className="perfil-info">
-          <h2>Información del perfil</h2>
-          <div className="bloque-datos">
-            <div className="grupo">
-              <p><strong>Nombre:</strong> {datosPerfil.nombre}</p>
-              <p><strong>Correo:</strong> {datosPerfil.correo}</p>
-              <p><strong>Documento:</strong> {datosPerfil.documento || 'No especificado'}</p>
-            </div>
-            <div className="grupo">
-              <p><strong>Fecha de nacimiento:</strong> {formatearFecha(datosPerfil.fecha_nacimiento)}</p>
-              <p><strong>Teléfono:</strong> {datosPerfil.telefono || 'No registrado'}</p>
-            </div>
-          </div>
-
-          <h3>Dirección de envío</h3>
-          <div className="bloque-direccion">
-            <div className="grupo">
-              <p><strong>Calle:</strong> {direccion.calle || 'No especificada'}</p>
-              <p><strong>Ciudad:</strong> {direccion.ciudad || 'No especificada'}</p>
-              <p><strong>Departamento:</strong> {direccion.departamento || 'No especificado'}</p>
-            </div>
-            <div className="grupo">
-              <p><strong>País:</strong> {direccion.pais || 'No especificado'}</p>
-              <p><strong>Código Postal:</strong> {direccion.codigo_postal || 'No especificado'}</p>
-            </div>
-          </div>
-        </div>
-      );
+      return <PerfilInfo datosPerfil={datosPerfil} />;
     }
 
     if (seccionActiva === 'pedidos') return <MisPedidos />;
 
     if (seccionActiva === 'configuracion') {
       return (
-        <div>
-          <h2>Configuración de la cuenta</h2>
-          <div className="sub-menu">
-            <button onClick={() => setSubSeccionConfig('perfil')} className={subSeccionConfig === 'perfil' ? 'active' : ''}>Perfil</button>
-            <button onClick={() => setSubSeccionConfig('contraseña')} className={subSeccionConfig === 'contraseña' ? 'active' : ''}>Contraseña</button>
-            <button onClick={() => setSubSeccionConfig('correo')} className={subSeccionConfig === 'correo' ? 'active' : ''}>Correo</button>
-            <button onClick={() => setSubSeccionConfig('envios')} className={subSeccionConfig === 'envios' ? 'active' : ''}>Envios</button>
-          </div>
-
-          {subSeccionConfig === 'perfil' && (
-            <div>
-              <h3>Editar información del perfil</h3>
-              <label>
-                Nombre:
-                <input type="text" name="nombre" value={formulario.nombre} onChange={handleChange} />
-              </label>
-              <label>
-                Documento:
-                <input type="text" name="documento" value={formulario.documento} onChange={handleChange} />
-              </label>
-              <label>
-                Fecha de nacimiento:
-                <input type="date" name="fecha_nacimiento" value={formulario.fecha_nacimiento} onChange={handleChange} />
-              </label>
-              <label>
-                Teléfono:
-                <input type="text" name="telefono" value={formulario.telefono} onChange={handleChange} />
-              </label>
-              <button onClick={handleGuardarCambios}>Guardar cambios</button>
-            </div>
-          )}
-
-          {subSeccionConfig === 'contraseña' && (
-            <div>
-              <h3>Cambiar contraseña</h3>
-              <label>
-                Contraseña actual:
-                <input type="password" name="contraseñaActual" value={formContrasena.contraseñaActual} onChange={handleChangeContrasena} />
-              </label>
-              <label>
-                Nueva contraseña:
-                <input type="password" name="nuevaContraseña" value={formContrasena.nuevaContraseña} onChange={handleChangeContrasena} />
-              </label>
-              <label>
-                Confirmar nueva contraseña:
-                <input type="password" name="confirmarNuevaContraseña" value={formContrasena.confirmarNuevaContraseña} onChange={handleChangeContrasena} />
-              </label>
-              <button onClick={handleGuardarContrasena}>Guardar nueva contraseña</button>
-            </div>
-          )}
-
-          {subSeccionConfig === 'correo' && (
-            <div>
-              <h3>Cambiar correo electrónico</h3>
-              <label>
-                Nuevo correo:
-                <input type="email" name="nuevoCorreo" value={formCorreo.nuevoCorreo} onChange={handleChangeCorreo} />
-              </label>
-              <label>
-                Contraseña actual:
-                <input type="password" name="contraseñaActual" value={formCorreo.contraseñaActual} onChange={handleChangeCorreo} />
-              </label>
-              <button onClick={handleGuardarCorreo}>Guardar nuevo correo</button>
-            </div>
-          )}
-
-          {subSeccionConfig === 'envios' && (
-            <div>
-              <h3>Editar información de envío</h3>
-              <label>
-                Dirección:
-                <input type="text" name="calle" value={formDireccion.calle} onChange={handleChangeDireccion} />
-              </label>
-              <label>
-                Ciudad:
-                <input type="text" name="ciudad" value={formDireccion.ciudad} onChange={handleChangeDireccion} />
-              </label>
-              <label>
-                Departamento:
-                <input type="text" name="departamento" value={formDireccion.departamento} onChange={handleChangeDireccion} />
-              </label>
-              <label>
-                País:
-                `<input type="text" name="pais" value={formDireccion.pais} onChange={handleChangeDireccion} />`
-              </label>
-              <label>
-                Código Postal:
-                <input type="text" name="codigo_postal" value={formDireccion.codigo_postal} onChange={handleChangeDireccion} />
-              </label>
-              <button onClick={handleGuardarDireccion}>Guardar dirección</button>
-            </div>
-          )}
-        </div>
+        <EditarPerfil
+          formulario={formulario}
+          formCorreo={formCorreo}
+          formContrasena={formContrasena}
+          formDireccion={formDireccion}
+          handleChange={handleChange}
+          handleChangeCorreo={handleChangeCorreo}
+          handleChangeContrasena={handleChangeContrasena}
+          handleChangeDireccion={handleChangeDireccion}
+          handleGuardarCambios={handleGuardarCambios}
+          handleGuardarCorreo={handleGuardarCorreo}
+          handleGuardarContrasena={handleGuardarContrasena}
+          handleGuardarDireccion={handleGuardarDireccion}
+          subSeccionConfig={subSeccionConfig}
+          setSubSeccionConfig={setSubSeccionConfig}
+        />
       );
     }
 
-    // ✅ Si es Admin y sección cupones
     if (seccionActiva === 'cupones' && rol === 'ADMIN') {
       return <CrearCupon />;
+    }
+
+    if (seccionActiva === 'admin-cupones' && rol === 'ADMIN') {
+      return <AdministrarCupon />;
     }
 
     return null;
@@ -342,6 +232,7 @@ const Perfil = () => {
   return (
     <div className="perfil-container">
       <aside className="perfil-sidebar">
+        <p className="sidebar-title">Mi cuenta</p>
         <button onClick={() => setSeccionActiva('perfil')} className={seccionActiva === 'perfil' ? 'active' : ''}>
           <FiUser className="icon-left" />
           Perfil
@@ -357,33 +248,27 @@ const Perfil = () => {
 
         {rol === 'ADMIN' && (
           <>
-            <button
-              className="btn-admin btn-esconder-mobile"
-              onClick={() => navigate('/crear-producto')}
-            >
+            <hr className="divider" />
+            <p className="sidebar-title">Administración</p>
+            <button className="btn-admin btn-esconder-mobile" onClick={() => navigate('/crear-producto')}>
               <FiPlusSquare className="icon-left" />
               Crear artículo
             </button>
-            <button
-              className="btn-admin btn-esconder-mobile"
-              onClick={() => navigate('/admin/productos')}
-            >
+            <button className="btn-admin btn-esconder-mobile" onClick={() => navigate('/admin/productos')}>
               <FiList className="icon-left" />
               Todos los artículos
             </button>
-            <button
-              className="btn-admin"
-              onClick={() => navigate('/admin/pedidos')}
-            >
+            <button className="btn-admin" onClick={() => navigate('/admin/pedidos')}>
               <FiShoppingBag className="icon-left" />
               Todos los pedidos
             </button>
-            <button
-              className="btn-admin"
-              onClick={() => setSeccionActiva('cupones')}
-            >
+            <button className="btn-admin" onClick={() => setSeccionActiva('cupones')}>
               <FiTag className="icon-left" />
               Crear Cupones
+            </button>
+            <button className="btn-admin" onClick={() => setSeccionActiva('admin-cupones')}>
+              <FiTag className="icon-left" />
+              Administrar Cupones
             </button>
           </>
         )}
