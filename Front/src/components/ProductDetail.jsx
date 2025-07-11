@@ -178,11 +178,12 @@ const ProductDetail = () => {
                 colorObj.tallas.map((t, i) => (
                   <button
                     key={i}
-                    className={`size-button${selectedSize === t.talla ? ' selected' : ''}`}
+                    className={`size-button${selectedSize === t.talla ? ' selected' : ''} ${t.stock === 0 ? 'sin-stock' : ''}`}
                     onClick={() => setSelectedSize(t.talla)}
                     disabled={t.stock === 0}
                     type="button"
                     aria-label={`Seleccionar talla ${t.talla}`}
+                    title={t.stock === 0 ? 'Agotado' : `Talla ${t.talla}`}
                   >
                     {t.talla}
                   </button>

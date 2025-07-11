@@ -379,3 +379,23 @@ summary::after {
     padding: 6px 10px;
   }
 }
+
+/* === Estilo para tallas sin stock === */
+.size-button.sin-stock {
+  position: relative;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ❌ Línea diagonal roja indicando agotado */
+.size-button.sin-stock::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+  transform: rotate(-45deg);
+  pointer-events: none;
+}
